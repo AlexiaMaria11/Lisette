@@ -1,0 +1,81 @@
+schema_version: 1
+slug: lisette
+name: Lisette
+one_liner: "A literary hub where writers submit manuscripts, readers support the authors they love, and publishers discover new voices."
+tagline: "Writers find their way. Readers find their writers."
+archetype: ""
+status: draft
+stage: "pre-launch"
+industry: "literary / publishing"
+languages: [ro, en]
+launch_market: RO
+expansion: international_later
+language_selection: explicit_user_choice
+language_change: settings
+romanian_tagline_status: approved
+links:
+  domain: ""
+  repo: ""
+created: 2026-10-13
+updated: 2026-10-17
+version: 2
+artifacts:
+  context: true
+  naming: true
+  strategy: false
+  architecture: false
+  identity: true
+  voice: true
+  messaging: true
+  positioning: true
+  story: false
+  guidelines: false
+  audit: false
+palette:
+  status: approved
+  approved_on: 2026-10-17
+  source: assets/ColorPaletteProposition.png
+  burgundy: "#7A2233"
+  gold: "#C99A4E"
+  paper: "#F6EFE3"
+  ink: "#2E1F1A"
+  night_burgundy: "#3A121C"
+typography:
+  status: approved
+  approved_on: 2026-10-17
+  headings: Newsreader
+  reading: Literata
+  ui: Inter
+personality:
+  status: approved
+  approved_on: 2026-10-17
+  traits: [warm, curious, protective, supportive, literary]
+tone:
+  status: approved
+  approved_on: 2026-10-17
+  qualities: [calm, thoughtful, conversational]
+  humour: occasional gentle bookish humour
+  no_humour_in: [errors, rejection, privacy]
+logo:
+  concept_status: approved
+  approved_on: 2026-10-17
+  concept: L-shaped book cover with pages fanning out inside the angle
+  artwork_status: undecided
+  references:
+    - assets/VariantaLogo1.png
+    - assets/VariantaLogo2.png
+taglines:
+  ro: "Unde editurile își găsesc autorii, iar cărțile, cititorii."
+  en: "Writers find their way. Readers find their writers."
+  status: approved
+  approved_on: 2026-10-17
+
+central_promise:
+  status: approved
+  approved_on: 2026-10-17
+  ro: "Am creat Lisette deoarece credem cu tărie că poveștile sunt menite să fie auzite. De aceea, Lisette îi aduce pe scriitori mai aproape de editurile care le pot da o șansă și de cititorii care se vor regăsi în paginile lor."
+  en_status: pending
+audience_priority:
+  status: approved
+  equal_participants: [writers, readers, publishers]
+  initial_recruitment: debut_writers

@@ -1,0 +1,145 @@
+# Visual Identity Brief
+
+> Built from `context.md`, `positioning.md`, `voice.md` and `messaging.md`. This is a **design brief**, not finished artwork: the five base colours and font families are approved; final logo artwork and detailed component treatments remain proposals to test in the real app. Use case: an Android app (React Native / Expo) and a web extension. The reference brands (Goodreads, Substack, Notion, Are.na) are drafts the user hasn't confirmed.
+
+## 01 — Identity Strategy Statement
+
+Lisette's identity should feel like a well-loved, well-lit reading room: warm paper, deep ink, one rich accent colour, and type that makes reading a pleasure. It is literary without being precious, and modern without looking like a tech product. The visual idea is a shared literary space for writers, readers and publishers. Show their connections through relevant people, stories and settings; layouts and the logo do not need to represent all three literally. Every choice should say "calm, careful, and on your side", and celebrations should be quiet acknowledgements of meaningful completed actions, such as finishing a book or sending a first submission. Use a small illustration or brief confirmation in the brand palette. Avoid hype, streaks, points, rankings, countdowns and interfaces built to pressure people to return.
+
+## 02 — Logo Direction
+
+**Confirmed concept (2026-10-17):** an L-shaped book cover with pages fanning out inside the angle of the L. The shared idea in `assets/VariantaLogo1.png` and `assets/VariantaLogo2.png` is the direction to preserve.
+
+**Status:** concept confirmed; final artwork and variant selection remain undecided. The reference images are explorations, not production assets or colour authorities. Use the approved palette in section 03 for future work.
+
+**Character:** warm, literary and tactile. The silhouette should suggest both the letter L and a book.
+
+**Details to explore, not fixed requirements:**
+- Page count, fan angle, proportions and corner radii.
+- Binding bands, inset outlines and star ornaments. These differ between the two proposals and are not mandatory elements.
+- A simplified small-size version, monochrome and dark-mode versions, and an app-icon treatment. Test actual renders before setting minimum-size rules.
+- A Newsreader-based wordmark and symbol lockup, if needed; final lettering is not yet approved.
+
+**What to avoid:**
+- Open book icons, quills, pens, feathers and stacks of books (every literary app uses them).
+- Hearts and speech bubbles (generic social network).
+- Gradients, glows and drop shadows.
+- Script or calligraphy lettering, which feels like a wedding invitation or a perfume.
+- Anything French-tourist: Eiffel Tower, tricolour, berets.
+
+**3 logo references:**
+- **Goodreads:** the lowercase, friendly serif wordmark. Borrow its warmth and readability. Don't copy its brown-and-cream palette too closely.
+- **Penguin Books:** a simple, confident mark that works on a spine and at tiny sizes. Borrow its simplicity and the idea of a mark that belongs on books.
+- **Substack:** a single bold glyph that works as an app icon, built on a bookmark-like shape. Borrow the discipline of one simple shape carrying the brand.
+
+## 03 — Color Palette
+
+**Approved base palette (2026-10-17):** the five swatches in `assets/ColorPaletteProposition.png` are the source of truth for base colour values. They replace the earlier palette, including Walnut and Cream. The image's references to stars and badges do not override the confirmed gentle-milestone policy. The usage rules below resolve its mixed button-colour suggestions.
+
+| Colour | Hex | Role |
+|---|---|---|
+| Burgundy (Vișiniu) | `#7A2233` | Brand mark, light-mode primary buttons and key structure |
+| Gold (Aur de cotor) | `#C99A4E` | Small accents and decorative details |
+| Paper (Hârtie) | `#F6EFE3` | Light backgrounds and reading pages |
+| Ink (Cerneală) | `#2E1F1A` | Text, headings and wordmark |
+| Night burgundy (Vișiniu nocturn) | `#3A121C` | Dark backgrounds and splash screens |
+
+**Colour personality:** warm, bookish and cosy: wine, bookbinding gold, paper and ink. Do not reintroduce the previous colours as defaults.
+
+**Computed contrast for opaque base colours:**
+- Burgundy / Paper: 8.73:1; Ink / Paper: 13.85:1.
+- Ink / Gold: 6.19:1; Paper / Night burgundy: 14.32:1; Gold / Night burgundy: 6.40:1.
+- Gold / Paper: 2.24:1. Do not use Gold text or essential Gold-only icons/borders on Paper.
+- Burgundy / Night burgundy: 1.64:1. Do not use Burgundy text or essential Burgundy-only controls on Night burgundy.
+- Normal text requires at least 4.5:1; large text at least 3:1. These base-pair calculations do not validate complete screens, opacity, interaction states or component boundaries. Reference: https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html
+
+**Initial UI usage rules:**
+- Light mode: Paper surfaces, Ink text, Burgundy primary buttons with Paper labels. Secondary actions use Burgundy text or outlines on Paper.
+- Dark mode: Night burgundy surfaces, Paper text; Gold primary buttons with Ink labels are a readable starting point. Secondary actions use Paper text or outlines.
+- Gold is a small accent, not body text on Paper. Gold-filled accents or buttons use Ink labels; on Paper, add a contrasting boundary when needed to identify a control.
+- Use text and icons to identify success, errors and privacy states; colour alone must not carry the meaning.
+- Treat the image's 60/30/10 ratio as a loose composition guide, not a screen quota. Paper dominates light mode, Burgundy supplies structure, Gold stays sparse.
+- Reading themes start with Paper / Ink for light reading and Night burgundy / Paper for night reading. Additional surface shades and daylight/evening variants remain proposals to test, not approved extra base colours.
+- If the deferred reading heatmap is revisited, its visual treatment will be explored then; it is not a required brand asset.
+- Avoid pure white, pure black, neon accents, gradients and glows.
+
+## 04 — Typography
+
+**Primary typeface: Newsreader** (Google Fonts). Approved on 2026-10-17, replacing the earlier Fraunces proposal. A quiet, editorial serif chosen for Lisette's literary warmth. Use it for headlines, key moments and wordmark exploration; the final logo remains unapproved.
+
+**Reading typeface: Literata** (free, Google Fonts). Designed for long-form screen reading. Use it for excerpts, chapters and any text people actually read in the app.
+
+**UI typeface: Inter** (free, Google Fonts). A clean, neutral sans for buttons, labels, navigation and data. It gets out of the way of the serifs.
+
+**Type personality:** a literary serif voice with a quiet, modern interface. Bookish warmth for content, plain clarity for controls.
+
+**Usage hierarchy:**
+- **Headlines:** Newsreader, medium to semibold, tight but readable line height (about 1.15).
+- **Subheads:** Newsreader regular, or Inter semibold for UI sections.
+- **Body (reading):** Literata regular, 16–18 sp on mobile, line height about 1.6.
+- **Body (UI):** Inter regular, 14–16 sp.
+- **Labels and buttons:** Inter medium, sentence case, no all-caps.
+
+**Avoid:** all-caps tech wordmarks, geometric sans for the logo (too startup), script and calligraphy fonts, thin weights below 400 on small mobile text, more than three families.
+
+Approved families: Newsreader for headings, Literata for reading, Inter for controls. Source fonts from their Google Fonts distributions; check platform loading and actual rendering during implementation. Font weights, sizes and line heights above are starting points to test in real screens.
+
+## 05 — Imagery & Photography Style
+
+**Overall aesthetic:** warm, intimate and natural, like reading by a window or at a kitchen table. Real, slightly imperfect, never staged or glossy.
+
+**Subject matter:** hands holding books and phones, margins with pencil notes, shelves in real homes, desks mid-draft, people reading on trains and benches. Writers and readers both appear, ideally in the same frame or in paired shots.
+
+**Color treatment:** natural, softly warm, slightly lifted blacks, gentle grain. Nothing neon or over-saturated. Let Burgundy and Gold appear naturally (a wine-coloured cover, a lamp).
+
+**What to avoid:** laptop-and-coffee flat lays, stock "creative" people laughing at screens, typewriters and quills as props, heavily filtered or AI-glossy images, anything that looks like a generic productivity app.
+
+For the demo and the competition, real photos of the team and testers reading beat stock images.
+
+## 06 — Iconography & Illustration
+
+**Style:** rounded line icons with a consistent stroke, plus an occasional simple filled state (for example a selected tab).
+
+**Weight:** regular, about 1.5–2 px at 24 px size.
+
+**Personality:** functional first, with small touches of warmth (a rounded bookmark, a soft spine on the shelf icon). Not expressive or cartoonish.
+
+**Illustration:** light. Use simple, flat, single-colour shapes in the palette for empty states and onboarding, for example an empty shelf, a manuscript in an envelope, a reader with a book. No faces, so it stays inclusive and easy to produce.
+
+**Custom icons worth drawing:** spine-and-leaves (the logo), shelf, manuscript with a lock (privacy), envelope with a status check.
+
+## 07 — Design Principles
+
+**Paper first**
+Backgrounds are warm Paper tones, with generous space and no visual clutter. The app should feel like a place to sit and read, not a feed to scroll.
+
+**A shared literary space**
+Represent writers, readers and publishers equally across the overall brand, using paired layouts, two-tone moments and shared spaces where they help communicate the connection. Individual screens and audience-specific assets focus on their relevant audience; paired layouts are not required on every screen.
+
+**Reading comes first**
+Type, contrast and spacing are tuned for reading before anything decorative. If a style makes text harder to read, it loses.
+
+**Trust is visible**
+Privacy and ownership states are clear and quiet: who can see a manuscript, what is encrypted, what is public. Never hide them or use scary visuals.
+
+## 08 — Brand Expressions
+
+**Language rule:** the tagline examples below are English references. For Romanian assets use the approved tagline, "Unde editurile își găsesc autorii, iar cărțile, cititorii." See `messaging.md` for localized tagline usage.
+
+**App (React Native / Expo):** Paper background, Newsreader headings, Literata for excerpts, Inter for controls. Burgundy for primary actions. Bottom navigation with line icons. Adaptive reading themes follow the light sensor. Proposed app icon: the confirmed L-shaped book-cover concept with fanned pages, using the approved palette. Final construction and background treatment remain to be tested. For Android adaptive icons, keep the mark inside the central safe zone (about 66 dp of the 108 dp canvas).
+
+**Website:** same system, more space for the tagline, "Writers find their way. Readers find their writers." in Newsreader, with a paired hero (writer on one side, reader on the other).
+
+**Google Play assets:** Burgundy feature graphic with the tagline in Paper, and screenshots on Paper backgrounds with short captions in Newsreader.
+
+**Social profiles and posts:** proposed avatar uses the L-shaped book-cover concept once final artwork is selected. Posts are quote cards in Newsreader on Paper or Burgundy, plus real reading photos. Keep one accent colour per post.
+
+**Presentations / pitch deck (competition):** Paper background, Burgundy headings, one idea per slide, real screenshots and photos of the team and testers. Show working core features; do not present the deferred reading heatmap as a committed capability.
+
+**Business cards / stationery:** only if needed. Paper stock, Burgundy logo, Newsreader name, plenty of space.
+
+## Open Items
+- Select and refine the final L-shaped book-cover variant; test small sizes and the Android adaptive icon safe zone.
+- Check contrast for every text and button colour pair in the real UI.
+- Base palette approved from `assets/ColorPaletteProposition.png`; test component states and dark-mode treatments in real screens.
+- Decide page count, proportions and ornamentation through visual testing; preserve the confirmed L-shaped cover with pages inside its angle.
