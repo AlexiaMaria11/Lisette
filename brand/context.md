@@ -1,12 +1,12 @@
 # Brand Context
 
-> Source: `Lisette – conceptul aplicației.pdf` (concept doc, in Romanian) plus the user's answers.
+> Source: the original Romanian concept document (not kept in this repository), the user's answers and later decisions.
 > Items marked **TBD** were not in the source and still need a decision.
 
 ## Brand
 - **Name**: Lisette
 - **Category**: Literary / publishing technology (mobile app with a web extension)
-- **Description**: A literary hub for readers, writers, and publishers: manuscript submission to publishers in one place, a short-form social network for writers, and a personal library where you scan your books. It is also where readers support their favorite authors, by following them, reading their work early, and helping it grow.
+- **Description**: A literary hub for readers, writers and publishers: manuscript submission to publishers in one place, a community where all three post and follow each other, a personal library where you scan, review and rate your books, and a literary map with events and location-based discoveries. It is also where readers support their favorite authors, by following them, beta-reading when invited, reviewing their work and helping it grow.
 - **Stage**: Pre-launch, in development. Built as an entry for an app competition, by a team of 2 over about 8 weeks. Nothing is built yet.
 - **Website**: N/A
 
@@ -25,15 +25,16 @@
   - Feedback is rare, late, and subjective.
   - Readers have no direct link to publishers or to the authors they follow, and few ways to actually support the authors they love.
   - Writers fear their text being stolen before it is published.
-- **Their Language**: TBD. The concept doc uses terms like manuscript, beta-reader, excerpt, submission, #înscris, #lectură de seară. Real audience phrases still need to be collected.
+- **Their Language**: TBD. The original concept used terms like manuscript, beta-reader, excerpt, submission, #înscris, #lectură de seară. Real audience phrases still need to be collected.
 
 ## Positioning
 - **Differentiation**:
   - One place to send a manuscript to several publishers and track its status.
   - Writers, readers, and publishers share one space.
-  - Readers are active supporters, not just an audience. They follow authors, read excerpts early as beta-readers, get notified when an author publishes, share quotes and reviews, and see what the authors they follow are reading.
-  - Privacy-first for full manuscripts: encrypted, visible only to the publishers the author chooses, with protected access and a record of the uploaded version and upload time. These records do not verify authorship.
-- **Competitors** (draft, from general knowledge, to verify): Goodreads and StoryGraph (reading community), LibraryThing (cataloguing), Wattpad (writer-reader publishing), Submittable / Duotrope / Query Tracker (submission tracking), Twitter/X and Bluesky (writing community), and email plus manual submissions as the real status quo. The concept doc itself names Twitter and LibraryThing as models.
+  - Readers are active supporters, not just an audience. They follow authors, read excerpts shared with everyone or with followers, beta-read pages when an author invites them, get notified when a followed author publishes, review and rate books, share quotes, and see what the authors they follow are reading.
+  - Authors see opt-in, aggregated reading patterns (heatmap) on their public excerpts and may share them with publishers they choose. There is no audience score.
+  - Privacy-first for full manuscripts: kept in private storage (not encrypted), open only to the author, the publishers the author chooses and any pages shared with invited beta-readers, with protected access and a record of the uploaded version and upload time. These records do not verify authorship.
+- **Competitors** (draft, from general knowledge, to verify): Goodreads and StoryGraph (reading community), LibraryThing (cataloguing), Wattpad (writer-reader publishing), Submittable / Duotrope / Query Tracker (submission tracking), Twitter/X and Bluesky (writing community), and email plus manual submissions as the real status quo. The original concept named Twitter and LibraryThing as models.
 - **Market Position**: A literary community for three equally central groups: writers, readers and publishers. Debut writers are the first recruitment group.
 
 ## Brand Personality
@@ -48,7 +49,7 @@
 
 Aceasta este formularea canonică în română. Nu garantează acceptarea unui manuscris sau publicarea. Sloganurile aprobate rămân neschimbate; adaptarea în engleză a promisiunii rămâne de redactat și aprobat.
 - **Core Values** (draft, to confirm):
-  1. Authors' work is theirs: encryption, consent, and control over what is public.
+  1. Authors' work is theirs: private storage, consent, and control over what is public.
   2. Transparency: show the latest confirmed submission status and distinguish unknown or unconfirmed states.
   3. Honest feedback: clear, constructive and respectful of the writer.
   4. Readers lift authors up: the people who love books are the ones who help writers grow.
@@ -56,9 +57,9 @@ Aceasta este formularea canonică în română. Nu garantează acceptarea unui m
 - **Mission wording**: use the approved Romanian central promise above. An English adaptation is pending approval.
 
 ## Goals
-- **Original competition planning assumption (to reconfirm before scheduling)**: Deliver a working MVP and demo for the app competition within about 8 weeks, showing the three pillars (manuscript hub, writers' network, personal library). Longer-term business goals are TBD.
+- **Original competition planning assumption (to reconfirm before scheduling)**: Deliver a working MVP and demo for the app competition within about 8 weeks, showing the manuscript hub, the community, the personal library, the literary map with location discoveries and the reading-pattern heatmap. Longer-term business goals are TBD.
 - **Key Metrics** (demo): manuscripts submitted end to end, test books scanned. Post-competition metrics are TBD.
-- **Decision**: "Supporting authors" is social only for now (follow, beta-read, share, review, recommend). No financial option (tips, subscriptions, pre-orders) at this stage. Messaging should not promise or imply paying authors. Revisit after the competition.
+- **Decision**: "Supporting authors" is social only for now (follow, beta-read, share, review, rate, recommend). No financial option (tips, subscriptions, pre-orders) at this stage. Messaging should not promise or imply paying authors. Revisit after the competition.
 
 ## Product requirements
 Detailed functional decisions have moved to `../docs/product/requirements.md`: accounts, publisher approval, manuscript submissions and sharing, protection, community, library, event map, sensors and deferred features. Read that document for UI and backend requirements. This brand context is not the implementation plan.

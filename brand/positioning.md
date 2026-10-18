@@ -39,7 +39,7 @@
 
 **The Competitive Moat:**
 - *Connection across three groups.* The intended advantage is bringing writers, readers and publishers into one literary community. Competitor comparisons remain to be verified. Once Lisette has real writers, readers and publishers on one platform, each side makes the other more valuable, and that network is hard to copy.
-- *Trust.* Encrypted manuscripts, clear access permissions and device authentication make Lisette the safe place for unpublished work, and trust is slow to build.
+- *Trust.* Private manuscript storage, clear access permissions and device authentication make Lisette the safe place for unpublished work, and trust is slow to build.
 
 These moats only hold if the platform actually reaches critical mass. Today they are plans.
 
@@ -58,8 +58,8 @@ These moats only hold if the platform actually reaches critical mass. Today they
 These are planned capabilities; final first-release scope still needs planning. Do not claim any publicly until they work.
 
 - **Proof 1: Submit once, track everything.** One manuscript package goes to several publishers, with the confirmed states: Submitted, In review, On hold, Selected by publisher, Rejected and Withdrawn. Evaluations accompany decisions rather than forming a separate status.
-- **Proof 2: Your work stays yours.** Full manuscripts are encrypted and visible only to the publishers the author selects, with a submitter declaration, device-authenticated upload confirmation and a record of the uploaded version and time. Device authentication allows biometrics or the phone PIN/password; it does not verify authorship.
-- **Proof 3: Readers can back authors.** Follow, read author-selected excerpts early as a beta-reader, after any publisher approvals required by accepted submission restrictions, review, share, and get notified when authors publish.
+- **Proof 2: Your work stays yours.** Full manuscripts are kept in private storage, open only to the publishers the author selects, with a submitter declaration, device-authenticated upload confirmation and a record of the uploaded version and time. Device authentication allows biometrics or the phone PIN/password; it does not verify authorship.
+- **Proof 3: Readers can back authors.** Follow, read excerpts shared with followers or, when invited, early pages as a beta-reader, after any publisher approvals required by accepted submission restrictions; review and rate books, share, and get notified when followed authors publish.
 - **Proof 4: One home for the library.** Scan ISBNs with the camera to build a personal library, and see what the authors you follow are reading.
 
 ## 06 — What This Brand Refuses to Be
@@ -80,7 +80,7 @@ Lisette connects writers, readers and publishers so new stories can find opportu
 - **Community cold start.** The value depends on writers, readers and publishers all being present. The demo's simulated publishers and labelled test content are fine for the competition, but any real launch needs a plan to bring all three groups together.
 - **Balance at brand level; focus by context.** The homepage and overall brand story represent writers, readers and publishers equally. Individual screens, notifications and targeted campaigns address the relevant audience, including publishers, without having to mention the others.
 - **"Hub" is generic.** It describes the shape of the product, not the benefit. Keep it as a descriptor, not the tagline.
-- **Table-stakes risk.** "Social network" and "library" are table stakes. The real differentiators are the connection between publisher submissions and a reader community. The reading heatmap is a deferred possibility, not a core differentiator.
+- **Table-stakes risk.** "Social network" and "library" are table stakes. The real differentiators are the connection between publisher submissions and a reader community. The author reading-pattern heatmap is a supporting feature, not the core differentiator.
 
 ## Open Questions
 

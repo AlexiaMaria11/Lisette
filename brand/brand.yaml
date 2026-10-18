@@ -17,8 +17,8 @@ links:
   domain: ""
   repo: ""
 created: 2026-10-13
-updated: 2026-10-17
-version: 2
+updated: 2026-10-18
+version: 3
 artifacts:
   context: true
   naming: true
@@ -60,9 +60,11 @@ logo:
   concept_status: approved
   approved_on: 2026-10-17
   concept: L-shaped book cover with pages fanning out inside the angle
-  artwork_status: undecided
+  artwork_status: approved
+  artwork_approved_on: 2026-10-18
+  artwork: assets/VariantaLogo1.png
+  production_files: pending
   references:
-    - assets/VariantaLogo1.png
     - assets/VariantaLogo2.png
 taglines:
   ro: "Unde editurile își găsesc autorii, iar cărțile, cititorii."

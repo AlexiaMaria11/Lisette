@@ -16,8 +16,8 @@ Reported assessment: CRUD 5 points, sensors 2 points, complexity 3 points. Three
 
 | Role | Confirmed capabilities | Boundaries |
 |---|---|---|
-| Reader | Personal library, follow, post, react, comment, reshare public content, discover events, mark interest/intent, unlock discoveries, report | No private manuscript access |
-| Author | Reader capabilities plus author profile, portfolio, manuscript versions, submissions, permitted excerpts, events and discoveries | Author activation does not verify identity or ownership |
+| Reader | Personal library, reviews and ratings, follow, post, react, comment, reshare public content, beta-read when invited, opt into reading patterns, discover events, mark interest/intent, unlock discoveries, report | No private manuscript access |
+| Author | Reader capabilities plus author profile, portfolio, manuscript versions, submissions, permitted excerpts for public/followers/beta-reader audiences, own reading patterns (shareable with chosen publishers), events and discoveries | Author activation does not verify identity or ownership |
 | Publisher | Public profile, community participation, events/discoveries, submission settings/calls, review and selection | Manual team approval required before receiving submissions; recipient-specific access |
 | Administrator | Approve publisher accounts; review reports; hide content or suspend accounts | Moderation is not a legal ruling or blanket permission to read private manuscripts |
 
@@ -33,11 +33,12 @@ These screens are a functional grouping, not an approved navigation layout or fi
 | Profiles | Reader profile, author profile/portfolio editor, publisher profile/settings, association request | Public presentation; explicitly shared collection items; author confirmation of publisher relationship |
 | Manuscripts | Own manuscripts, versions/upload, publisher catalogue, submission composer/review, author tracking/detail | Externally authored file upload; immutable submission versions; per-recipient requirements and consent |
 | Publisher workspace | Inbox/status lists, submission reader/detail, evaluation/decision, calls, sharing requests | Authorised review, mandatory evaluation at selection, recipient-specific access and policies |
-| Community | Followed feed, post composer/detail, excerpt reader, work page | Chronological feed, text/images, reactions, comments, attributed reshares, explicit work links |
-| Personal library | Collection/shelves, ISBN scanner/manual add, book/work detail | Private defaults, selected public entries, connected people and relevant events |
+| Community | Followed feed, post composer/detail, excerpt reader, work page, beta-reader invitations and reader | Chronological feed, text/images, reactions, comments, attributed reshares, explicit work links, excerpt audiences, follower notices |
+| Reading patterns | Author excerpt heatmap, reader opt-in setting, share-with-publisher action | Aggregated, opt-in patterns and reading context (motion, noise level) on public excerpts, visible to the author and to publishers the author chooses; 10-reader threshold unless a reader chooses the no-threshold level |
+| Personal library | Collection/shelves, ISBN scanner/manual add, book/work detail, review/rating editor | Private defaults, selected public entries, connected people and relevant events, one rating and review per account and work |
 | Map and events | Map/filter, event detail/editor, interest/going state | Public event discovery with followed accounts highlighted; external registration links |
 | Literary discoveries | Map preview, discovery creator/variants, unlock, personal collection/detail | Text/artwork variants, location-gated initial access, stable assigned variant |
-| Notifications | In-app inbox and linked context | Confirmed submission, evaluation and sharing decisions; email counterpart |
+| Notifications | In-app inbox and linked context | Confirmed submission, evaluation and sharing decisions with email counterpart; in-app follower and beta-reader notices |
 | Search | Categorized search and result links | Authors, publishers, public books/works and events; authenticated visibility filters |
 | Administration | Publisher requests, reports queue/detail, moderation action | Restricted manual approval and moderation |
 
@@ -67,9 +68,9 @@ Each publisher can enable ongoing submissions independently of time-bound calls/
 | Status | Meaning | Publisher file access | Author withdrawal | Sharing restrictions |
 |---|---|---|---|---|
 | Submitted | Successfully recorded | In-app reading and PDF download | Yes | Accepted policy applies |
-| In review | Publisher began assessment | In-app reading and PDF download | Yes | Accepted policy applies |
+| In review | In the publisher's evaluation period; Opened/Unopened is a publisher-only marker | In-app reading and PDF download | Yes | Accepted policy applies |
 | On hold / Maybe | Still considering; visible to author | In-app reading; no file download | Yes | Accepted policy applies |
-| Selected by publisher | Wants direct discussion; evaluation required | In-app reading and PDF download | Not yet agreed | Existing policy remains; changes require author agreement |
+| Selected by publisher | Wants direct discussion; evaluation required | In-app reading and PDF download | Yes | Existing policy remains; changes require author agreement |
 | Rejected | Definitive rejection | No future reading or downloads for this submission | Not applicable to active review | This submission no longer restricts sharing |
 | Withdrawn | Author withdrew an eligible submission | No future reading or downloads for this submission | Already withdrawn | This submission no longer restricts sharing |
 
@@ -77,13 +78,15 @@ Submission history remains after rejection/withdrawal. Different active submissi
 
 From On hold, the publisher can resume In review, select (with mandatory evaluation), or reject finally. Destination access and sharing rules apply, and each change notifies the author in-app and by email. The author can instead withdraw while On hold.
 
-Withdrawal and publisher blocking are separate. Confirmed blocking behaviour is recorded in section 7. Selected-submission withdrawal and any post-selection policy-amendment flow remain unresolved. Resubmission eligibility follows the publisher setting.
+Withdrawal and publisher blocking are separate. Confirmed blocking behaviour is recorded in section 7. Selected is not final: the author may withdraw it and the publisher may move it to Rejected; no other transition leaves Selected. Any post-selection policy-amendment flow remains unresolved. Resubmission eligibility follows the publisher setting.
 
 ### 3.4 Exact-text sharing approval
 
 Publisher settings are author-controlled sharing, synopsis approval only, or synopsis and excerpt approval. Capture the accepted rules at submission; opening a manuscript or moving it On hold cannot introduce new restrictions.
 
 For newly selected synopsis/excerpt text, determine all applicable submissions and collect each required publisher approval before public visibility. Approval covers that exact text, not a different or edited selection. Withdrawal and final rejection remove only their own restrictions; On hold and Selected keep accepted restrictions. Existing public text must be visible to publishers before submission, not silently hidden by new restrictions.
+
+Each shared synopsis or excerpt has an audience: public, followers only, or invited beta-readers. Beta-readers can receive chosen chapters or a page range from a manuscript version, up to the whole manuscript; required publisher approvals apply to that exact selection as to an excerpt. Beta-readers read in the app only, without download, and the author can revoke their access. A narrower audience never bypasses a required approval.
 
 The policy applies to submitted-manuscript excerpts in ordinary publication and location discoveries. Unrelated original artwork is not automatically subject to manuscript restrictions. Removal or permission changes must also be honoured in search, work pages and reshares.
 
@@ -93,11 +96,15 @@ Readers, authors and publishers publish public text/image posts. The followed fe
 
 The person posting explicitly selects a related book/work. Lisette does not infer that relationship. Work pages collect linked public posts and permitted excerpts. Unpublished public works do not require ISBNs. Saving the parent work does not grant access to its private manuscript. Private chat, audio/video posts and recommendation feeds are excluded from the first version.
 
+Authors see an aggregated reading-pattern heatmap for their own public excerpts (confirmed 2026-10-18 for the competition version) and may share the patterns of selected excerpts with chosen publishers. Signals are reading position, time, rereads and stopping points, plus reading context from motion sensors and an on-device microphone noise level; audio is never recorded, stored or transmitted. Readers opt in explicitly; collection happens only while the excerpt is open; standard-consent patterns appear only once at least 10 readers opted in, while readers who separately choose the no-threshold level can appear below it; no view ever names readers, including when shared with publishers. Private manuscripts and submitted copies are never tracked. Patterns are not presented as attention, comprehension, quality or an audience score. Only public excerpts are tracked. Retention and opt-out deletion remain to be defined.
+
+Followers receive an in-app notice when a followed author publishes a new excerpt visible to them or adds a publication to their portfolio.
+
 ### 3.6 Personal library and discovery
 
 Scan ISBNs or add a book manually; organise into To read, Currently reading and Read. Collections are private by default, with explicit per-entry public sharing. Author Inspirations uses explicitly selected public books, not the whole private library.
 
-A scanned/saved book links to reliably matched Lisette authors and publishers and relevant events. Distinguish events about the book from other events involving its author/publisher. No matching profile or event should be invented. Ratings are a later idea, not a first-version requirement. Custom shelves/notes remain undecided.
+A scanned/saved book links to reliably matched Lisette authors and publishers and relevant events. Distinguish events about the book from other events involving its author/publisher. No matching profile or event should be invented. Readers can rate and review a book/work, with one editable, deletable rating and review per account; reviews are reportable public content. Ratings use a 1–5 scale with no average shown; only published books can be rated or reviewed for now. Custom shelves/notes remain undecided.
 
 ### 3.7 Events and location discoveries
 
@@ -109,7 +116,7 @@ Participants associated by others must confirm before public listing. Unlock use
 
 ### 3.8 Notifications and administration
 
-Submission-status changes, added evaluations and approval/refusal of sharing requests generate in-app notifications and email in the person's selected language. Describe confirmed events and combine notices from one decision when appropriate. OS push is not yet agreed.
+Submission-status changes, added evaluations and approval/refusal of sharing requests generate in-app notifications and email in the person's selected language. Describe confirmed events and combine notices from one decision when appropriate. Followers and beta-readers receive in-app community notices; email and OS push for these are not agreed.
 
 People report accounts, posts, comments, excerpts, events or discoveries with a reason and explanation. Administrators review manually; a report alone does not automatically delete content. Publisher onboarding approval precedes receiving any manuscript.
 
@@ -127,6 +134,9 @@ This is a domain inventory, not a database schema or technology selection.
 | Evaluation | Private to author and recipient submission; selection requires meaningful content |
 | Sharing request / decision | Exact content version, author, applicable recipient approvals and decision history |
 | Post / excerpt / comment / reaction / reshare | Creator, explicit work association, original source and visibility |
+| Reading-pattern consent / aggregate | Reader opt-in state; per-excerpt aggregates without per-reader exposure to the author |
+| Beta-reader share | Author, work, manuscript version, page/chapter selection, invited readers, approval state, revocation |
+| Review / rating | Account, book/work, one each per pair, edit history, moderation state |
 | Follow / library entry / portfolio entry | Account relationships; selected public entries; self-reported publications |
 | Author-publisher association | Pending/confirmed relationship; public only after author confirmation |
 | Event / participation intent | Creator, place/time, linked books/profiles; separate interest/going intentions |
@@ -159,6 +169,11 @@ This is a domain inventory, not a database schema or technology selection.
 | AC-20 | Confirmed manuscript events create in-app and email notifications without exposing private data in public views. |
 | AC-21 | Reporting queues manual review and does not automatically remove content. |
 | AC-22 | Android phone and tablet layouts support the core flows; no manuscript-content editor is presented on Android or web. |
+| AC-23 | No reading data is collected from a reader who has not opted in; an author, and any publisher the author shares with, sees standard-consent patterns only once 10 readers opted in, sees below-threshold patterns only from readers who chose the no-threshold level, and never sees names; no audio is recorded; private manuscripts are never tracked. |
+| AC-24 | A followers-only excerpt is invisible to non-followers, including in search and reshares; a beta-reader sees only the pages shared with them; a required publisher approval applies to every audience. |
+| AC-25 | A reader has at most one rating and one review per book/work and can edit or delete them; reviews can be reported. |
+| AC-26 | Following an author produces an in-app notice when that author publishes a new excerpt visible to the follower or adds a publication. |
+| AC-27 | The author sees In review but never whether or when the publisher opened the manuscript; the publisher's inbox shows Unopened/Opened. |
 
 Criteria describe future validation; no application exists or has passed these checks yet.
 
@@ -166,7 +181,7 @@ Criteria describe future validation; no application exists or has passed these c
 
 Functional dependency order: accounts/permissions and public work identities; manuscript versions/submission lifecycle and approval; community/library connections; events/map/discoveries; notification/admin integration. Shared identifiers and permissions should support Android and web. This is sequencing guidance, not a task plan or estimate.
 
-Candidate sensor experiences: camera ISBN scanning, location unlocks/event map, ambient-light reading adaptation. Device authentication additionally protects local manuscript access. The exact qualifying set, actual test-device availability and detailed adaptive-reading behaviour require confirmation. No feature should infer attention or writing quality from sensor signals. The heatmap stays deferred.
+Candidate sensor experiences: camera ISBN scanning, location unlocks/event map, ambient-light reading adaptation, motion sensors and microphone noise level for reading context in the heatmap. Device authentication additionally protects local manuscript access. The exact qualifying set, actual test-device availability and detailed adaptive-reading behaviour require confirmation. No feature should infer attention or writing quality from sensor or reading signals. The author reading-pattern heatmap is confirmed (section 3.5); its motion and noise signals describe reading context only.
 
 Before implementation, investigate PDF in-app reading on Android/web, access revocation/file delivery, exact-content approval storage, map/location support, ISBN data coverage and email delivery. React Native is required by the user. Expo, React Native Web and Supabase are technical delivery proposals; backend and tooling approval remains separate from functional approval. Technical choices must be verified against current documentation when evaluated.
 
@@ -201,8 +216,8 @@ Web includes library management, map viewing and viewing unlocked discoveries. I
 - Include password recovery, a request to delete the account and personal-data export. Retention rules for submission history and relationships require a separate design decision; these functions do not promise erasure of copies already downloaded outside Lisette.
 
 ### Android sensors and web boundary
-- Include camera ISBN scanning, location-based discovery unlocks and ambient-light reading adaptation as the proposed three-sensor set, subject to device availability and the assessment rules.
-- Biometric protection is also included, with the agreed phone PIN/password fallback for manuscript upload confirmation and local private-manuscript unlock. It is additional to the proposed three-sensor set, not deferred.
+- Proposed sensor set (updated 2026-10-18): camera ISBN scanning, location-based discovery unlocks, ambient-light reading adaptation, motion sensors (accelerometer/gyroscope) and microphone noise level for the reading-pattern heatmap. At least three must qualify under the assessment rules and work on the test devices.
+- Biometric protection is also included, with the agreed phone PIN/password fallback for manuscript upload confirmation and local private-manuscript unlock. It is additional to the sensor set above, not deferred.
 - Web supports library management, map viewing and viewing already unlocked discoveries. ISBN camera scanning and initial discovery unlock are Android-only in the first version. Other agreed web functions, including manuscript management and review, remain in scope.
 
 ### Remaining product decision

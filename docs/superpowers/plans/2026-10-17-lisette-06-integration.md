@@ -14,9 +14,10 @@
 - Android phones and tablets first; authenticated web for readers, authors and publishers second; no iOS.
 - React Native and TypeScript are the requested application foundation. Expo and React Native Web are proposed tooling, not a replacement for React Native.
 - Romanian and English require explicit language choice; preserve exact approved brand wording and diacritics from `brand/brand.yaml`.
-- PDF-only manuscripts; no manuscript editor, chat, algorithmic feed, financial features or heatmap.
+- PDF-only manuscripts; no manuscript editor, chat, algorithmic feed or financial features.
 - Submission email and phone are mandatory and private. An identity-document upload is not required.
-- Camera ISBN scan, foreground location unlock and ambient light are the proposed three qualifying sensors; include local biometrics with device-credential fallback too.
+- Proposed sensors: camera ISBN scan, foreground location unlock, ambient light, plus motion sensors and an on-device microphone noise level for the opt-in reading heatmap (no audio recorded); at least three must qualify. Include local biometrics with device-credential fallback too.
+- Manuscripts are not encrypted by Lisette; private storage and access control only. Never describe them as encrypted.
 - Shared public content requires sign-in. Server permissions, not UI state, govern private data and media.
 - Draft technical defaults below are reviewable proposals. They are not already-approved product policies.
 
@@ -33,11 +34,11 @@
 
 **Interfaces:** Consumes domain_events and internal enqueue_event(kind:text,subject_id:uuid,event_key:text,recipient_ids:uuid[],channels:text[]):void from plan 02 Task 2. Produces trusted-service-only process_notification_outbox(limit:number):{sent:number;failed:number}; not a public client RPC. Migration 0013 adds delivery/in-app records and worker state, not the existing producer table/helper. ID values are UUID strings. Public methods derive identity from authenticated session; never accept an arbitrary acting-user ID from the client. Domain types are defined with their owning feature and generated database types, not duplicated by later tasks.
 
-**Acceptance test:** `outbox_is_idempotent: selection+evaluation creates one combined notice; retry does not duplicate in-app record; email failure retains retryable event without reverting submission; payload contains only recipient-authorised detail`.
+**Acceptance test:** `outbox_is_idempotent: selection+evaluation creates one combined notice; retry does not duplicate in-app record; email failure retains retryable event without reverting submission; payload contains only recipient-authorised detail; a followers-only `author_published` event reaches current followers only`.
 
 - [ ] **Step 1:** Add the named acceptance test to the listed test file(s), with fixtures for owner, another author, two publishers and administrator when permissions are involved. Assertions must exercise real SQL/API behaviour, not merely mocked SDK calls.
 - [ ] **Step 2:** Run `supabase test db` and confirm the test fails for the missing behaviour. For the initial bootstrap only, configure the minimum runner needed to observe this failure before feature implementation.
-- [ ] **Step 3:** Implement the contract above in the listed owning files. Consume existing durable events, including pending events from before worker setup; add delivery records with unique event/recipient/channel, selected locale at dispatch and stable message IDs. SMTP/email provider and hosting costs require explicit setup at execution; prepare local mail sink first. Provider-level idempotency if available, otherwise document possible email duplicate after uncertain network outcome. Email includes minimal content and authenticated deep link, not full manuscript/contact data. In-app+email for manuscript events; in-app event edits/cancellation. No OS push requirement. Bound retry/backoff and surface exhausted deliveries to admins.
+- [ ] **Step 3:** Implement the contract above in the listed owning files. Consume existing durable events, including pending events from before worker setup; add delivery records with unique event/recipient/channel, selected locale at dispatch and stable message IDs. SMTP/email provider and hosting costs require explicit setup at execution; prepare local mail sink first. Provider-level idempotency if available, otherwise document possible email duplicate after uncertain network outcome. Email includes minimal content and authenticated deep link, not full manuscript/contact data. In-app+email for manuscript events; in-app event edits/cancellation; in-app only for `author_published` follower notices and `beta_shared` invitations produced in plan 03. No OS push requirement. Bound retry/backoff and surface exhausted deliveries to admins.
 - [ ] **Step 4:** Run `supabase test db`; require PASS. Run `npm run typecheck` and the relevant Android/web smoke flow; database tasks must also pass the existing SQL policy suite. Record physical-device checks when automation cannot prove sensor behaviour.
 - [ ] **Step 5:** Review the diff against the spec and commit only this task's files with message `feat: transactional notifications and bilingual email`. No production service creation, paid provider activation or publishing is part of this step.
 
@@ -45,7 +46,7 @@
 
 **Files:** create/modify `supabase/migrations/0014_moderation.sql`, `src/app/(app)/admin/reports.tsx`, `src/features/moderation/api.ts`, `supabase/tests/moderation.test.sql`, `tests/e2e/privacy.spec.ts`. Only create files needed by this deliverable; protect existing project documentation during scaffolding.
 
-**Interfaces:** report_content(target_type:text,target_id:uuid,reason:text,details:text):uuid; moderate_report(report_id:uuid,action:"dismiss"|"hide"|"suspend"):void. ID values are UUID strings. Public methods derive identity from authenticated session; never accept an arbitrary acting-user ID from the client. Domain types are defined with their owning feature and generated database types, not duplicated by later tasks.
+**Interfaces:** report_content(target_type:text (including `review`),target_id:uuid,reason:text,details:text):uuid; moderate_report(report_id:uuid,action:"dismiss"|"hide"|"suspend"):void. ID values are UUID strings. Public methods derive identity from authenticated session; never accept an arbitrary acting-user ID from the client. Domain types are defined with their owning feature and generated database types, not duplicated by later tasks.
 
 **Acceptance test:** `manual_moderation_only: report queues without hiding; non-admin mutation fails; hiding source also hides reshares/search; suspended account cannot mutate private/public data; admin report read does not grant file gateway access; completed account export excludes other authors’ private evaluations`.
 
@@ -63,7 +64,7 @@
 
 **Interfaces:** search_catalogue(query:text,category:"all"|"authors"|"publishers"|"works"|"events",limit:integer,offset:integer): {authors:SearchHit[];publishers:SearchHit[];works:SearchHit[];events:SearchHit[]}; SearchHit {id:string;label:string}. Derive identity from session. Proposed technical defaults: bounded Postgres case-insensitive search, trimmed query 2–100 characters, default 20/max 50 results per category, stable label/id ordering. No external search service.
 
-**Acceptance tests:** `search_is_categorized_and_private` finds matching public unpublished work, author, publisher and event in their categories; signed-out access denied; private works/library entries/manuscripts/contacts/evaluations/pending associations and moderated content absent. `search_links_to_existing_views` opens each category’s result and shows truthful empty/loading/failure states.
+**Acceptance tests:** `search_is_categorized_and_private` finds matching public unpublished work, author, publisher and event in their categories; signed-out access denied; private works/library entries/manuscripts/contacts/evaluations/pending associations, followers-only excerpts for non-followers, beta shares and moderated content absent. `search_links_to_existing_views` opens each category’s result and shows truthful empty/loading/failure states.
 
 - [ ] **Step 1:** Add SQL visibility tests in `supabase/tests/search.test.sql` and real local browser navigation tests in `tests/e2e/search.spec.ts`.
 - [ ] **Step 2:** Run `supabase test db` and `npm run test:web -- tests/e2e/search.spec.ts`; confirm missing search behavior fails.
@@ -77,7 +78,7 @@
 
 **Interfaces:** npm scripts: test, typecheck, lint, test:web; SQL policy suite: supabase test db; build artifacts: Android APK and authenticated web export. ID values are UUID strings. Public methods derive identity from authenticated session; never accept an arbitrary acting-user ID from the client. Domain types are defined with their owning feature and generated database types, not duplicated by later tasks.
 
-**Acceptance test:** `release_matrix: all AC-01..AC-22 and consolidated decisions traced to tests/manual checks; create/read/update/delete for posts/library/events; three sensors plus biometrics physically demonstrated; PDF old-reference denial checked after status changes`.
+**Acceptance test:** `release_matrix: all AC-01..AC-27 and consolidated decisions traced to tests/manual checks; create/read/update/delete for posts/library/events/reviews; at least three qualifying sensors plus biometrics physically demonstrated; PDF old-reference denial checked after status changes`.
 
 - [ ] **Step 1:** Add the named acceptance test to the listed test file(s), with fixtures for owner, another author, two publishers and administrator when permissions are involved. Assertions must exercise real SQL/API behaviour, not merely mocked SDK calls.
 - [ ] **Step 2:** Run `npm run test:web` and confirm the test fails for the missing behaviour. For the initial bootstrap only, configure the minimum runner needed to observe this failure before feature implementation.

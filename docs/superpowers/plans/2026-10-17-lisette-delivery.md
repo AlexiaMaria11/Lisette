@@ -14,9 +14,10 @@
 - Android phones and tablets first; authenticated web for readers, authors and publishers second; no iOS.
 - React Native and TypeScript are the requested application foundation. Expo and React Native Web are proposed tooling, not a replacement for React Native.
 - Romanian and English require explicit language choice; preserve exact approved brand wording and diacritics from `brand/brand.yaml`.
-- PDF-only manuscripts; no manuscript editor, chat, algorithmic feed, financial features or heatmap.
+- PDF-only manuscripts; no manuscript editor, chat, algorithmic feed or financial features.
 - Submission email and phone are mandatory and private. An identity-document upload is not required.
-- Camera ISBN scan, foreground location unlock and ambient light are the proposed three qualifying sensors; include local biometrics with device-credential fallback too.
+- Proposed sensors: camera ISBN scan, foreground location unlock, ambient light, plus motion sensors and an on-device microphone noise level for the opt-in reading heatmap (no audio recorded); at least three must qualify. Include local biometrics with device-credential fallback too.
+- Manuscripts are not encrypted by Lisette; private storage and access control only. Never describe them as encrypted.
 - Shared public content requires sign-in. Server permissions, not UI state, govern private data and media.
 - Draft technical defaults below are reviewable proposals. They are not already-approved product policies.
 
@@ -58,9 +59,10 @@ Types belong to feature modules; generated database types reflect migrations. UI
 - Supabase in an available EU region; local Supabase CLI development before external provisioning.
 - Email/password with verified email; a single publisher owner and explicit workspace switch.
 - PDF limit 20MiB; selection evaluation at least one meaningful field, total limit 2000 characters.
-- Resubmission disabled until a publisher enables it. Selected terminal requires an explicit product decision before plan 02 Task 3; Selected withdrawal or its prohibition is not yet approved.
+- Resubmission disabled until a publisher enables it. Selected is not terminal: author withdrawal and publisher rejection allowed (confirmed 2026-10-18).
 - Discovery initial radius 100m, location accuracy <=50m, sample <=30s old; test/tune on actual devices, no claim of spoof-proof presence.
 - Auto-reading theme opt-in, below 20lx dark / above 50lx light, 2-second settling; manual override and unsupported-sensor fallback.
+- Reading-pattern threshold 10 readers for standard consent plus a separate no-threshold consent level (confirmed); paragraph segments; motion still/moving and noise quiet/moderate/loud buckets; no retention period until decided. Rating scale 1–5, no average shown, published books only (confirmed). Beta-reader read-only, revocable access (confirmed).
 - Reaction IDs love/okay/dislike; final wording/icons in UI design. Post limit 3000 characters/four images/5MiB each.
 - No silent retroactive hiding of public excerpts. Submission flow discloses public selections and captures agreement. Post-selection amendments require explicit author acceptance, but their flow is unresolved; keep accepted snapshots and expose no amendment action until designed and approved.
 - Account deletion is a reviewed request until history retention is designed. Do not invent legal retention periods or silently hard-delete cross-account history.
@@ -68,7 +70,6 @@ Types belong to feature modules; generated database types reflect migrations. UI
 ## Decision gates and shared contracts
 
 - **Before foundation:** review proposed Expo/React Native Web/Supabase tooling and local setup. Documentation repair does not approve the stack, app implementation or service purchases.
-- **Before plan 02 Task 3 selected-state handling:** resolve Selected withdrawal/terminal behavior in requirements/specification. Other established transitions and compatibility checks can proceed independently.
 - **Before policy amendments:** agree the post-selection flow and existing-public-text treatment. Preserve accepted snapshots meanwhile; no unilateral update or implicit amendment workflow.
 - Proposed ActorRef {kind:"person"|"publisher";id:string} and server ownership checks are defined in plan 01 Task 2. Reader/author share a person actor; publisher content uses a separate actor. Private manuscript ownership remains person-account scoped.
 - Plan 02 Task 2 creates the durable event contract before producers use it; plan 06 adds delivery. Do not call a later migration’s helper or reference nonexistent tables.
@@ -84,7 +85,7 @@ Types belong to feature modules; generated database types reflect migrations. UI
 | 5 | [Events, Literary Discoveries and Sensors](2026-10-17-lisette-05-map.md) | Person B feature UI + Person A policies | Complete the events, literary discoveries and sensors acceptance tests |
 | 6 | [Notifications, Moderation and Delivery](2026-10-17-lisette-06-integration.md) | Person A backend + Person B UI | Complete the notifications, moderation and delivery acceptance tests |
 
-Do not split the team into isolated frontend/backend projects. Agree each feature's contract first, then one person owns its migration/policy while the other implements the corresponding screen using fixtures until integrated. Only one person edits a given migration/task branch at once. Use separate branches/worktrees once Git is initialised; do not assume the documentation workspace already contains a Git repository.
+Do not split the team into isolated frontend/backend projects. Agree each feature's contract first, then one person owns its migration/policy while the other implements the corresponding screen using fixtures until integrated. Only one person edits a given migration/task branch at once. Use separate branches/worktrees in the existing Git repository.
 
 The delivery window is eight calendar weeks with intermittent availability. Calendar targets are checkpoints, not estimates of full-time availability:
 - Week 1: foundation and real-device PDF/auth/sensor compatibility checks.
@@ -104,10 +105,13 @@ At each checkpoint record completed tasks and remaining work sessions. If the sc
 | 01.3 works | 01.2 | Work identity/account lifecycle 0002; export covers existing modules, extended in later owning migrations |
 | 02.1 owner PDF | 01.3 | Owner-only gateway/preview, biometric adapter, HTTP/device checks; non-owner requests denied |
 | 02.2 submissions | 02.1 | Schema 0004, per-recipient transactions, durable event contract |
-| 02.3 review | 02.2; Selected-policy decision for affected transitions | Schema 0005, recipient authorization, real HTTP revocation and viewer checks |
+| 02.3 review | 02.2 | Schema 0005, recipient authorization, real HTTP revocation and viewer checks |
 | 03.1–03.3 sharing/profiles/community | 02.3 and actor contract | Approved text, public content, explicit identity; Inspirations integration waits for 04.1 |
+| 03.4 audiences/beta | 03.1–03.3 | Followers-only excerpts, page-limited beta shares through the gateway |
+| 03.5 reading patterns | 03.4 and settings | Opt-in aggregate heatmap, publisher sharing, Android motion/noise context |
 | 04.1 library | 01.3 and profile/content contracts | Private collection, ISBN/manual entry; completes Inspirations tests with real rows |
 | 04.2 connections | 04.1 and 03.1–03.3 | People/content connections; events:[] without future-schema references |
+| 04.3 reviews | 04.2 and 03.3 block predicate | One rating and review per account/work |
 | 05.1 events/map | 04.2, actor/event contracts | Creates event tables before extending connections; actual book-to-event SQL tests |
 | 05.2 discoveries | 05.1 and sharing approvals | Stable entitlements, private variants, removal checks |
 | 05.3 adaptation | 02.1 existing device-auth adapter | Ambient theme, expanded device checks; no duplicate biometric implementation |
@@ -138,6 +142,11 @@ Do not claim hard immediate revocation using client-issued long-lived signed URL
 | AC-17..19: events, stable unlock and collection | 05 |
 | AC-20..21: notifications and manual moderation | 06 |
 | AC-22: phone/tablet/web and no editor | All UI tasks; final 06 matrix |
+| AC-23: opt-in aggregate reading patterns | 03 Task 5 |
+| AC-24: excerpt audiences and beta-reader shares | 03 Task 4 |
+| AC-25: reviews and ratings | 04 Task 3 |
+| AC-26: follower notices | 03 Tasks 1, 2, 4 producers; 06 Task 1 delivery |
+| AC-27: publisher-only opened marker | 02 Task 3 |
 | Later consolidated decisions: blocks, event cancellation, full discovery removal, editing, single reaction, login-only, account lifecycle, extra biometrics and web boundaries | 01 + 03 + 05 + 06 |
 | Confirmed categorized author/publisher/book/event search | 06 Task 3; SQL privacy and browser navigation tests |
 
@@ -149,7 +158,7 @@ The foundation task creates the npm scripts; they do not exist yet. Expected che
 
 ## Documentation self-review
 
-Documentation coverage maps all 22 original acceptance criteria, consolidated decisions and categorized search to owning tasks. Dependencies distinguish early compatibility from later real integration; SQL, HTTP, UI and device evidence are separate. Actors and durable event producers have explicit contracts. Stack approval, Selected behavior and policy amendments remain visible gates. This is a documentation assessment, not evidence of working software or compatible libraries. No app, tests, migrations, hosting or paid service has been created by writing or repairing this plan.
+Documentation coverage maps all 27 acceptance criteria, consolidated decisions and categorized search to owning tasks. Dependencies distinguish early compatibility from later real integration; SQL, HTTP, UI and device evidence are separate. Actors and durable event producers have explicit contracts. Stack approval and policy amendments remain visible gates. This is a documentation assessment, not evidence of working software or compatible libraries. No app, tests, migrations, hosting or paid service has been created by writing or repairing this plan.
 
 ## Official references checked for the proposal
 

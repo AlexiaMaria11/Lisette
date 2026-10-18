@@ -1,6 +1,6 @@
 # Target Audience
 
-> **Status: hypotheses, not research.** No customer interviews, reviews or surveys exist yet. Personas, quotes, and language below are working assumptions built from `context.md` and the concept doc. The "quotes" are illustrative, not real customer words. Validate with 5–10 conversations per group before using them in public copy.
+> **Status: hypotheses, not research.** No customer interviews, reviews or surveys exist yet. Personas, quotes, and language below are working assumptions built from `context.md` and the original concept. The "quotes" are illustrative, not real customer words. Validate with 5–10 conversations per group before using them in public copy.
 > **Confirmed launch scope:** Romania is the first market, with Romanian and English interfaces from launch and international expansion intended later. The existing fictional personas remain hypotheses to validate with Romanian writers, readers and publishers.
 
 ## 01 — Audience Overview
@@ -56,7 +56,7 @@ What frustrates them today: writers submit by hand, in different formats, with s
 
 **Channels:** Writing communities, newsletters, Bluesky and Instagram writing circles, writing-craft YouTube.
 
-**How Lisette solves it:** Lisette lets Mara submit once, track every response, and share selected excerpts with beta-readers after any required publisher approvals, with her full manuscript encrypted and visible only to the publishers she picks.
+**How Lisette solves it:** Lisette lets Mara submit once, track every response, and share selected excerpts with beta-readers after any required publisher approvals, with her full manuscript in private storage, open only to the publishers she picks.
 
 ### Tomás, 34 — Avid reader and beta-reader, works in IT
 
@@ -100,11 +100,11 @@ What frustrates them today: writers submit by hand, in different formats, with s
 
 **What they need from a brand like this:** A tidy review workflow and a steady flow of writers who read the guidelines.
 
-**Decision triggers:** Saving time and surfacing writers with real reader traction. She'd hesitate if it adds one more tool to learn or if the submitters are low quality.
+**Decision triggers:** Saving time and seeing how readers respond to an author's excerpts, when the author chooses to share it. She'd hesitate if it adds one more tool to learn or if the submitters are low quality.
 
 **Channels:** Industry newsletters, book fairs, publisher networks. (In the prototype this persona is simulated.)
 
-**How Lisette solves it:** Lisette gives Elena a unified submission format and a channel for structured feedback to authors.
+**How Lisette solves it:** Lisette gives Elena a unified submission format, a channel for structured feedback to authors and, when an author shares them, aggregated reading patterns on that author's excerpts. There is no audience score.
 
 ## 04 — Audience Language
 
@@ -146,7 +146,7 @@ What frustrates them today: writers submit by hand, in different formats, with s
 **Voice:** Warm, encouraging, clear. Treat writers as professionals and readers as allies. No hype. (Matches the approved tone in `context.md`.)
 
 **Product and experience:**
-- Trust comes first: show clearly how manuscripts are encrypted, and who can see what.
+- Trust comes first: show clearly that manuscripts are stored privately, and who can see what.
 - The network must not feel empty at launch, so use clearly labelled test content for the demo and recruit real beta participants; never present fictional accounts as real community activity.
 - Make reader support visible: follow, early-read, review, share, and show authors that it happened. Acknowledge meaningful completed actions gently, without points, rankings, streaks or pressure to return.
 - Keep publisher-side workflows simple and unified. Literary events and location discoveries also connect readers with authors and publishers; they are priority product concepts, with release scope still to define.

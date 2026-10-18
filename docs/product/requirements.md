@@ -26,8 +26,9 @@ Status: approved functional baseline with subsequent decisions incorporated; det
 
 ## Confirmed Submission Lifecycle and Publisher Contact
 - Lisette supports discovery and manuscript selection, not the subsequent editorial or publishing process. After selection, the publisher contacts the author directly and manages editing, contracts and publication through its own processes outside Lisette.
-- Submission statuses: Submitted, In review, Maybe, Selected by publisher, Rejected, Withdrawn. Submitted means the app has successfully recorded the submission; In review means the publisher has started reviewing it. Selected means the publisher wants to discuss next steps, not that a publishing contract exists.
-- Authors may withdraw an individual submission while it is Submitted, In review or Maybe (author-facing: On hold / În așteptare). Change its status to Withdrawn and show that status to the recipient publisher. A withdrawn submission cannot be selected by the publisher. Withdrawing one submission does not automatically withdraw submissions to other publishers.
+- Submission statuses: Submitted, In review, Maybe, Selected by publisher, Rejected, Withdrawn. Submitted means the app has successfully recorded the submission; In review means the submission is in the publisher's evaluation period, set by the publisher. Selected means the publisher wants to discuss next steps, not that a publishing contract exists.
+- Whether the publisher has opened the manuscript is a separate publisher-side marker (Unopened / Opened) in the publisher's own inbox, not a status. Authors see In review only, never whether or when the manuscript was opened (confirmed 2026-10-18). Whether In review is set per submission, in bulk or when a call's period closes is a design choice.
+- Authors may withdraw an individual submission while it is Submitted, In review, Maybe (author-facing: On hold / În așteptare) or Selected by publisher. Change its status to Withdrawn and show that status to the recipient publisher. A withdrawn submission cannot be selected by the publisher. Withdrawing one submission does not automatically withdraw submissions to other publishers.
 - After withdrawal, revoke the recipient publisher's access to that submission's manuscript and review materials in Lisette, including future authenticated file retrieval. Preserve the submission history and Withdrawn status. Withdrawal does not revoke access granted by a different active submission or affect the author's own manuscript collection.
 - Withdrawal from Maybe has the same access-revocation and sharing-restriction effects as withdrawal from Submitted or In review.
 - Withdrawing a submission and blocking a publisher are separate actions. Withdrawal alone does not block future collaboration. Publisher blocking is confirmed under Consolidated Cross-Module Decisions: it prevents new submissions but does not withdraw existing ones or independently revoke their access. Do not infer automatic withdrawal of other submissions or an automatic block.
@@ -37,6 +38,7 @@ Status: approved functional baseline with subsequent decisions incorporated; det
 - A publisher may place a submission in Maybe when it wants to keep considering it and possibly contact the author later. This is not a final rejection. While a submission is in Maybe, retain in-app reading access but disable file downloads. Enforce this distinction in backend authorization, not only by hiding the download button. This does not revoke previously downloaded copies or guarantee that readable content cannot be copied. Show the author the status "În așteptare" in Romanian and "On hold" in English, explaining that the publisher is still considering the submission; Maybe is not a hidden internal-only list.
 - A final Rejected decision means the publisher no longer wants to consider that submission. Revoke its access to the manuscript and review files, including reading and downloading through Lisette; retain submission history. Access granted by a separate active submission is unaffected. Previously downloaded external copies cannot be revoked.
 - From Maybe / On hold, the recipient publisher can move the submission back to In review, select it, or finally reject it. Apply the destination status access and sharing rules; selection still requires a short evaluation. Notify the author in-app and by email for each confirmed change. The author may withdraw while it remains On hold.
+- Selected by publisher is not final (confirmed 2026-10-18). The author may still withdraw it, with the same access revocation as any withdrawal. The publisher may move it to Rejected if discussions do not continue, with an optional note and no required evaluation. No other transition leaves Selected. Publisher access stays as for Selected until withdrawal or rejection.
 - The detailed post-selection permission-change flow still needs design; do not treat it as already approved.
 - Selection by one publisher does not withdraw, close or change the status of submissions to other publishers. Those submissions remain active under their own access and sharing rules. The author decides separately whether to withdraw eligible submissions; selection does not imply exclusivity.
 - Publishers communicate their review and selection decisions through the relevant submission status. Revision requests, contract management and editorial workflows are outside the current product scope.
@@ -50,6 +52,7 @@ Status: approved functional baseline with subsequent decisions incorporated; det
 - Notifications describe confirmed events. Avoid duplicate alerts for the same event; if one action changes status and adds an evaluation, they may be presented together.
 - In-app notification records and email delivery are required channels. Mobile OS push notifications have not yet been agreed as an additional channel.
 - Detailed message content, delivery retry behaviour and notification preferences remain to be designed.
+- Followers are notified in-app when an author they follow publishes: a new excerpt visible to them, or a new publication added to the author's portfolio. Beta-readers are notified in-app when an author shares pages with them. Email and OS push for these community notices are not agreed (confirmed 2026-10-18).
 
 ## Confirmed Short Publisher Evaluation
 - Provide a short qualitative evaluation with prompts for what stood out, what could be improved, and observations for the author. Do not introduce numerical scores or rankings.
@@ -74,7 +77,7 @@ Status: approved functional baseline with subsequent decisions incorporated; det
 - These fields cover the current agreed scope; arbitrary custom questionnaires are not required.
 
 ## Confirmed Sharing Policy
-- Full manuscripts are private to publishers selected by the author. Reader sharing is separate: submitting a manuscript never automatically shares its text or synopsis with readers.
+- Full manuscripts are private to the author and the publishers the author selects, except for pages the author explicitly shares with beta-readers. Reader sharing is separate: submitting a manuscript never automatically shares its text or synopsis with readers.
 - Authors control reader sharing by default and choose the exact synopsis or excerpt to share.
 - Each publisher configures its sharing policy in its account settings. The applicable publisher or competition restrictions must be shown before submission and explicitly accepted by the author.
 - MVP publisher settings: author-controlled sharing; synopsis approval only; or synopsis and excerpt approval. These settings identify which text types require approval; they do not automatically publish any text.
@@ -87,6 +90,8 @@ Status: approved functional baseline with subsequent decisions incorporated; det
 
 
 
+- Reader audiences (confirmed 2026-10-18). An author chooses who sees each shared synopsis or excerpt: everyone signed in to Lisette (public), only the author's followers, or specific beta-readers. The same publisher-approval rules apply to every audience; a narrower audience does not bypass a required approval.
+- Beta-readers (confirmed 2026-10-18). An author can invite specific readers as beta-readers for a work and decide how much they receive: selected chapters or a page range from a chosen manuscript version, up to the whole manuscript. Where accepted submission restrictions require approval, the applicable publishers approve that exact selection first, as for an excerpt. Beta-readers read only inside Lisette, with no download, and the author can revoke a beta-reader's access at any time; copies already seen cannot be recalled (confirmed 2026-10-18).
 - Publishers can see what is already shared before accepting a submission. New restrictions never silently hide existing shared text.
 - Opening a manuscript for review does not introduce new restrictions. Any applicable restrictions must have been disclosed and accepted before submission.
 - This is an agreed product policy for implementation, not a claim that approval workflows already exist.
@@ -129,6 +134,7 @@ Status: approved functional baseline with subsequent decisions incorporated; det
 - Account authorization and stored-file access controls separately restrict access to the author and selected publishers. The author's local app lock does not prevent authorized publisher access through their own accounts.
 - A file hash and upload timestamp record the uploaded version and time; do not describe them as proof of authorship or copyright registration.
 - Brand wording: "Protect access to your manuscript." Do not promise that only the author can open it.
+- Manuscripts are not encrypted by Lisette in the first version (confirmed 2026-10-18). Protection relies on private storage, account authorization and access controls. Do not describe manuscripts as encrypted.
 - These are agreed requirements for implementation, not claims that the protections already exist.
 
 ## Confirmed Public Author Profile and Portfolio
@@ -148,7 +154,7 @@ Status: approved functional baseline with subsequent decisions incorporated; det
 - Chat and private direct messaging are outside the first-version scope. Public conversation uses comments and replies; publishers contact submitting authors through the agreed private email/phone disclosure.
 - Readers, authors and publishers can publish posts, follow accounts, react to posts and reply.
 - Ordinary posts may contain text, images, or both. Audio and video posts are outside the first-version scope. Exact image counts, file limits and text limits remain design decisions.
-- Ordinary posts are public in the first version; a followers-only post audience is not required. This does not make manuscripts, submission details, contact data or personal-library contents public by default. Content browsing requires authentication; there are no signed-out public content pages.
+- Ordinary posts are public in the first version; a followers-only post audience is not required. Excerpts may be public or followers-only under the Confirmed Sharing Policy. This does not make manuscripts, submission details, contact data or personal-library contents public by default. Content browsing requires authentication; there are no signed-out public content pages.
 
 - Support resharing public ordinary posts and public excerpts to the feed, either as a simple reshare or with the resharing person's own comment. Preserve attribution and a link to the original source.
 - Resharing references the original public content rather than creating an independent copy that bypasses its permissions. Private manuscripts and unapproved excerpts cannot be reshared. Removal or loss of public visibility of the original must be respected by reshare views; exact unavailable-content presentation remains a design choice.
@@ -169,12 +175,13 @@ Status: approved functional baseline with subsequent decisions incorporated; det
 - Reader-library shelves: To read ("De citit"), Currently reading ("Citesc acum") and Read ("Citite"). These remain available to author accounts alongside their dedicated author-profile sections.
 - Personal libraries are private by default. People can explicitly make selected book/work entries public; adding or scanning a book does not publish it automatically. Public profile collections and related discovery views must honour these per-entry choices.
 - The library is a personal book collection connected to the literary community, not a product centred on ratings or review rankings.
+- Reviews and ratings (confirmed 2026-10-18 for the first version). Readers can rate a book/work and write a review of it. Each account has at most one rating and one review per book/work, and can edit or delete them. Reviews are public content: they can be reported and follow blocking rules. Ratings use a 1–5 scale, no average rating is shown, and only published books can be rated or reviewed for now (confirmed 2026-10-18).
 - Support ISBN camera scanning and manual book entry. Scanning identifies a book; connect it to author and publisher profiles on Lisette when a reliable match exists.
 - Required product behaviour: from a scanned or saved book, show linked authors and publishers present on Lisette and relevant literary events associated with the book, its author or its publisher. This discovery connection is a priority implementation requirement, not an optional extra.
 - Distinguish events directly associated with the book from other events involving its author or publisher. Do not imply that all publisher events concern that book.
 - Where available, connected profiles also lead to permitted excerpts and shared reading collections. Do not invent a profile, event or relationship when there is no reliable match.
 - Readers may discover what followed authors read when those authors choose to share their collection.
-- Ratings remain a possible later feature, not a first-version requirement or the library's central purpose. Custom shelves and notes remain to be designed; the three standard reader shelves and private-by-default, per-entry public sharing are agreed; the previously proposed bundle was not approved wholesale.
+- Custom shelves and notes remain to be designed; the three standard reader shelves and private-by-default, per-entry public sharing are agreed; the previously proposed bundle was not approved wholesale.
 
 ## Confirmed Map and Location Discoveries
 - The literary-event map and location-based literary surprises are important product features, not optional extras. The exact first-release scope still needs planning.
@@ -194,25 +201,35 @@ Status: approved functional baseline with subsequent decisions incorporated; det
 - Excerpts in discoveries follow the confirmed sharing policy, including approval of the exact text by all publishers whose accepted restrictions apply.
 - Discoveries are optional literary experiences, without points, leaderboards, streaks or pressure to visit.
 - Still to define: proximity threshold, lifecycle after expiry and storage retention after removal; full removal revokes access from previously unlocked collections. Unlock is explicit and foreground-only; variant updates affect future unlocks only.
-- The app must use at least three phone sensors/capabilities. Location is a priority candidate alongside the ISBN camera; the final qualifying set depends on competition rules and target devices.
+- The app must use at least three phone sensors/capabilities. See "Android sensors and web boundary" for the proposed set; the final qualifying set depends on competition rules and target devices.
+
+## Confirmed Reading Patterns for Authors (heatmap)
+- Confirmed for the competition version on 2026-10-18; previously a deferred experiment. Authors see an aggregated reading-pattern view (heatmap) for each of their own public excerpts, showing where readers linger, reread or stop.
+- Scope: public excerpts only for now (confirmed 2026-10-18). Private manuscripts, submitted copies, publisher review sessions, followers-only excerpts and beta-reader shares are not tracked.
+- By default only the excerpt's author sees its reading patterns. The author may explicitly share the patterns of selected excerpts with chosen publishers, for example alongside a submission (confirmed 2026-10-18). Other readers, public profiles and search never see them.
+- Readers explicitly opt in before any reading data is collected; the default is off. They can turn it off later in Settings, which stops future collection.
+- Two consent levels, both off by default (confirmed 2026-10-18). Standard: the reader's patterns count only once an excerpt has at least 10 opted-in readers. No threshold: a separate, explicit choice to be included even when few people have read the excerpt; its consent text must say plainly that the author may then be able to tell how that reader read. Below 10 readers, show patterns only from readers who chose the second level, and none if there are none. Never show names, identities or a list of readers, including in patterns shared with publishers.
+- Collect only while the reader has the excerpt open in Lisette; no background tracking.
+- Signals (confirmed 2026-10-18): reading position and time on each part of the excerpt, rereads and stopping points, plus reading context from the phone's motion sensors (accelerometer/gyroscope) and the ambient noise level from the microphone.
+- Microphone use is limited to an on-device noise level. Lisette never records, stores or transmits audio; only a coarse noise level enters the aggregate. Android asks for microphone permission separately; refusing it does not prevent reading or sharing other reading patterns.
+- Signals are reading patterns and reading context, not proof of attention, comprehension or writing quality. Sharing patterns with a publisher is not an audience score. No scores, rankings, comparisons between authors or quality labels.
+- Still to define: granularity, data retention, whether earlier contributions are deleted when a reader opts out, how patterns behave when excerpt text is edited, exactly what motion and noise context is shown, and web/Android parity (motion and noise context are Android-only).
 
 ## Deferred / Maybe Features
-- Personal book ratings: possible later feature; not central to the library and not required for the first version.
-- Reading heatmap: optional future experiment, to revisit only after the more important features are complete. It is outside the MVP, demo requirements, success metrics and core brand promises. No implementation approach has been selected.
-- If revisited, assess whether reading patterns are useful and how consent and privacy should work. Scrolling, pauses and rereads do not prove attention or writing quality.
+- Read-aloud with transcription and pace report: dropped (2026-10-18). The microphone is used only for the heatmap's ambient noise level.
 
-## Product Notes (from the concept doc, adjusted by confirmed decisions)
-- **Pillars**: manuscript hub, writers' social network (Twitter-style), personal library (LibraryThing-style).
-- **Sensor/capability ideas (not all committed)**: camera (ISBN scan), microphone (optional read-aloud transcription; in-app manuscript dictation/editing is outside scope), GPS/location (literary-event map and location-based discoveries), biometrics with phone PIN/password fallback (upload confirmation and local manuscript unlock), accelerometer (adaptive reading mode), light sensor (auto reading theme).
-- **Candidate first-release scope (not a finalized delivery commitment)**: account and profile, manuscript upload with a submitter declaration and device authentication, submission to publishers with status tracker, basic social network, personal library with ISBN scan, excerpt reading, adaptive reading, literary-event map and location-based discoveries (detailed first-release scope to define).
-- **If time allows**: read-aloud with transcription and pace report, shelf-based recommendations and genre groups. Web submission review is now part of the requested product scope, not automatically an optional extra.
-- **Tech**: React Native (Expo), Firebase or Supabase (EU region), public books API (Open Library or Google Books), speech-to-text (to be tested early for Romanian).
+## Product Notes (from the original concept, adjusted by confirmed decisions)
+- **Pillars**: manuscript hub, community for writers, readers and publishers, personal library, literary map and discoveries.
+- **Sensors/capabilities**: see "Android sensors and web boundary" under Consolidated Cross-Module Decisions. In-app manuscript dictation/editing is outside scope.
+- **Candidate first-release scope (not a finalized delivery commitment)**: account and profile, manuscript upload with a submitter declaration and device authentication, submission to publishers with status tracker, basic social network, excerpts for public, followers and beta-reader audiences, reviews and ratings, personal library with ISBN scan, author reading-pattern heatmap (confirmed), adaptive reading, literary-event map and location-based discoveries (detailed first-release scope to define).
+- **If time allows**: shelf-based recommendations and genre groups. Web submission review is now part of the requested product scope, not automatically an optional extra.
+- **Tech**: React Native (Expo), Firebase or Supabase (EU region), public books API (Open Library or Google Books).
 - **Simulated for the demo**: 3–4 fictional publishers with automated replies, test accounts and libraries.
 
 ## Confirmed Search Scope
 - Provide search across authors, publishers, books/works and literary events, with results separated by category.
 - Book/work results may include unpublished projects that their authors explicitly present publicly, not just published ISBN catalogue entries.
-- Search must respect visibility and association rules: do not expose private collections, manuscripts, submission details, contact data, unapproved excerpts or pending author-publisher relationships.
+- Search must respect visibility and association rules: do not expose private collections, manuscripts, submission details, contact data, unapproved excerpts, followers-only excerpts to non-followers, beta-reader shares or pending author-publisher relationships.
 - Exact ranking, advanced filters and search technology remain design choices; algorithmic recommendations are not implied.
 
 ## Confirmed Reporting and Moderation
@@ -250,13 +267,13 @@ Status: approved functional baseline with subsequent decisions incorporated; det
 - Include password recovery, a request to delete the account and personal-data export. Retention rules for submission history and relationships require a separate design decision; these functions do not promise erasure of copies already downloaded outside Lisette.
 
 ### Android sensors and web boundary
-- Include camera ISBN scanning, location-based discovery unlocks and ambient-light reading adaptation as the proposed three-sensor set, subject to device availability and the assessment rules.
-- Biometric protection is also included, with the agreed phone PIN/password fallback for manuscript upload confirmation and local private-manuscript unlock. It is additional to the proposed three-sensor set, not deferred.
+- Proposed sensor set (updated 2026-10-18): camera ISBN scanning, location-based discovery unlocks, ambient-light reading adaptation, motion sensors (accelerometer/gyroscope) and microphone noise level for the reading-pattern heatmap. At least three must qualify under the assessment rules and work on the test devices.
+- Biometric protection is also included, with the agreed phone PIN/password fallback for manuscript upload confirmation and local private-manuscript unlock. It is additional to the sensor set above, not deferred.
 - Web supports library management, map viewing and viewing already unlocked discoveries. ISBN camera scanning and initial discovery unlock are Android-only in the first version. Other agreed web functions, including manuscript management and review, remain in scope.
 
 ## Open product questions
 - No outstanding approval remains for discovery removal: stopping unlocks preserves existing access; full removal revokes it. Detailed recovery/retention implementation still needs design.
-- Detailed association management for books, profiles and events; whether authors may withdraw Selected submissions; post-selection sharing-policy changes; submission-history retention and account-deletion effects. Resolve these at the affected feature’s decision gate; they do not block the bilingual shell or PDF compatibility work.
+- Detailed association management for books, profiles and events; post-selection sharing-policy changes; submission-history retention and account-deletion effects. Resolve these at the affected feature’s decision gate; they do not block the bilingual shell or PDF compatibility work.
 - Final delivery sequence, technology selection and validation on actual Android phones/tablets. Sensor roles and web-only/Android-only boundaries are now agreed.
 - Remaining implementation design: file and text limits, validation rules, error states, reaction labels/icons, location thresholds, notification delivery and deletion/editing presentation. These are not all separate product-approval questions.
 

@@ -78,8 +78,8 @@ content creator, creators, monetize, boost, hack, game-changing, revolutionary, 
 - Use **submission** for a manuscript sent to a publisher.
 - Location-based surprises are optional literary discoveries. Plain terms such as "discover" or literal "unlock" may describe access; avoid using them as exaggerated promises.
 - Use Romanian diacritics in Romanian copy. English vocabulary examples are references, not a requirement to use English terms in Romanian.
-- Describe supporting authors as **following, reading early, reviewing, sharing, recommending**. Never imply paying authors or being paid.
-- The reading heatmap is a deferred possibility, not a promised feature. If discussed in planning, call its signals **reading patterns**, not proof of attention or writing quality.
+- Describe supporting authors as **following, beta-reading, reviewing, rating, sharing, recommending**. Never imply paying authors or being paid.
+- The reading heatmap shows authors aggregated **reading patterns** on their public excerpts, from readers who opted in; authors may share them with publishers they choose. Call its signals reading patterns or reading context, never proof of attention, interest or writing quality.
 - The app is **Lisette**, never "the Lisette app" in headlines or "LISETTE" in caps.
 
 ## 05 — Writing Style Rules
@@ -122,9 +122,9 @@ content creator, creators, monetize, boost, hack, game-changing, revolutionary, 
 > We value your privacy and take security seriously.
 
 **After:**
-> Your manuscript is encrypted. Only the publishers you choose can open it.
+> Your manuscript is stored privately. Only you and the publishers you choose can open it.
 
-**Why it works:** It states the actual protection instead of an empty promise.
+**Why it works:** It states who has access instead of an empty promise. Lisette does not encrypt manuscripts, so never say it does.
 
 ---
 
@@ -167,7 +167,7 @@ When upload status is unknown:
 - Anything that implies paying or being paid, such as "monetize your writing" or "earn from your fans" (no financial layer for now).
 - Creator-economy language: "content creators", "grind", "hustle", "build your personal brand".
 - Empty privacy claims ("we take your privacy seriously") without saying what is protected.
-- Surveillance language about readers ("monitor", "spy on reading") or claims that reading patterns prove attention or writing quality. The reading heatmap is deferred; do not promise it in public copy.
+- Surveillance language about readers ("monitor", "spy on reading") or claims that reading patterns prove attention or writing quality. Describe the heatmap only as aggregated reading patterns that readers choose to share.
 - False urgency: "Hurry!", "Don't miss out!", "Last chance!".
 - Guilt or pressure: "Your readers are waiting", "You haven't written in 3 days".
 - Condescension about writers' work or about rejection: "Don't give up!" as a cliché, or blaming the writer.

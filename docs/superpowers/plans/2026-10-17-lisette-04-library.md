@@ -14,9 +14,10 @@
 - Android phones and tablets first; authenticated web for readers, authors and publishers second; no iOS.
 - React Native and TypeScript are the requested application foundation. Expo and React Native Web are proposed tooling, not a replacement for React Native.
 - Romanian and English require explicit language choice; preserve exact approved brand wording and diacritics from `brand/brand.yaml`.
-- PDF-only manuscripts; no manuscript editor, chat, algorithmic feed, financial features or heatmap.
+- PDF-only manuscripts; no manuscript editor, chat, algorithmic feed or financial features.
 - Submission email and phone are mandatory and private. An identity-document upload is not required.
-- Camera ISBN scan, foreground location unlock and ambient light are the proposed three qualifying sensors; include local biometrics with device-credential fallback too.
+- Proposed sensors: camera ISBN scan, foreground location unlock, ambient light, plus motion sensors and an on-device microphone noise level for the opt-in reading heatmap (no audio recorded); at least three must qualify. Include local biometrics with device-credential fallback too.
+- Manuscripts are not encrypted by Lisette; private storage and access control only. Never describe them as encrypted.
 - Shared public content requires sign-in. Server permissions, not UI state, govern private data and media.
 - Draft technical defaults below are reviewable proposals. They are not already-approved product policies.
 
@@ -51,7 +52,22 @@
 
 - [ ] **Step 1:** Add the named acceptance test to the listed test file(s), with fixtures for owner, another author, two publishers and administrator when permissions are involved. Assertions must exercise real SQL/API behaviour, not merely mocked SDK calls.
 - [ ] **Step 2:** Run `supabase test db` and confirm the test fails for the missing behaviour. For the initial bootstrap only, configure the minimum runner needed to observe this failure before feature implementation.
-- [ ] **Step 3:** Implement the contract above in the listed owning files. Use explicit work-author/publisher associations and source identity, not fuzzy automatic public attribution. Offer reviewed/manual linkage when external ISBN metadata cannot reliably match a profile. Show profile/event connections without implying endorsement. Include unpublished public works, permitted excerpt grouping, linked posts and saving parent work. Migration 0010 must not reference nonexistent event tables. Plan 05 Task 1 creates them before extending this RPC and its SQL tests. Controlled UI fixtures are not production records or evidence of completed integration. Ratings and custom shelves remain deferred.
+- [ ] **Step 3:** Implement the contract above in the listed owning files. Use explicit work-author/publisher associations and source identity, not fuzzy automatic public attribution. Offer reviewed/manual linkage when external ISBN metadata cannot reliably match a profile. Show profile/event connections without implying endorsement. Include unpublished public works, permitted excerpt grouping, linked posts and saving parent work. Migration 0010 must not reference nonexistent event tables. Plan 05 Task 1 creates them before extending this RPC and its SQL tests. Controlled UI fixtures are not production records or evidence of completed integration. Custom shelves remain deferred; ratings and reviews are Task 3.
 - [ ] **Step 4:** Run `supabase test db`; require PASS. Run `npm run typecheck` and the relevant Android/web smoke flow; database tasks must also pass the existing SQL policy suite. Record physical-device checks when automation cannot prove sensor behaviour.
 - [ ] **Step 5:** Review the diff against the spec and commit only this task's files with message `feat: book pages linked to people, excerpts and events`. No production service creation, paid provider activation or publishing is part of this step.
 
+### Task 3: Reviews and ratings
+
+**Dependencies:** Task 2 and plan 03 Task 3 (blocking predicate, soft deletion). Plan 06 Task 2 adds `review` as a report target.
+
+**Files:** create/modify `supabase/migrations/0018_reviews.sql`, `src/features/reviews/api.ts`, `src/app/(app)/books/[id]/review.tsx`, `supabase/tests/reviews.test.sql`. Only create files needed by this deliverable; protect existing project documentation during scaffolding.
+
+**Interfaces:** set_rating(work_id:uuid,value:smallint|null):void; upsert_review(work_id:uuid,body:text):uuid; delete_review(work_id:uuid):void; Review {id:string;workId:string;authorActor:ActorRef;body:string;rating:number|null;updatedAt:string}. ID values are UUID strings. Public methods derive identity from authenticated session.
+
+**Acceptance test:** `one_review_per_reader`: second rating/review from the same account updates instead of duplicating; another account cannot edit or delete it; blocked accounts do not see each other's reviews; a deleted review disappears from the book page; no average is exposed by any RPC; an unpublished work cannot be rated or reviewed.
+
+- [ ] **Step 1:** Add the named acceptance test to the listed test file(s), with fixtures for owner, another author, two publishers and administrator when permissions are involved. Assertions must exercise real SQL/API behaviour, not merely mocked SDK calls.
+- [ ] **Step 2:** Run `supabase test db` and confirm the test fails for the missing behaviour. For the initial bootstrap only, configure the minimum runner needed to observe this failure before feature implementation.
+- [ ] **Step 3:** Implement the contract above in the listed owning files. Unique (account, work) for ratings and for reviews. Scale 1–5 whole values (confirmed). Show reviews on the book/work page with author attribution; reviews are public content under existing visibility and block rules. Never show an average or sort by rating. Only published books can be rated or reviewed for now (confirmed).
+- [ ] **Step 4:** Run `supabase test db`; require PASS. Run `npm run typecheck` and the relevant Android/web smoke flow; database tasks must also pass the existing SQL policy suite. Record physical-device checks when automation cannot prove sensor behaviour.
+- [ ] **Step 5:** Review the diff against the spec and commit only this task's files with message `feat: reviews and ratings`. No production service creation, paid provider activation or publishing is part of this step.

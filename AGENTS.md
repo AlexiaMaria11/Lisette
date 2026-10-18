@@ -8,6 +8,6 @@ Keep brand identity, product vision and implementation planning distinct. Do not
 
 Do not claim planned features, publisher partnerships, security guarantees or outcomes already exist. Verification of an upload or device credential is not proof of authorship. For functional work, read `docs/product/requirements.md`, including sharing and manuscript-protection policies.
 
-When an approved decision changes, update its canonical reference and affected guides together. Keep `brand/brand.yaml` consistent. Use the historical concept PDF for background; confirmed decisions in `brand/` supersede it.
+When an approved decision changes, update its canonical reference and affected guides together. Keep `brand/brand.yaml` consistent.
 
 Record functional decisions in `docs/product/requirements.md`; keep brand identity in `brand/`. The product requirements are a working specification, not a finalized implementation plan.

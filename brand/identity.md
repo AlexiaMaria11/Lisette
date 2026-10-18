@@ -1,6 +1,6 @@
 # Visual Identity Brief
 
-> Built from `context.md`, `positioning.md`, `voice.md` and `messaging.md`. This is a **design brief**, not finished artwork: the five base colours and font families are approved; final logo artwork and detailed component treatments remain proposals to test in the real app. Use case: an Android app (React Native / Expo) and a web extension. The reference brands (Goodreads, Substack, Notion, Are.na) are drafts the user hasn't confirmed.
+> Built from `context.md`, `positioning.md`, `voice.md` and `messaging.md`. This is a **design brief**, not finished artwork: the five base colours, font families and logo artwork (`assets/VariantaLogo1.png`) are approved; production logo files and detailed component treatments remain to be made and tested in the real app. Use case: an Android app (React Native / Expo) and a web extension. The reference brands (Goodreads, Substack, Notion, Are.na) are drafts the user hasn't confirmed.
 
 ## 01 — Identity Strategy Statement
 
@@ -8,16 +8,17 @@ Lisette's identity should feel like a well-loved, well-lit reading room: warm pa
 
 ## 02 — Logo Direction
 
-**Confirmed concept (2026-10-17):** an L-shaped book cover with pages fanning out inside the angle of the L. The shared idea in `assets/VariantaLogo1.png` and `assets/VariantaLogo2.png` is the direction to preserve.
+**Confirmed concept (2026-10-17):** an L-shaped book cover with pages fanning out inside the angle of the L.
 
-**Status:** concept confirmed; final artwork and variant selection remain undecided. The reference images are explorations, not production assets or colour authorities. Use the approved palette in section 03 for future work.
+**Approved logo (2026-10-18):** `assets/VariantaLogo1.png`. A Burgundy L-shaped cover with a Gold inset outline, a binding band near the top, three four-point star ornaments and four Gold pages fanning out inside the angle. `assets/VariantaLogo2.png` remains an earlier exploration only.
+
+**Status:** artwork approved; production files are pending. The PNG is the design reference, not a production asset: redraw it as a vector, matching the approved palette (Burgundy `#7A2233`, Gold `#C99A4E`) rather than sampling the PNG's colours.
 
 **Character:** warm, literary and tactile. The silhouette should suggest both the letter L and a book.
 
-**Details to explore, not fixed requirements:**
-- Page count, fan angle, proportions and corner radii.
-- Binding bands, inset outlines and star ornaments. These differ between the two proposals and are not mandatory elements.
-- A simplified small-size version, monochrome and dark-mode versions, and an app-icon treatment. Test actual renders before setting minimum-size rules.
+**Production work still to do, not new design decisions:**
+- Vector master file faithful to the approved artwork.
+- Small-size, monochrome and dark-mode versions and the app-icon treatment. Small sizes may need the stars, binding band or inset outline removed; test actual renders before setting minimum-size rules.
 - A Newsreader-based wordmark and symbol lockup, if needed; final lettering is not yet approved.
 
 **What to avoid:**
@@ -60,7 +61,7 @@ Lisette's identity should feel like a well-loved, well-lit reading room: warm pa
 - Use text and icons to identify success, errors and privacy states; colour alone must not carry the meaning.
 - Treat the image's 60/30/10 ratio as a loose composition guide, not a screen quota. Paper dominates light mode, Burgundy supplies structure, Gold stays sparse.
 - Reading themes start with Paper / Ink for light reading and Night burgundy / Paper for night reading. Additional surface shades and daylight/evening variants remain proposals to test, not approved extra base colours.
-- If the deferred reading heatmap is revisited, its visual treatment will be explored then; it is not a required brand asset.
+- Reading-pattern heatmap (proposal to test): a single-hue scale from Paper to Burgundy in light mode, always paired with text labels. No red/green or alarm colours.
 - Avoid pure white, pure black, neon accents, gradients and glows.
 
 ## 04 — Typography
@@ -106,7 +107,7 @@ For the demo and the competition, real photos of the team and testers reading be
 
 **Illustration:** light. Use simple, flat, single-colour shapes in the palette for empty states and onboarding, for example an empty shelf, a manuscript in an envelope, a reader with a book. No faces, so it stays inclusive and easy to produce.
 
-**Custom icons worth drawing:** spine-and-leaves (the logo), shelf, manuscript with a lock (privacy), envelope with a status check.
+**Custom icons worth drawing:** shelf, manuscript with a lock (privacy), envelope with a status check.
 
 ## 07 — Design Principles
 
@@ -120,26 +121,25 @@ Represent writers, readers and publishers equally across the overall brand, usin
 Type, contrast and spacing are tuned for reading before anything decorative. If a style makes text harder to read, it loses.
 
 **Trust is visible**
-Privacy and ownership states are clear and quiet: who can see a manuscript, what is encrypted, what is public. Never hide them or use scary visuals.
+Privacy and ownership states are clear and quiet: who can see a manuscript, who can open it, what is public. Never hide them or use scary visuals.
 
 ## 08 — Brand Expressions
 
 **Language rule:** the tagline examples below are English references. For Romanian assets use the approved tagline, "Unde editurile își găsesc autorii, iar cărțile, cititorii." See `messaging.md` for localized tagline usage.
 
-**App (React Native / Expo):** Paper background, Newsreader headings, Literata for excerpts, Inter for controls. Burgundy for primary actions. Bottom navigation with line icons. Adaptive reading themes follow the light sensor. Proposed app icon: the confirmed L-shaped book-cover concept with fanned pages, using the approved palette. Final construction and background treatment remain to be tested. For Android adaptive icons, keep the mark inside the central safe zone (about 66 dp of the 108 dp canvas).
+**App (React Native / Expo):** Paper background, Newsreader headings, Literata for excerpts, Inter for controls. Burgundy for primary actions. Bottom navigation with line icons. Adaptive reading themes follow the light sensor. App icon: the approved logo (`assets/VariantaLogo1.png`), simplified as needed for small sizes. Construction and background treatment remain to be tested. For Android adaptive icons, keep the mark inside the central safe zone (about 66 dp of the 108 dp canvas).
 
 **Website:** same system, more space for the tagline, "Writers find their way. Readers find their writers." in Newsreader, with a paired hero (writer on one side, reader on the other).
 
 **Google Play assets:** Burgundy feature graphic with the tagline in Paper, and screenshots on Paper backgrounds with short captions in Newsreader.
 
-**Social profiles and posts:** proposed avatar uses the L-shaped book-cover concept once final artwork is selected. Posts are quote cards in Newsreader on Paper or Burgundy, plus real reading photos. Keep one accent colour per post.
+**Social profiles and posts:** the avatar uses the approved logo. Posts are quote cards in Newsreader on Paper or Burgundy, plus real reading photos. Keep one accent colour per post.
 
-**Presentations / pitch deck (competition):** Paper background, Burgundy headings, one idea per slide, real screenshots and photos of the team and testers. Show working core features; do not present the deferred reading heatmap as a committed capability.
+**Presentations / pitch deck (competition):** Paper background, Burgundy headings, one idea per slide, real screenshots and photos of the team and testers. Show working core features; show the reading heatmap only as it actually works in the demo.
 
 **Business cards / stationery:** only if needed. Paper stock, Burgundy logo, Newsreader name, plenty of space.
 
 ## Open Items
-- Select and refine the final L-shaped book-cover variant; test small sizes and the Android adaptive icon safe zone.
+- Produce vector files from the approved logo (`assets/VariantaLogo1.png`); test small sizes and the Android adaptive icon safe zone.
 - Check contrast for every text and button colour pair in the real UI.
 - Base palette approved from `assets/ColorPaletteProposition.png`; test component states and dark-mode treatments in real screens.
-- Decide page count, proportions and ornamentation through visual testing; preserve the confirmed L-shaped cover with pages inside its angle.

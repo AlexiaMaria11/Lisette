@@ -58,15 +58,15 @@ Working English supporting copy: Lisette connects writers, readers and publisher
    *Proof:* multi-publisher submission with a status tracker (MVP).
 
 2. **Your work stays yours.**
-   Full manuscripts are encrypted and visible only to the publishers the author chooses. The submitter declares authorship or permission from all rights holders. Device authentication confirms the upload and protects local access, using biometrics or the phone PIN/password; it does not verify authorship.
-   *Proof:* encrypted storage, device-authenticated upload, author-controlled visibility (MVP).
+   Full manuscripts are kept in private storage, open only to the author and the publishers the author chooses. The submitter declares authorship or permission from all rights holders. Device authentication confirms the upload and protects local access, using biometrics or the phone PIN/password; it does not verify authorship.
+   *Proof:* private storage with access control, device-authenticated upload, author-controlled visibility (MVP).
 
 3. **Back the authors you love.**
-   Follow authors, read author-selected excerpts early, after any approvals required by accepted submission restrictions, review, share, and recommend. Your reading helps books get found.
-   *Proof:* follow and feed, excerpt reading as a beta-reader, notifications, reviews and shared shelves (MVP and later).
+   Follow authors, read the excerpts they share with everyone or with their followers, read pages early when an author invites you as a beta-reader, review and rate books, share and recommend. Shared text follows any approvals required by accepted submission restrictions. Your reading helps books get found.
+   *Proof:* follow and feed, followers-only excerpts, invited beta-reading, reviews and ratings, notifications when followed authors publish, shared shelves (planned for the first version).
 
 4. **One shelf for everything you read.** (supporting message)
-   Scan a book into your personal collection, then discover linked authors and publishers on Lisette and relevant events associated with the book or those people and organisations. See what followed authors read when they choose to share it. Ratings are a later possibility, not the centre of this experience.
+   Scan a book into your personal collection, then discover linked authors and publishers on Lisette and relevant events associated with the book or those people and organisations. See what followed authors read when they choose to share it. Reviews and ratings are part of the library, not its centre.
    *Planned capability:* ISBN scan, book collection and reliable book-to-author/publisher/event connections. The three reader shelves and private-by-default, per-entry public sharing are confirmed; detailed UI treatment remains to design.
 
 5. **Literary discoveries beyond the page.**
@@ -76,12 +76,11 @@ Working English supporting copy: Lisette connects writers, readers and publisher
 **Level 4: Proof point bank (planned, verify before use)**
 - Submit one manuscript to multiple publishers from one place.
 - Submission status tracking using the confirmed lifecycle in `../docs/product/requirements.md`; use localized labels, including On hold / În așteptare for authors.
-- Full manuscripts encrypted and shared only with chosen publishers.
+- Full manuscripts kept in private storage and shared only with chosen publishers, plus any pages the author shares with invited beta-readers.
 - A file hash and upload timestamp record the uploaded version and time, not proof of authorship.
 - Upload confirmation and local manuscript unlock use the phone's authentication system, with biometrics or a phone PIN/password fallback. Lisette does not collect or store biometric templates.
 - Scan an ISBN barcode with the camera to add a book.
-- Proposed adaptive reading uses ambient light; motion-based adaptations remain exploratory. Device support and the final qualifying sensor set require verification.
-- Audio is deleted after transcription (read-aloud feature, if built).
+- Proposed sensors: ambient light for reading themes; motion sensors and an on-device microphone noise level for reading context in the opt-in heatmap. No audio is recorded. Device support and the final qualifying sensor set require verification.
 - Account, data export and deletion options.
 
 ## 05 — Audience-Specific Messaging
@@ -89,7 +88,7 @@ Working English supporting copy: Lisette connects writers, readers and publisher
 **For writers (debut writers first)**
 - *Care most about:* being read, knowing where they stand, and not having their work stolen.
 - *Lead with:* "Send once. Know where you stand." and "Your work stays yours."
-- *Proof that lands hardest:* the status tracker, encryption and author-controlled visibility.
+- *Proof that lands hardest:* the status tracker, private storage with access control and author-controlled visibility.
 - *Avoid:* promising a publishing deal, ranking or "get discovered fast".
 
 **For readers**
@@ -101,12 +100,12 @@ Working English supporting copy: Lisette connects writers, readers and publisher
 **For publishers and editors (simulated in the prototype)**
 - *Care most about:* a consistent submission format, saving time, and respectful, structured replies.
 - *Lead with:* "Every submission, one format." and "Structured feedback, without the workload."
-- *Proof that lands hardest:* unified submission format and structured feedback to authors.
+- *Proof that lands hardest:* unified submission format, structured feedback to authors and, when an author chooses to share them, aggregated reading patterns on that author's excerpts (not an audience score).
 - *Avoid:* implying real partner publishers before they exist.
 
 **For the competition jury (secondary audience)**
 - *Care most about:* a clear idea, a working demo, and real use of phone sensors.
-- *Lead with:* the connection between writers, readers and publishers and the sensors that make it possible (camera scan and location-based literary discoveries, with the remaining qualifying sensors to confirm). The event map and location discoveries are priority features; the microphone remains optional.
+- *Lead with:* the connection between writers, readers and publishers and the sensors that make it possible: camera scan, location-based discoveries, ambient light, and motion and noise context for the reading heatmap. The final qualifying set depends on the rules and test devices. The event map and location discoveries are priority features.
 - *Avoid:* overclaiming. State plainly what is real and what is simulated.
 
 ## 06 — Messaging by Channel
@@ -118,7 +117,7 @@ Working English supporting copy: Lisette connects writers, readers and publisher
 | Social bio | Approved localized tagline | Warm, bookish | Very short |
 | Email subject lines | One concrete benefit or moment: "Your submission was received" | Personal, brief | Short |
 | Pitch deck / demo | Problem first (silence, scattered submissions, no way to back authors), then the connection | Confident, honest | Medium |
-| Paid ads (if ever) | Split by side: "Know where your manuscript stands." / "Read new pages before anyone else." | Warm, specific | Very short |
+| Paid ads (if ever) | Split by side: "Know where your manuscript stands." / "Read new pages from the authors you follow." | Warm, specific | Very short |
 
 ## 07 — Things Not to Say
 
@@ -127,7 +126,7 @@ Working English supporting copy: Lisette connects writers, readers and publisher
 - "Revolutionary", "game-changing", "AI-powered" or other hype and buzzwords.
 - Claims that depend on features not yet built, or real partner publishers while they are simulated.
 - Reassurance about saved work, uploads or submissions that the app cannot confirm. Distinguish confirmed failure from unknown status; follow the confirmed-state reassurance rule in `voice.md`.
-- Presenting the reading heatmap as an existing or committed feature. It is a deferred possibility; see `../docs/product/requirements.md`. Never infer attention or writing quality from scrolling, pauses or rereads.
+- Presenting the reading heatmap as individual reader tracking, as proof of attention or writing quality, or as already built before it works. It shows authors aggregated, opt-in reading patterns on public excerpts, shared with publishers only when the author chooses; see `../docs/product/requirements.md`.
 - Brand-level messaging that consistently sidelines writers, readers or publishers. The homepage and overall brand story represent all three groups equally. Audience-specific screens, notifications and campaigns can focus on writers, readers or publishers; their headlines do not need a paired counterpart.
 - "Social network" as the lead description. It is a table-stakes feature, not the differentiator.
 - Competitor-adjacent framing such as "the Goodreads for writers" or "the Twitter for books". It borrows someone else's identity.
