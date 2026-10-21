@@ -2,6 +2,10 @@
 
 Status: approved for implementation (2026-10-21). Stack decided: React Native + Expo (Expo Router, React Native Web), TypeScript, Supabase (Postgres, Auth, Storage, Edge Functions, EU region). Android phones/tablets first, authenticated web second, no iOS.
 
+## Tools on each computer
+
+VS Code with the Claude Code, Expo Tools and ESLint extensions; Node and Git; Docker and the Supabase CLI (both people, for the local database and SQL tests); Expo Go on a real Android phone. No Android Studio and no local Android SDK. When a module is not available in Expo Go (likely the PDF reader in 02.1), make a development build in the cloud with `eas build --profile development --platform android` (free Expo account) and install it on the phone. Claude Code plugins `expo` and `superpowers` are listed in `.claude/settings.json`.
+
 ## Read before any task
 
 1. `AGENTS.md` and `brand/brand.yaml` (approved wording, palette, fonts).
@@ -69,14 +73,14 @@ Weeks are checkpoints, not estimates; you work intermittently. At each checkpoin
 
 ## Device and service checks
 
-- Week 1: an Expo development build on a real Android phone and tablet reaches biometrics/device PIN, camera, location and the light sensor. Record missing hardware in `docs/testing/devices.md` before counting sensor points.
+- Week 1: Expo Go on a real Android phone (and tablet, if available) reaches biometrics/device PIN, camera, location, the light sensor and motion sensors. Record missing hardware in `docs/testing/devices.md` before counting sensor points.
 - 02.1: owner PDF preview works on Android phone, tablet and web, and clears on lock/logout. Stop and report if it cannot.
 - Before 05.1 and 06.1: check map provider and email service keys, terms and cost. Use local fixtures and a local mail sink until then.
 - Pin a compatible Expo SDK / Node set at the start; do not copy "latest".
 
 ## Commands
 
-Created in 01.1: `npm run typecheck`, `npm run lint`, `npm test -- --runInBand`, `supabase test db`, `npm run test:gateway`, `npm run test:web`, `npx expo export --platform web`, plus an installed Android APK on phone and tablet.
+Created in 01.1: `npm run typecheck`, `npm run lint`, `npm test -- --runInBand`, `supabase test db`, `npm run test:gateway`, `npm run test:web`, `npx expo export --platform web`, plus an Android APK built with EAS Build and installed on phone and tablet.
 
 ## Not decided: do not build
 

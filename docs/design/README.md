@@ -307,6 +307,15 @@ dimension values match, and the file has no variables beyond the generator's. It
 - **Heatmap:** v6 draws reading patterns as Gold "light traces" on Paper. `brand/identity.md` §03 proposes a
   Paper-to-Burgundy scale to test. Both are proposals.
 
+## Screens drawn before later decisions
+These screens show behaviour that changed on 2026-10-21. Build the documented behaviour, not the drawing:
+- **S-02 Creează cont:** sign-up must also let the person choose the account kind (person or publication). Every account is not a reader first; a publication is its own account.
+- **S-05 Cerere de cont de editură:** drawn as a request made from a person's account. A publication now signs up with its own email as a separate account, chooses its kind (publishing house, literary magazine or independent editor) and can post, comment, share quotes and create events while approval is pending.
+- **S-14 Setările editurii:** "Primesc manuscrise direct", the required materials and the genres/languages are no longer publisher settings. They belong to each call (S-43); an always-open call replaces direct submissions. Profile genres, resubmission and the sharing policy stay in publisher settings.
+- **S-24 Catalog / S-13 Profil de editură:** "accepts submissions now" comes from having an open call; add a filter by publication kind.
+- **S-62 Adăugare manuală:** before saving, show "Is this the book?" with existing similar books to pick from, or "add a new book".
+- **Not drawn yet:** a publication sharing a quote as a preview (choosing its own published book or a received manuscript), and the author's screen to approve such a quote.
+
 ## Proposed, not decided
 Each v6 choice below contradicts an approved document. Agents follow the approved documents until the user decides
 otherwise.

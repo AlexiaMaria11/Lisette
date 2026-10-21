@@ -8,6 +8,8 @@ Keep brand identity, product vision and implementation planning distinct. Do not
 
 Do not claim planned features, publisher partnerships, security guarantees or outcomes already exist. Verification of an upload or device credential is not proof of authorship. For functional work, read `docs/product/requirements.md`, including sharing and manuscript-protection policies.
 
+For Expo / React Native work, use the `expo` plugin skills, starting with `expo:expo-overview`. For a plan task, use `superpowers:executing-plans` and `superpowers:test-driven-development`. Development runs in Expo Go; native-only modules use an EAS development build, never a local Android SDK.
+
 For implementation work, also read `docs/superpowers/plans/2026-10-17-lisette-delivery.md` (stack, rules for every task, who does what, order) and the module plan of the task. Tables, columns, types, allowed values and limits come only from `docs/superpowers/specs/2026-10-21-lisette-database-design.md` and `docs/superpowers/specs/lisette-schema.html`; plans name tables but never redefine them. Record schema changes in both files.
 
 When an approved decision changes, update its canonical reference and affected guides together. Keep `brand/brand.yaml` consistent.
