@@ -30,7 +30,7 @@
 
 ## Why one shared application
 
-React Native is the user's selected framework. Expo supplies development/build tooling and native module integration; it does not replace React Native. React Native Web reuses components in browsers. Supabase is proposed because relational entities, transactions and access policies fit this product; no backend provider has been approved yet. Alternative: React Native CLI plus a separately managed web toolchain and API; choose it only if an actual native compatibility constraint requires the additional maintenance.
+React Native is the user's selected framework. Expo supplies development/build tooling and native module integration; it does not replace React Native. React Native Web reuses components in browsers. Supabase is the approved backend (2026-10-21) because relational entities, transactions and access policies fit this product. Alternative: React Native CLI plus a separately managed web toolchain and API; choose it only if an actual native compatibility constraint requires the additional maintenance.
 
 Use one package and feature folders, not a monorepo/package fleet. Database constraints/RLS and a small set of mutation RPCs own business rules. Do not add Redux, an event bus, GraphQL, custom auth or a generic repository layer by default. Query caching may be added only when repeated fetch/state handling makes it worthwhile.
 

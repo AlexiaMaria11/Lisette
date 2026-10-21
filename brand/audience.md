@@ -5,7 +5,7 @@
 
 ## 01 — Audience Overview
 
-Lisette serves three equally important groups around one thing: getting books from a writer's draft to a reader's shelf. The **launch beachhead is the debut writer**, someone with a finished or nearly finished manuscript, no agent or industry contact, and no way to tell whether anyone is reading their submission. An **equally central group is readers**, especially avid readers who like discovering new voices early and who want to back the authors they love, but have no real way to do so beyond buying a book. Also **equally central are publishers and editors**, who receive manuscripts in inconsistent formats and need a unified way to review them (simulated in the prototype).
+Lisette serves three equally important groups around one thing: getting books from a writer's draft to a reader's shelf. The **launch beachhead is the debut writer**, someone with a finished or nearly finished manuscript, no agent or industry contact, and no way to tell whether anyone is reading their submission. An **equally central group is readers**, especially avid readers who like discovering new voices early and who want to back the authors they love, but have no real way to do so beyond buying a book. Also **equally central are publishers and editors**, whether publishing houses, literary magazines or independent editors, who receive manuscripts in inconsistent formats and need a unified way to review them (simulated in the prototype).
 
 What frustrates them today: writers submit by hand, in different formats, with silence in return and a nagging fear of theft. Readers follow authors across scattered social feeds and have no direct line to either authors or publishers. Both feel the literary world is closed, slow, and one-directional.
 

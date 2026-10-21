@@ -18,7 +18,7 @@ Reported assessment: CRUD 5 points, sensors 2 points, complexity 3 points. Three
 |---|---|---|
 | Reader | Personal library, reviews and ratings, follow, post, react, comment, reshare public content, beta-read when invited, opt into reading patterns, discover events, mark interest/intent, unlock discoveries, report | No private manuscript access |
 | Author | Reader capabilities plus author profile, portfolio, manuscript versions, submissions, permitted excerpts for public/followers/beta-reader audiences, own reading patterns (shareable with chosen publishers), events and discoveries | Author activation does not verify identity or ownership |
-| Publisher | Public profile, community participation, events/discoveries, submission settings/calls, review and selection | Manual team approval required before receiving submissions; recipient-specific access |
+| Publisher (publishing house, literary magazine or independent editor) | Public profile, community participation, events/discoveries, submission settings/calls, review and selection | Manual team approval required before receiving submissions; recipient-specific access |
 | Administrator | Approve publisher accounts; review reports; hide content or suspend accounts | Moderation is not a legal ruling or blanket permission to read private manuscripts |
 
 People start as readers and activate author features in the same account. One administering user per publisher is confirmed for the first version; multi-user teams are deferred. Application content requires authentication; no signed-out public content pages are planned.

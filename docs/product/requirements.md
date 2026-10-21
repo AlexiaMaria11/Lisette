@@ -110,6 +110,12 @@ Status: approved functional baseline with subsequent decisions incorporated; det
 - When a publisher adds an existing Lisette author to its published-author list, require confirmation from that author before displaying the association publicly. A pending or declined association must not appear as an established publishing relationship.
 - Book-specific association rules, association removal and handling authors who are not on Lisette remain to be defined. Confirmation of an author association does not automatically confirm every claimed book relationship.
 
+## Confirmed Publisher Kinds (2026-10-21)
+- A publisher account has one kind: publishing house (editură), literary magazine or publication (revistă / publicație literară), or independent editor (editor independent, a person who receives manuscripts in their own name).
+- All kinds use the same publisher profile, settings, calls, sharing policies, review, evaluation, posts, events and discoveries. The kind is shown on the profile and can filter the publisher catalogue; it introduces no separate permissions or workflow.
+- Account approval stays manual. An independent editor usually lacks an official publisher email, so approval relies on direct confirmation.
+- Approved taglines and the Romanian central promise keep their exact wording.
+
 ## Confirmed Publisher Discovery Catalogue
 - Provide a searchable publisher catalogue so authors can discover recipients before submitting manuscripts.
 - Publisher profiles show an introduction, accepted literary genres and manuscript languages, whether ongoing submissions are open, and currently open calls or competitions.
@@ -216,6 +222,7 @@ Status: approved functional baseline with subsequent decisions incorporated; det
 - Still to define: granularity, data retention, whether earlier contributions are deleted when a reader opts out, how patterns behave when excerpt text is edited, exactly what motion and noise context is shown, and web/Android parity (motion and noise context are Android-only).
 
 ## Deferred / Maybe Features
+- Reader genre preferences on the profile: wanted, but after the core functions work (2026-10-21). Not in the first version.
 - Read-aloud with transcription and pace report: dropped (2026-10-18). The microphone is used only for the heatmap's ambient noise level.
 
 ## Product Notes (from the original concept, adjusted by confirmed decisions)
@@ -281,4 +288,4 @@ Status: approved functional baseline with subsequent decisions incorporated; det
 The approved functional baseline supports implementation planning. Record new functional decisions here and keep technical contracts and sequenced tasks in the delivery plans. Resolve remaining questions at the affected feature’s decision gate; do not restart discovery for settled areas. Unanswered questions and technical proposals are not approved product decisions.
 
 ## Technical delivery proposal
-See `../superpowers/plans/2026-10-17-lisette-delivery.md` and its six linked subsystem plans. React Native is required by the user; Expo, Supabase and technical defaults are proposals for review, not yet approved implementation decisions.
+See `../superpowers/plans/2026-10-17-lisette-delivery.md` and its six linked subsystem plans. React Native is required by the user; Supabase (Postgres, Auth, Storage, Edge Functions) is approved as the backend (2026-10-21). Expo and other technical defaults remain proposals for review. Database layout: `../superpowers/specs/2026-10-21-lisette-database-design.md`.

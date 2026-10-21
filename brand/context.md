@@ -19,7 +19,7 @@
 - Existing English examples in the brand guides are reference copy, not an English-only launch requirement. Romanian interface wording still needs to be developed and reviewed. Approved Romanian tagline: "Unde editurile își găsesc autorii, iar cărțile, cititorii." The English tagline remains "Writers find their way. Readers find their writers." These are localized brand expressions, not literal translations.
 
 ## Audience
-- **Core Audiences (approved 2026-10-17)**: Writers, readers and publishers are equally important participants. Debut writers are the first group to recruit, not a higher-priority audience in the brand. Readers discover authors, excerpts and literary events; publishers discover manuscripts, manage submissions and connect with their literary community. Publishers may be simulated in the competition prototype.
+- **Core Audiences (approved 2026-10-17)**: Writers, readers and publishers are equally important participants. Debut writers are the first group to recruit, not a higher-priority audience in the brand. Readers discover authors, excerpts and literary events; publishers discover manuscripts, manage submissions and connect with their literary community. Publishers may be simulated in the competition prototype. "Publisher" covers publishing houses, literary magazines and other literary publications, and independent editors (confirmed 2026-10-21); all use the same publisher profile and functions, with the kind shown on the profile. The approved taglines and central promise keep their wording.
 - **Key Problem**:
   - Debut writers submit manuscripts by hand to each publisher, in different formats and with no status tracking.
   - Feedback is rare, late, and subjective.

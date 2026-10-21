@@ -75,6 +75,7 @@ content creator, creators, monetize, boost, hack, game-changing, revolutionary, 
 **Brand-specific language:**
 - In product copy, address people by their relevant role: **writers**, **readers**, **publishers** or **editors**, rather than generic "users" or "creators". Technical documentation may use "user".
 - Use **shelf** for a reader's saved books, and **library** for the whole collection.
+- **Publisher** in product copy covers publishing houses, literary magazines/publications and independent editors. Where the kind matters, name it ("publisher or magazine", "editură sau revistă"); do not alter the approved taglines or central promise.
 - Use **submission** for a manuscript sent to a publisher.
 - Location-based surprises are optional literary discoveries. Plain terms such as "discover" or literal "unlock" may describe access; avoid using them as exaggerated promises.
 - Use Romanian diacritics in Romanian copy. English vocabulary examples are references, not a requirement to use English terms in Romanian.
