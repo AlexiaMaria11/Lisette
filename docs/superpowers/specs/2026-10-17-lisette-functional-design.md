@@ -21,7 +21,7 @@ Reported assessment: CRUD 5 points, sensors 2 points, complexity 3 points. Three
 | Publisher (publishing house, literary magazine or independent editor) | Public profile, community participation, events/discoveries, submission settings/calls, review and selection | Manual team approval required before receiving submissions; recipient-specific access |
 | Administrator | Approve publisher accounts; review reports; hide content or suspend accounts | Moderation is not a legal ruling or blanket permission to read private manuscripts |
 
-People start as readers and activate author features in the same account. One administering user per publisher is confirmed for the first version; multi-user teams are deferred. Application content requires authentication; no signed-out public content pages are planned.
+People start as readers and activate author features in the same account. Each publication is a separate account with its own login, never attached to a person's account; that login is its single administrator, and multi-user teams are deferred (confirmed 2026-10-21). Before approval a publisher can post and create events; only receiving manuscripts waits for approval. Publishers can share quotes as previews from their own published works, or from a received manuscript with the author's approval of the exact text. Application content requires authentication; no signed-out public content pages are planned.
 
 ## 3. Functional modules and proposed screen inventory
 

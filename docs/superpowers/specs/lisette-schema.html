@@ -4,7 +4,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap">
 <style>
-/* Layout: overview map of modules, sticky module bar, then one card grid per module; selecting a table lights up what it points to and what points to it. */
+/* Layout: overview map, data-type glossary, sticky module bar, one card grid per module, then the value lists; selecting a table lights up its relations. */
 :root {
   --bg: #F6EFE3; --surface: #FFFBF4; --fg: #2E1F1A; --muted: #6E5A51; --line: #E0D3BF;
   --accent: #7A2233; --accent-soft: #F2DEDF; --gold: #8A6420; --gold-soft: #F4E7CD;
@@ -23,7 +23,7 @@
   --server: #F6EFE3; --server-fg: #2E1F1A; color-scheme: dark; }
 
 body { background: var(--bg); color: var(--fg); font-family: var(--f-ui); font-size: 15px; line-height: 1.5; }
-.wrap { max-width: 1240px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.wrap { max-width: 1280px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
 h1, h2 { font-family: var(--f-display); font-weight: 600; text-wrap: balance; margin: 0; }
 h1 { font-size: clamp(28px, 4vw, 40px); line-height: 1.1; }
 h2 { font-size: 26px; }
@@ -32,14 +32,14 @@ p { margin: 0; }
 code, .mono { font-family: var(--f-mono); font-size: 0.86em; }
 
 header.top { padding-block: 32px 8px; display: grid; gap: 10px; }
-header.top p { max-width: 68ch; }
+header.top p { max-width: 72ch; }
 
 .how { display: flex; flex-wrap: wrap; gap: 8px 20px; padding-block: 16px; font-size: 13px; color: var(--muted); align-items: center; }
 .how span { display: inline-flex; gap: 6px; align-items: center; }
 
 .overview { overflow-x: auto; padding-block: 8px 16px; }
 .overview svg { min-width: 640px; width: 100%; height: auto; display: block; }
-.ov-edge { stroke: var(--line); stroke-width: 2; fill: none; }
+.ov-edge { stroke: var(--line); fill: none; }
 .ov-count { font: 600 12px var(--f-ui); fill: var(--muted); paint-order: stroke; stroke: var(--bg); stroke-width: 5px; }
 .ov-node rect { fill: var(--surface); stroke: var(--line); stroke-width: 1.5; }
 .ov-node:hover rect, .ov-node:focus-visible rect { stroke: var(--accent); stroke-width: 2; }
@@ -52,25 +52,35 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .bar .wrap { display: flex; flex-wrap: wrap; gap: 6px; padding-block: 10px; align-items: center; }
 .chip { font: 500 13px var(--f-ui); color: var(--fg); background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 4px 12px; text-decoration: none; }
 .chip:hover { border-color: var(--accent); }
-.bar input { margin-left: auto; font: 13px var(--f-ui); color: var(--fg); background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 6px 10px; min-width: 0; width: 200px; }
+.chip.alt { border-style: dashed; }
+.bar input { margin-left: auto; font: 13px var(--f-ui); color: var(--fg); background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 6px 10px; min-width: 0; width: 220px; }
 .bar input:focus-visible, button:focus-visible, .chip:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
-main { padding-block: 8px 48px; display: grid; gap: 40px; }
+main { padding-block: 8px 48px; display: grid; gap: 44px; }
 section.mod { display: grid; gap: 14px; scroll-margin-top: 70px; }
-section.mod > p { max-width: 75ch; color: var(--muted); }
-.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 12px; align-items: start; }
+section.mod > p { max-width: 78ch; color: var(--muted); }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 12px; align-items: start; }
+@media (max-width: 400px) { .grid { grid-template-columns: 1fr; } }
 
 .card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; display: grid; min-width: 0; transition: opacity .15s, border-color .15s; scroll-margin-top: 80px; }
 .card-head { all: unset; cursor: pointer; display: flex; gap: 8px; align-items: center; justify-content: space-between; padding: 10px 12px 4px; border-radius: 10px 10px 0 0; }
 .tname { font: 600 14px var(--f-mono); overflow-wrap: anywhere; }
-.desc { padding: 0 12px 8px; font-size: 13px; color: var(--muted); }
+.desc { padding: 0 12px 6px; font-size: 13px; color: var(--muted); }
 .meta { padding: 0 12px 8px; font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
-.cols { list-style: none; margin: 0; padding: 6px 12px 10px; border-top: 1px solid var(--line); display: grid; gap: 2px; }
-.cols li { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; font: 12.5px var(--f-mono); }
+.cols { list-style: none; margin: 0; padding: 4px 0 6px; border-top: 1px solid var(--line); display: grid; }
+.col { padding: 5px 12px; display: grid; gap: 2px; border-bottom: 1px solid color-mix(in srgb, var(--line) 55%, transparent); }
+.col:last-child { border-bottom: 0; }
+.c-top { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; font: 12.5px var(--f-mono); }
+.cname { font-weight: 600; overflow-wrap: anywhere; }
+.ctype { margin-left: auto; font: 12px var(--f-mono); color: var(--gold); }
+button.ctype { background: none; border: 0; padding: 0; cursor: pointer; text-decoration: underline dotted; text-underline-offset: 3px; }
+.c-note { font-size: 12px; color: var(--muted); overflow-wrap: anywhere; }
+.c-vals { font: 11.5px var(--f-mono); color: var(--fg); overflow-wrap: anywhere; }
 .pk { font: 600 10px var(--f-ui); letter-spacing: .04em; color: var(--gold); border: 1px solid var(--gold); border-radius: 4px; padding: 0 4px; }
 .fk { font: 500 11.5px var(--f-mono); color: var(--accent); background: var(--accent-soft); border: 0; border-radius: 4px; padding: 1px 6px; cursor: pointer; }
 .fk:hover { text-decoration: underline; }
-.opt { font: 400 10.5px var(--f-ui); color: var(--muted); }
+.opt { font: 500 10.5px var(--f-ui); color: var(--muted); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; }
+.uniq { padding: 6px 12px 10px; font-size: 12px; color: var(--muted); border-top: 1px solid var(--line); }
 
 .priv { font: 600 10.5px var(--f-ui); letter-spacing: .04em; text-transform: uppercase; border-radius: 4px; padding: 2px 6px; white-space: nowrap; }
 .p-public { color: var(--muted); border: 1px solid var(--line); }
@@ -79,10 +89,28 @@ section.mod > p { max-width: 75ch; color: var(--muted); }
 .p-server { color: var(--server-fg); background: var(--server); }
 
 body.focusing .card { opacity: .28; }
-body.focusing .card.is-sel, body.focusing .card.is-out, body.focusing .card.is-in { opacity: 1; }
+body.focusing .card.is-sel, body.focusing .card.is-out, body.focusing .card.is-in, body.focusing .enum, body.focusing .type-card { opacity: 1; }
 .card.is-sel { border: 2px solid var(--accent); }
 .card.is-out { border: 2px solid var(--gold); }
 .card.is-in { border: 2px dashed var(--accent); }
+.card.flash { border: 2px solid var(--gold); }
+
+.types { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 10px; }
+.type-card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; display: grid; gap: 2px; min-width: 0; }
+.type-card b { font: 600 13px var(--f-mono); color: var(--gold); }
+.type-card span { font-size: 13px; }
+.type-card i { font-style: normal; font: 11.5px var(--f-mono); color: var(--muted); overflow-wrap: anywhere; }
+
+.enums { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 12px; align-items: start; }
+.enum { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; display: grid; min-width: 0; scroll-margin-top: 80px; }
+.enum h3 { margin: 0; padding: 10px 12px 2px; font: 600 14px var(--f-mono); color: var(--gold); }
+.enum p { padding: 0 12px 8px; font-size: 13px; color: var(--muted); }
+.enum dl { margin: 0; padding: 6px 12px 10px; border-top: 1px solid var(--line); display: grid; grid-template-columns: max-content 1fr; gap: 3px 12px; font-size: 13px; }
+.enum dt { font: 600 12.5px var(--f-mono); }
+.enum dd { margin: 0; color: var(--muted); }
+.enum .used { padding: 0 12px 10px; font-size: 12px; color: var(--muted); }
+.enum .used button { all: unset; cursor: pointer; font: 12px var(--f-mono); color: var(--accent); }
+.enum .used button:hover { text-decoration: underline; }
 
 #panel { position: fixed; z-index: 20; left: max(12px, env(safe-area-inset-left, 0px)); right: max(12px, env(safe-area-inset-right, 0px)); bottom: calc(12px + env(safe-area-inset-bottom, 0px)); max-width: 760px; margin: 0 auto; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; box-shadow: 0 10px 30px rgba(46,31,26,.18); padding: 14px 16px; max-height: 46vh; overflow: auto; display: grid; gap: 10px; }
 #panel h3 { margin: 0; font: 600 15px var(--f-mono); display: flex; justify-content: space-between; gap: 8px; align-items: center; }
@@ -95,22 +123,38 @@ body.focusing .card.is-sel, body.focusing .card.is-out, body.focusing .card.is-i
 .rel button:focus-visible { outline: 2px solid var(--accent); }
 body.panel-open main { padding-bottom: 46vh; }
 
+.log { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 12px; align-items: start; }
+.log-box { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; display: grid; gap: 8px; min-width: 0; }
+.log-box h3 { margin: 0; font: 600 16px var(--f-display); }
+.log-box ol, .log-box ul { margin: 0; padding-left: 18px; display: grid; gap: 6px; font-size: 13.5px; }
+.log-box li code { overflow-wrap: anywhere; }
+.log-box .date { font: 600 11px var(--f-ui); letter-spacing: .04em; text-transform: uppercase; color: var(--gold); }
+.log-box.todo { border-color: var(--accent); }
+.fmap { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 12px; align-items: start; }
+.fmap dl { margin: 0; display: grid; gap: 8px; }
+.fmap dt { font-size: 13.5px; font-weight: 600; }
+.fmap dd { margin: 0; font-size: 13px; color: var(--muted); }
+.fmap dd button { all: unset; cursor: pointer; font: 600 12.5px var(--f-mono); color: var(--accent); }
+.fmap dd button:hover { text-decoration: underline; }
+.fmap dd button:focus-visible { outline: 2px solid var(--accent); }
 @media (max-width: 560px) { .bar input { width: 100%; margin-left: 0; } }
 @media (prefers-reduced-motion: reduce) { .card { transition: none; } }
 </style>
 
 <header class="top wrap">
   <h1>Schema bazei de date Lisette</h1>
-  <p class="muted">Propunerea din <code>2026-10-21-lisette-database-design.md</code>, pe Supabase (PostgreSQL). Fiecare card e un tabel. Apasă pe numele unui tabel ca să vezi cu cine e legat: tabelele spre care indică se colorează auriu, iar cele care îl folosesc pe el apar cu chenar punctat.</p>
+  <p class="muted">Propunerea din <code>2026-10-21-lisette-database-design.md</code>, pe Supabase (PostgreSQL). Fiecare card e un tabel, cu fiecare coloană: tipul de date (auriu, în dreapta), dacă e obligatorie, valoarea implicită, limitele și, pentru listele fixe, valorile posibile. Apasă pe numele unui tabel ca să vezi cu cine e legat. Limitele marcate „propunere” sunt valori de pornire, nu decizii luate.</p>
 </header>
 
 <div class="how wrap" aria-label="Legendă">
-  <span><span class="pk">PK</span> cheia rândului (identificatorul)</span>
-  <span><span class="fk" aria-hidden="true">→ works</span> indică spre alt tabel (apasă ca să sari acolo)</span>
-  <span><span class="priv p-public">Public</span> văzut de toți cei logați</span>
-  <span><span class="priv p-setari">După setări</span> depinde de alegerea autorului sau de confirmări</span>
-  <span><span class="priv p-privat">Privat</span> doar proprietarul / destinatarul</span>
-  <span><span class="priv p-server">Doar server</span> fără acces direct din aplicație</span>
+  <span><span class="pk">PK</span> cheia rândului</span>
+  <span><span class="fk" aria-hidden="true">→ works</span> indică spre alt tabel</span>
+  <span><span class="opt">opțional</span> poate rămâne gol (NULL); fără etichetă = obligatoriu</span>
+  <span><span class="ctype">shelf</span> tip auriu subliniat = listă fixă de valori</span>
+  <span><span class="priv p-public">Public</span> toți cei logați</span>
+  <span><span class="priv p-setari">După setări</span> depinde de alegeri/confirmări</span>
+  <span><span class="priv p-privat">Privat</span> proprietarul / destinatarul</span>
+  <span><span class="priv p-server">Doar server</span> fără acces direct</span>
 </div>
 
 <div class="overview wrap" aria-label="Harta modulelor">
@@ -119,18 +163,124 @@ body.panel-open main { padding-bottom: 46vh; }
 
 <nav class="bar" aria-label="Module">
   <div class="wrap" id="chips">
-    <input id="q" type="search" placeholder="Caută un tabel…" aria-label="Caută un tabel">
+    <a class="chip alt" href="#functii">Unde e fiecare funcție</a>
+    <a class="chip alt" href="#jurnal">Modificări și decizii</a>
+    <a class="chip alt" href="#tipuri">Tipuri de date</a>
+    <input id="q" type="search" placeholder="Caută tabel sau coloană…" aria-label="Caută tabel sau coloană">
   </div>
 </nav>
 
-<main class="wrap" id="main"></main>
+<main class="wrap" id="main">
+  <section class="mod" id="functii">
+    <h2>Unde e fiecare funcție</h2>
+    <p>Funcțiile din brainstorming și secțiunile de profil, cu tabelele în care stau. Apasă pe un tabel ca să sari la el.</p>
+    <div class="fmap">
+      <div class="log-box">
+        <h3>Scriitor</h3>
+        <dl>
+          <dt>Trimite manuscrise la publicații</dt><dd><button data-go="manuscript_versions">manuscript_versions</button>, <button data-go="submissions">submissions</button>, <button data-go="submission_materials">submission_materials</button>, prin <button data-go="calls">calls</button></dd>
+          <dt>Profil: Publicații (cărți, reviste, antologii) și Recently published</dt><dd><button data-go="portfolio_entries">portfolio_entries</button></dd>
+          <dt>Profil: Work in progress</dt><dd><button data-go="works">works</button> cu owner_id = autorul, visibility = public, is_published = false, plus fragmentele lor din <button data-go="excerpts">excerpts</button></dd>
+          <dt>Profil: Inspirații</dt><dd><button data-go="library_entries">library_entries</button> cu is_inspiration = true</dd>
+          <dt>Profil: blog, site, rețele sociale</dt><dd><button data-go="profiles">profiles</button>.links</dd>
+          <dt>Fragmente din manuscris (cu acordul editurii unde e cazul)</dt><dd><button data-go="excerpts">excerpts</button>, <button data-go="text_versions">text_versions</button>, <button data-go="sharing_requests">sharing_requests</button>, <button data-go="sharing_decisions">sharing_decisions</button></dd>
+          <dt>Easter eggs după locație</dt><dd><button data-go="discoveries">discoveries</button>, <button data-go="discovery_variants">discovery_variants</button>, <button data-go="discovery_variant_versions">discovery_variant_versions</button></dd>
+          <dt>Beta-cititori</dt><dd><button data-go="beta_shares">beta_shares</button>, <button data-go="beta_share_readers">beta_share_readers</button></dd>
+          <dt>Postări și evenimente</dt><dd><button data-go="contents">contents</button> + <button data-go="posts">posts</button>, <button data-go="events">events</button></dd>
+        </dl>
+      </div>
+      <div class="log-box">
+        <h3>Publicație</h3>
+        <dl>
+          <dt>Se înscrie ca editură, revistă sau editor independent</dt><dd><button data-go="accounts">accounts</button> (kind = publisher), <button data-go="publishers">publishers</button>.kind</dd>
+          <dt>Primește materiale de la scriitori</dt><dd><button data-go="submissions">submissions</button>, <button data-go="submission_inbox">submission_inbox</button>, <button data-go="evaluations">evaluations</button></dd>
+          <dt>Anunțuri pentru primit materiale (apeluri, concursuri)</dt><dd><button data-go="calls">calls</button>, <button data-go="call_genres">call_genres</button></dd>
+          <dt>Profil: genurile cu care lucrează</dt><dd><button data-go="publisher_genres">publisher_genres</button></dd>
+          <dt>Profil: autorii și cărțile ei</dt><dd><button data-go="author_publisher_associations">author_publisher_associations</button>, <button data-go="work_publishers">work_publishers</button></dd>
+          <dt>Citate și fragmente ca preview</dt><dd><button data-go="excerpts">excerpts</button>.source, <button data-go="sharing_requests">sharing_requests</button>.author_decision</dd>
+          <dt>Postări și evenimente</dt><dd><button data-go="posts">posts</button>, <button data-go="events">events</button>, <button data-go="event_participants">event_participants</button></dd>
+        </dl>
+      </div>
+      <div class="log-box">
+        <h3>Cititor</h3>
+        <dl>
+          <dt>Urmărește scriitori și edituri</dt><dd><button data-go="follows">follows</button></dd>
+          <dt>Bibliotecă personală și scanare carte</dt><dd><button data-go="library_entries">library_entries</button>, <button data-go="works">works</button> (isbn)</dd>
+          <dt>Preferințe de genuri</dt><dd>amânat; mai târziu un tabel profile_genres pe lângă <button data-go="genres">genres</button></dd>
+          <dt>Citește pasaje publice</dt><dd><button data-go="excerpts">excerpts</button>, <button data-go="text_versions">text_versions</button></dd>
+          <dt>Descoperă evenimente din zonă</dt><dd><button data-go="events">events</button>.location, <button data-go="event_intents">event_intents</button></dd>
+          <dt>Deblochează fragmente speciale</dt><dd><button data-go="discovery_unlocks">discovery_unlocks</button></dd>
+          <dt>Păreri la fragmente și cărți</dt><dd><button data-go="reactions">reactions</button>, <button data-go="comments">comments</button>, <button data-go="reviews">reviews</button>, <button data-go="ratings">ratings</button></dd>
+          <dt>Contribuie la raportul de citire</dt><dd><button data-go="reading_consents">reading_consents</button>, <button data-go="reading_sessions">reading_sessions</button></dd>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section class="mod" id="jurnal">
+    <h2>Modificări și decizii</h2>
+    <p>Tot ce s-a schimbat în schemă și ce s-a decis, ca să nu trebuiască să cauți în chat sau în alte documente. Cele mai noi sunt primele.</p>
+    <div class="log">
+      <div class="log-box">
+        <h3>Ce s-a schimbat</h3>
+        <ol>
+          <li><span class="date">Versiunea 10</span><br>Planurile de implementare au fost rescrise scurt, pe modelul nou. Fiecare task numește tabelele pe care le creează din această schemă. <code>domain_events</code> se creează acum în fundație (task 01.3), ca amândoi să-l puteți folosi de la început. Schema nu s-a schimbat.</li>
+          <li><span class="date">Versiunea 9</span><br>„Aceasta e cartea?” la adăugarea manuală: căutare după titlu și autor asemănător în <code>works</code> (index <code>pg_trgm</code>), ca să nu apară aceeași carte de două ori. Fără tabele sau coloane noi.</li>
+          <li><span class="date">Versiunea 7</span><br>Descrierea lui <code>works</code> spune explicit că e tabelul central de cărți. Schema nu s-a schimbat.</li>
+          <li><span class="date">Versiunea 6</span><br>Secțiune nouă, „Unde e fiecare funcție”. Descrieri mai clare pentru <code>works</code> (Work in progress) și <code>portfolio_entries</code> (Publicații pe profil). Schema nu s-a schimbat.</li>
+          <li><span class="date">Versiunea 4</span><br>Toate căile de primire a manuscriselor sunt acum apeluri (<code>calls</code>). <code>closes_at</code> gol = apel mereu deschis. Fără <code>kind</code>: un concurs se numește ca atare în titlu. Cerințele, limbile și genurile sunt pe fiecare apel. <code>submissions.call_id</code> e obligatoriu. Din <code>publishers</code> au ieșit <code>direct_submissions_open</code>, cele 5 <code>req_*</code> și <code>accepted_languages</code>. <code>publisher_genres</code> rămâne, ca genuri ale profilului. Lista <code>call_kind</code> a fost ștearsă.</li>
+          <li><span class="date">Versiunea 3</span><br>Publicația are cont separat. <code>actors</code> a fost înlocuit de <code>accounts</code> (un login = persoană sau publicație). <code>profiles</code> și <code>publishers</code> sunt extensii unu la unu ale lui. <code>publishers.owner_id</code> a dispărut. Urmăririle, blocările, postările, comentariile, reacțiile, evenimentele, notificările și raportările indică spre <code>accounts</code>.</li>
+          <li><span class="date">Versiunea 3</span><br>Citate de la publicații: <code>excerpts.source</code> (<code>own_work</code> / <code>own_book</code> / <code>received_manuscript</code>) și <code>excerpts.submission_id</code>; <code>sharing_requests.requested_by</code> și <code>author_decision</code> pentru acordul autorului. Liste noi: <code>account_kind</code>, <code>excerpt_source</code>.</li>
+          <li><span class="date">Versiunea 2</span><br>La fiecare coloană: tipul de date, dacă e obligatorie, valoarea implicită, limitele și valorile posibile. Secțiuni noi: Tipuri de date și Liste de valori.</li>
+          <li><span class="date">Versiunea 1</span><br>Prima schemă: 7 module, legăturile între tabele și cine poate vedea fiecare tabel.</li>
+        </ol>
+      </div>
+      <div class="log-box">
+        <h3>Decis de voi</h3>
+        <ul>
+          <li>Backend: Supabase (PostgreSQL).</li>
+          <li>Aplicația: React Native cu Expo și React Native Web, în TypeScript.</li>
+          <li>Lucrul în doi: persoana A pe manuscrise, persoana B pe comunitate și descoperire; fundația și finalul împreună.</li>
+          <li>Publicație = editură, revistă literară sau editor independent, cu același profil și aceleași funcții.</li>
+          <li>Preferințele de genuri ale cititorilor vin după funcțiile de bază; nu sunt în prima versiune.</li>
+          <li>Fiecare publicație are contul ei, cu loginul ei; un cont = o singură publicație.</li>
+          <li>Înainte de aprobare, publicația poate face tot, mai puțin să primească manuscrise.</li>
+          <li>Publicația poate distribui citate ca preview din cărțile ei publicate sau din manuscrise primite, cu acordul autorului pe textul exact.</li>
+          <li>La adăugarea manuală a unei cărți, aplicația întreabă „Aceasta e cartea?” și arată cărțile asemănătoare; nu unește nimic automat.</li>
+          <li>Apelurile: un singur tip, fără <code>kind</code>; apel fără dată de încheiere = mereu deschis; criteriile pe apel; genurile profilului separat.</li>
+        </ul>
+      </div>
+      <div class="log-box todo">
+        <h3>Decis de mine, de confirmat</h3>
+        <ol>
+          <li>Manuscrisul = versiunile PDF ale unei opere (<code>works</code> + <code>manuscript_versions</code>), fără tabel <code>manuscripts</code> separat.</li>
+          <li>Cererea de cont de publicație e chiar rândul din <code>publishers</code>, cu <code>approval_status = pending</code>; fără tabel separat de cereri.</li>
+          <li>Cerințele unui apel sunt 5 coloane da/nu pe <code>calls</code>.</li>
+          <li>Postările și fragmentele împart tabelul <code>contents</code>, ca reacțiile și comentariile să aibă un singur loc.</li>
+          <li>Marcajul „deschis” al publicației stă separat, în <code>submission_inbox</code>, ca autorul să nu-l poată vedea.</li>
+          <li>Locațiile folosesc PostGIS (<code>geography(Point)</code>).</li>
+          <li>Citat dintr-un manuscris primit: pe lângă autor, aprobă și celelalte publicații ale căror restricții se aplică.</li>
+          <li>Apelurile unei publicații neaprobate nu apar ca deschise până la aprobare.</li>
+          <li><code>sharing_policy</code> și <code>resubmission_allowed</code> rămân pe publicație și se aplică tuturor apelurilor ei.</li>
+          <li>Un apel fără genuri acceptă orice gen.</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="mod" id="tipuri">
+    <h2>Tipuri de date folosite</h2>
+    <p>Ce înseamnă tipurile scrise cu auriu în dreapta fiecărei coloane. Toate sunt tipuri standard PostgreSQL, plus PostGIS pentru locații.</p>
+    <div class="types" id="types"></div>
+  </section>
+</main>
 
 <aside id="panel" hidden aria-live="polite"></aside>
 
 <script>
 const MODULES = [
   { id: "accounts", name: "Conturi și publicații", pos: [480, 215],
-    text: "Cine este fiecare: persoana (cititor, iar după activare și autor) și, opțional, publicația pe care o administrează. Tabelul actors le unifică, ca să poți urmări, bloca sau credita la fel un autor și o revistă." },
+    text: "Fiecare cont (login) e fie o persoană (cititor, iar după activare și autor), fie o publicație, cu emailul ei. Tabelul accounts le unifică, ca să poți urmări, bloca sau credita la fel un autor și o revistă." },
   { id: "works", name: "Opere și manuscrise", pos: [168, 135],
     text: "O operă (works) e cartea sau proiectul. Manuscrisul înseamnă versiunile PDF private ale acelei opere. O trimitere fixează versiunea trimisă și are propriul status și istoric." },
   { id: "community", name: "Comunitate și partajare", pos: [792, 135],
@@ -145,82 +295,250 @@ const MODULES = [
     text: "Jurnalul de evenimente din care pleacă notificările (în aplicație și pe email), raportările și deciziile echipei." }
 ];
 
-// Column syntax: name* = PK, >table = indică spre (multe la unu), =table = unu la unu, trailing ? = opțional.
-const T = (module, name, privacy, desc, cols) => ({ module, name, privacy, desc, cols });
+const TYPES = [
+  ["uuid", "Identificator unic generat automat. Toate cheile și legăturile folosesc acest tip.", "ex. 3f1c9a2e-…-8b7d"],
+  ["text", "Text de orice lungime. Limitele se pun cu reguli (check) în baza de date.", "ex. „Poeme de iarnă”"],
+  ["boolean", "Da sau nu.", "true / false"],
+  ["smallint · integer", "Număr întreg. smallint pentru valori mici (notă, an, poziție), integer pentru mărimi.", "ex. 4, 2024, 1048576"],
+  ["timestamptz", "Dată și oră exactă, stocată în UTC; aplicația o afișează în ora locală.", "ex. 2026-10-21 14:30:00+00"],
+  ["text[]", "Listă de texte într-o singură coloană.", "ex. {ro,en}"],
+  ["uuid[]", "Listă de identificatori.", "ex. {id1,id2}"],
+  ["jsonb", "Date structurate (JSON). Folosit doar unde forma e mică și fixă; forma e descrisă la coloană.", "ex. [{\"kind\":\"blog\",\"url\":\"https://…\"}]"],
+  ["geography(Point)", "Punct pe hartă (latitudine, longitudine), din extensia PostGIS. Permite „ce e la sub 100 m de mine”.", "ex. POINT(26.10 44.43)"],
+  ["int4multirange", "Unul sau mai multe intervale de numere întregi. Folosit pentru paginile date beta-cititorilor.", "ex. {[1,21),[40,51)} = paginile 1–20 și 40–50"],
+  ["listă fixă (enum)", "Coloana acceptă doar valorile din listă. Toate listele sunt mai jos, în secțiunea „Liste de valori”.", "ex. shelf: to_read / reading / read"]
+];
+
+const ENUMS = {
+  app_locale: ["Limba interfeței, aleasă explicit.", [["ro", "română"], ["en", "engleză"]]],
+  publisher_kind: ["Tipul de publicație.", [["publishing_house", "editură"], ["literary_magazine", "revistă sau publicație literară"], ["independent_editor", "editor independent (o persoană)"]]],
+  approval_status: ["Starea aprobării unui cont de publicație de către echipă.", [["pending", "cerere trimisă, în așteptare"], ["approved", "aprobată; poate primi manuscrise"], ["rejected", "respinsă"], ["suspended", "suspendată ulterior"]]],
+  verification_method: ["Cum a confirmat echipa legătura cu publicația.", [["official_email", "email oficial al publicației"], ["direct_confirmation", "confirmare directă (ex. editor independent)"]]],
+  sharing_policy: ["Ce trebuie să aprobe publicația înainte ca autorul să arate text cititorilor.", [["author_controlled", "nimic; decide autorul"], ["synopsis_approval", "sinopsisul"], ["synopsis_and_excerpt_approval", "sinopsisul și fragmentele"]]],
+  account_kind: ["Tipul contului, fix de la înregistrare.", [["person", "persoană (cititor/autor)"], ["publisher", "publicație"]]],
+  excerpt_source: ["De unde provine textul unui fragment sau citat.", [["own_work", "opera proprie a autorului"], ["own_book", "carte publicată de publicația care citează (fără aprobare)"], ["received_manuscript", "manuscris primit de publicație; necesită acordul autorului pe textul exact"]]],
+  link_status: ["Starea unei legături propuse de altcineva.", [["pending", "așteaptă confirmarea"], ["confirmed", "confirmată; apare public"], ["declined", "refuzată"]]],
+  work_visibility: ["Cine vede o operă.", [["private", "doar proprietarul"], ["public", "toți cei logați"]]],
+  work_source: ["De unde vine o operă.", [["author", "creată de autorul ei"], ["isbn_lookup", "găsită după ISBN (Open Library)"], ["manual", "adăugată manual de un cititor"]]],
+  portfolio_kind: ["Tipul unei apariții din portofoliu.", [["book", "carte"], ["newspaper", "ziar"], ["magazine", "revistă"], ["anthology", "antologie sau volum colectiv"]]],
+  submission_status: ["Statusul unei trimiteri.", [["submitted", "trimisă (înregistrată)"], ["in_review", "în evaluare"], ["on_hold", "în așteptare (Maybe la publicație)"], ["selected", "selectată de publicație"], ["rejected", "respinsă definitiv"], ["withdrawn", "retrasă de autor"]]],
+  material_kind: ["Materialele trimise pe lângă manuscris.", [["synopsis", "sinopsis"], ["sample", "fragment / capitole de probă"], ["author_intro", "scurtă prezentare a autorului"]]],
+  content_kind: ["Ce fel de conținut e în contents.", [["post", "postare obișnuită"], ["excerpt", "fragment sau sinopsis"]]],
+  share_kind: ["Ce se cere să fie arătat cititorilor.", [["synopsis", "sinopsis"], ["excerpt", "fragment"], ["beta_pages", "pagini pentru beta-cititori"]]],
+  audience: ["Cine vede un fragment.", [["public", "toți cei logați"], ["followers", "doar urmăritorii autorului"]]],
+  decision: ["Răspunsul unei publicații la o cerere de partajare.", [["pending", "încă nu a răspuns"], ["approved", "aprobat"], ["refused", "refuzat"]]],
+  reaction_kind: ["Reacțiile posibile (denumiri de lucru; etichetele finale țin de design).", [["love", "îmi place mult"], ["okay", "a fost ok"], ["dislike", "nu mi-a plăcut"]]],
+  beta_invite_status: ["Starea unui beta-cititor invitat.", [["invited", "invitat"], ["accepted", "a acceptat; are acces"], ["declined", "a refuzat"], ["revoked", "autorul i-a retras accesul"]]],
+  consent_level: ["Acordul cititorului pentru heatmap.", [["off", "oprit (implicit)"], ["standard", "contează doar de la 10 cititori"], ["no_threshold", "contează oricâți cititori ar fi"]]],
+  motion_context: ["Contextul de mișcare, redus pe telefon.", [["still", "nemișcat"], ["moving", "în mișcare"]]],
+  noise_level: ["Nivelul de zgomot, calculat pe telefon; nu se înregistrează sunet.", [["quiet", "liniște"], ["moderate", "moderat"], ["loud", "zgomotos"]]],
+  shelf: ["Rafturile bibliotecii personale.", [["to_read", "De citit"], ["reading", "Citesc acum"], ["read", "Citite"]]],
+  event_intent: ["Intenția unei persoane față de un eveniment.", [["interested", "Mă interesează"], ["going", "Particip"]]],
+  notification_channel: ["Pe unde pleacă o notificare.", [["in_app", "în aplicație"], ["email", "email"]]],
+  delivery_status: ["Starea trimiterii unei notificări.", [["pending", "de trimis"], ["sent", "trimisă"], ["failed", "eșuată după reîncercări"]]],
+  report_target: ["Ce poate fi raportat.", [["profile", "cont de persoană"], ["publisher", "publicație"], ["post", "postare"], ["excerpt", "fragment"], ["comment", "comentariu"], ["review", "recenzie"], ["event", "eveniment"], ["discovery", "descoperire"]]],
+  report_status: ["Starea unei raportări.", [["open", "nouă"], ["dismissed", "ignorată"], ["actioned", "s-a luat o măsură"]]],
+  moderation_action: ["Ce poate decide echipa.", [["dismiss", "ignoră raportarea"], ["hide", "ascunde conținutul"], ["suspend", "suspendă contul"], ["remove", "elimină complet (ex. o descoperire)"]]],
+  deletion_status: ["Starea unei cereri de ștergere a contului.", [["requested", "cerută"], ["in_review", "în analiză"], ["completed", "finalizată"]]]
+};
+
+// Column: "name|type|note". Name markers: * = PK, >table = indică spre (multe la unu), =table = unu la unu, trailing ? = opțional (NULL).
+const T = (module, name, privacy, desc, cols, uniq) => ({ module, name, privacy, desc, cols, uniq });
+const TS = ["created_at|timestamptz|implicit now()"];
+const TSU = ["created_at|timestamptz|implicit now()", "updated_at|timestamptz|se actualizează la fiecare modificare"];
 const TABLES = [
-  T("accounts", "auth_users", "server", "Tabelul de autentificare al Supabase (email, parolă). Îl gestionează Supabase, nu îl creăm noi.", ["id*", "email"]),
-  T("accounts", "profiles", "public", "Persoana: cititor, iar după activare și autor. Un rând pentru fiecare cont.", ["id*=auth_users", "display_name", "pen_name", "avatar_path", "bio", "links", "locale", "author_enabled", "suspended_at"]),
-  T("accounts", "private_contacts", "privat", "Emailul și telefonul folosite la trimiteri. Le vede doar titularul; se copiază în trimitere când autorul trimite.", ["user_id*=profiles", "contact_email", "phone"]),
-  T("accounts", "admins", "server", "Membrii echipei care aprobă publicații și moderează.", ["user_id*=profiles"]),
-  T("accounts", "publishers", "public", "Publicația: editură, revistă literară sau editor independent (coloana kind). Are un singur administrator. Doar cele aprobate primesc manuscrise.", ["id*", "owner_id=profiles", "kind", "name", "intro", "approval_status", "verification_method", "reviewed_by>profiles?", "direct_submissions_open", "resubmission_allowed", "sharing_policy", "accepted_languages", "req_* (5 cerințe)"]),
-  T("accounts", "actors", "public", "Identitatea care postează, urmărește sau e urmărită: fie o persoană, fie o publicație (exact una dintre cele două).", ["id*", "kind", "profile_id=profiles?", "publisher_id=publishers?"]),
-  T("accounts", "genres", "public", "Lista comună de genuri literare, în română și engleză. Mai târziu o folosesc și preferințele cititorilor.", ["id*", "code", "name_ro", "name_en"]),
-  T("accounts", "publisher_genres", "public", "Ce genuri acceptă fiecare publicație. Legătură mulți-la-mulți.", ["publisher_id*>publishers", "genre_id*>genres"]),
-  T("accounts", "follows", "public", "Cine pe cine urmărește: persoane sau publicații.", ["follower_actor_id*>actors", "followed_actor_id*>actors", "created_at"]),
-  T("accounts", "blocks", "privat", "Blocările dintre identități. Blocarea unei publicații oprește doar trimiterile noi.", ["blocker_actor_id*>actors", "blocked_actor_id*>actors"]),
-  T("accounts", "author_publisher_associations", "setari", "Publicația spune „acest autor e al nostru”. Apare public doar după ce autorul confirmă.", ["id*", "publisher_id>publishers", "author_id>profiles", "status", "responded_at"]),
+  T("accounts", "auth_users", "server", "Tabelul de autentificare al Supabase (auth.users). Îl gestionează Supabase: email, parolă, verificare, recuperare.", [
+    "id*|uuid|generat de Supabase", "email|text|unic; trebuie verificat"]),
+  T("accounts", "accounts", "public", "Contul: fiecare login e fie o persoană, fie o publicație. Tipul se alege la înregistrare și nu se schimbă. Postările, urmăririle, blocările și evenimentele indică spre acest tabel.", [
+    "id*=auth_users|uuid|același id ca în autentificare", "kind|account_kind|fix de la înregistrare", "locale|app_locale|aleasă la prima deschidere",
+    "suspended_at?|timestamptz|setat de moderare", ...TS],
+    "Pentru fiecare cont există exact un rând în profiles (dacă kind = person) sau în publishers (dacă kind = publisher)."),
+  T("accounts", "profiles", "public", "Detaliile unei persoane: cititor, iar după activare și autor. Doar pentru conturi de tip person.", [
+    "id*=accounts|uuid|același id ca în accounts", "display_name|text|1–80 caractere", "pen_name?|text|pseudonim; max 80",
+    "avatar_path?|text|cale în bucketul public-media", "bio?|text|max 1000 caractere (propunere)",
+    "links|jsonb|listă [{kind: blog / website / social, url: https://…}]; implicit []",
+    "author_enabled|boolean|implicit false", "author_activated_at?|timestamptz|când a activat profilul de autor"]),
+  T("accounts", "private_contacts", "privat", "Emailul și telefonul folosite la trimiteri. Le vede doar titularul; se copiază în trimitere când autorul trimite.", [
+    "user_id*=profiles|uuid|", "contact_email|text|format email valid", "phone?|text|format internațional, ex. +40712345678; obligatoriu înainte de prima trimitere", "updated_at|timestamptz|"]),
+  T("accounts", "admins", "server", "Membrii echipei (conturi de persoană) care aprobă publicații și moderează. Se adaugă doar din setup, nu din aplicație.", [
+    "user_id*=profiles|uuid|", ...TS]),
+  T("accounts", "publishers", "public", "Detaliile unei publicații: editură, revistă literară sau editor independent. Are contul ei; loginul e singurul administrator. Înainte de aprobare poate posta, crea evenimente și distribui citate; doar primirea manuscriselor așteaptă aprobarea.", [
+    "id*=accounts|uuid|același id ca în accounts; doar conturi de tip publisher", "kind|publisher_kind|",
+    "name|text|1–120 caractere", "intro?|text|max 2000 caractere (propunere)", "logo_path?|text|bucket public-media", "website?|text|URL https",
+    "approval_status|approval_status|implicit pending", "verification_method?|verification_method|completat la aprobare",
+    "reviewed_by>admins?|uuid|adminul care a decis", "reviewed_at?|timestamptz|",
+    "resubmission_allowed|boolean|implicit false; retrimitere după retragere/respingere, pentru toate apelurile",
+    "sharing_policy|sharing_policy|implicit author_controlled; pentru toate apelurile", ...TS],
+    "Criteriile de primire (cerințe, limbi, genuri) sunt pe fiecare apel din calls. „Primește manuscrise acum” se calculează: are cel puțin un apel deschis."),
+  T("accounts", "genres", "public", "Lista comună de genuri literare. O completează echipa; mai târziu o folosesc și preferințele cititorilor.", [
+    "id*|uuid|", "code|text|unic, litere mici, ex. poetry, short_fiction", "name_ro|text|ex. Poezie", "name_en|text|ex. Poetry"]),
+  T("accounts", "publisher_genres", "public", "Genurile cu care lucrează publicația, afișate pe profil și folosite la filtrul de gen din catalog. Separat de genurile unui apel.", [
+    "publisher_id*>publishers|uuid|", "genre_id*>genres|uuid|"]),
+  T("accounts", "follows", "public", "Cine pe cine urmărește: persoane sau publicații.", [
+    "follower_id*>accounts|uuid|cine urmărește", "followed_id*>accounts|uuid|pe cine; diferit de follower", ...TS]),
+  T("accounts", "blocks", "privat", "Blocările dintre identități. Blocarea unei publicații oprește doar trimiterile noi.", [
+    "blocker_id*>accounts|uuid|cine blochează", "blocked_id*>accounts|uuid|cine e blocat", ...TS]),
+  T("accounts", "author_publisher_associations", "setari", "Publicația spune „acest autor e al nostru”. Apare public doar după ce autorul confirmă.", [
+    "id*|uuid|", "publisher_id>publishers|uuid|", "author_id>profiles|uuid|", "status|link_status|implicit pending", ...TS, "responded_at?|timestamptz|când a răspuns autorul"],
+    "Unic: (publisher_id, author_id)."),
 
-  T("works", "works", "setari", "Cartea sau proiectul: carte publicată găsită după ISBN sau proiect nepublicat al unui autor. Privată până când autorul o face publică.", ["id*", "title", "description", "owner_id>profiles?", "is_published", "isbn", "author_names", "language", "genre_id>genres?", "cover_path", "visibility", "source"]),
-  T("works", "work_authors", "public", "Legătura confirmată dintre o operă și autorii ei de pe Lisette. Nu se ghicește automat.", ["work_id*>works", "author_id*>profiles", "status"]),
-  T("works", "work_publishers", "public", "Legătura dintre o operă și publicația care a publicat-o. Publică doar când e confirmată.", ["work_id*>works", "publisher_id*>publishers", "status"]),
-  T("works", "portfolio_entries", "public", "Aparițiile declarate de autor: cărți, reviste, ziare, antologii. Fără verificare.", ["id*", "author_id>profiles", "kind", "title", "outlet", "year", "url", "work_id>works?"]),
-  T("works", "manuscript_versions", "privat", "Fișierele PDF ale manuscrisului. O versiune nu se mai schimbă după încărcare.", ["id*", "work_id>works", "storage_path", "sha256", "byte_size", "page_count", "label", "uploaded_at"]),
-  T("works", "calls", "public", "Apelurile și concursurile unei publicații, cu perioadă și cerințe proprii.", ["id*", "publisher_id>publishers", "kind", "title", "opens_at", "closes_at", "accepted_languages", "req_* (5 cerințe)", "published_at", "cancelled_at"]),
-  T("works", "call_genres", "public", "Genurile acceptate de un apel.", ["call_id*>calls", "genre_id*>genres"]),
-  T("works", "submissions", "privat", "O trimitere: o operă, o versiune fixă, o publicație. Are statusul ei. O singură trimitere activă per operă și publicație.", ["id*", "author_id>profiles", "work_id>works", "version_id>manuscript_versions", "publisher_id>publishers", "call_id>calls?", "genre_id>genres?", "status", "contact_email", "contact_phone", "accepted_policy", "rights_declared_at", "idempotency_key", "submitted_at"]),
-  T("works", "submission_materials", "privat", "Sinopsisul, fragmentul și prezentarea autorului, trimise odată cu manuscrisul.", ["id*", "submission_id>submissions", "kind", "body", "storage_path"]),
-  T("works", "submission_status_history", "privat", "Istoricul schimbărilor de status. Rândurile doar se adaugă, nu se modifică.", ["id*", "submission_id>submissions", "from_status", "to_status", "changed_by>profiles", "note", "changed_at"]),
-  T("works", "submission_inbox", "privat", "Marcajul „deschis / nedeschis” pe care îl vede doar publicația. Separat, ca autorul să nu-l poată citi niciodată.", ["submission_id*=submissions", "opened_at"]),
-  T("works", "evaluations", "privat", "Evaluarea scurtă a publicației. Obligatorie la selecție.", ["id*", "submission_id>submissions", "history_id=submission_status_history?", "stood_out", "could_improve", "observations"]),
+  T("works", "works", "setari", "Tabelul central de cărți: fiecare carte e un singur rând, comun pentru toți utilizatorii; notele, recenziile, bibliotecile, fragmentele și evenimentele indică spre el. Poate fi o carte publicată găsită după ISBN sau un proiect nepublicat al unui autor. Secțiunea Work in progress de pe profil = operele cu owner_id = autorul, visibility = public și is_published = false, împreună cu fragmentele lor permise. Un proiect e privat până când autorul îl face public.", [
+    "id*|uuid|", "title|text|1–200 caractere; căutare după asemănare (index pg_trgm) pentru „Aceasta e cartea?”", "description?|text|max 2000 caractere (propunere)",
+    "owner_id>profiles?|uuid|autorul, pentru proiecte proprii; gol la cărțile din catalog", "is_published|boolean|implicit false; doar cărțile publicate pot primi note/recenzii",
+    "isbn?|text|unic; ISBN-13 (13 cifre), validat cu cifra de control", "author_names|text[]|numele autorilor din catalog; implicit {}; inclus în căutarea „Aceasta e cartea?”",
+    "language?|text|cod ISO 639-1, ex. ro", "genre_id>genres?|uuid|", "cover_path?|text|copertă în public-media",
+    "visibility|work_visibility|implicit private", "source|work_source|", "external_id?|text|ID-ul din Open Library", ...TSU],
+    "ISBN unic: o carte cu ISBN apare o singură dată. La adăugarea manuală, aplicația arată întâi cărțile asemănătoare („Aceasta e cartea?”); persoana alege una sau creează una nouă. Cărțile nu se unesc niciodată automat."),
+  T("works", "work_authors", "public", "Legătura dintre o operă și autorii ei de pe Lisette. Nu se ghicește automat.", [
+    "work_id*>works|uuid|", "author_id*>profiles|uuid|", "status|link_status|confirmed automat pentru propria operă; altfel pending"]),
+  T("works", "work_publishers", "public", "Legătura dintre o operă și publicația care a publicat-o. Publică doar când e confirmată.", [
+    "work_id*>works|uuid|", "publisher_id*>publishers|uuid|", "status|link_status|implicit pending"]),
+  T("works", "portfolio_entries", "public", "Secțiunea Publicații de pe profilul autorului: cărți, apariții în reviste și ziare, antologii. Le adaugă autorul singur, fără verificare; din ele se construiește și „Recently published”.", [
+    "id*|uuid|", "author_id>profiles|uuid|", "kind|portfolio_kind|", "title|text|1–200 caractere", "outlet?|text|numele revistei, ziarului sau editurii; max 200",
+    "year?|smallint|între 1800 și anul curent", "url?|text|URL https", "work_id>works?|uuid|dacă opera există pe Lisette", ...TS]),
+  T("works", "manuscript_versions", "privat", "Fișierele PDF ale manuscrisului. O versiune nu se mai schimbă după încărcare.", [
+    "id*|uuid|", "work_id>works|uuid|", "storage_path|text|în bucketul privat manuscripts", "sha256|text|amprenta fișierului: 64 caractere hex",
+    "byte_size|integer|max 20 MiB = 20 971 520 (propunere)", "page_count|integer|mai mare decât 0", "label?|text|ex. „v2 după redactare”; max 80", "uploaded_at|timestamptz|implicit now()"]),
+  T("works", "calls", "public", "Orice cale prin care o publicație primește manuscrise: apel permanent (fără dată de încheiere) sau apel/concurs cu termen. O publicație poate avea mai multe deschise deodată, cu criterii diferite.", [
+    "id*|uuid|", "publisher_id>publishers|uuid|", "title|text|1–200 caractere; un concurs se numește ca atare aici", "description?|text|max 5000 caractere (propunere)",
+    "opens_at|timestamptz|", "closes_at?|timestamptz|gol = mereu deschis; altfel după opens_at", "accepted_languages|text[]|coduri ISO 639-1, ex. {ro,en}; măcar una",
+    "req_full_manuscript|boolean|implicit true", "req_synopsis|boolean|implicit false", "req_sample|boolean|implicit false", "req_genre|boolean|implicit false", "req_author_intro|boolean|implicit false",
+    "published_at?|timestamptz|gol = ciornă, nevizibil", "cancelled_at?|timestamptz|", ...TS],
+    "Deschis = publicat, neanulat, opens_at a trecut și closes_at e gol sau în viitor. Publicația trebuie să fie aprobată ca apelul să apară deschis."),
+  T("works", "call_genres", "public", "Genurile acceptate de un apel. Niciun rând = orice gen.", [
+    "call_id*>calls|uuid|", "genre_id*>genres|uuid|"]),
+  T("works", "submissions", "privat", "O trimitere: o operă, o versiune fixă, o publicație. Are statusul ei. Se creează și se modifică doar prin funcțiile de server.", [
+    "id*|uuid|", "author_id>profiles|uuid|", "work_id>works|uuid|", "version_id>manuscript_versions|uuid|versiunea trimisă; nu se mai schimbă",
+    "publisher_id>publishers|uuid|copiat din apel, pentru regula de duplicat", "call_id>calls|uuid|apelul prin care a intrat", "genre_id>genres?|uuid|obligatoriu dacă cerințele includ genul",
+    "status|submission_status|implicit submitted", "contact_email|text|copiat din private_contacts la trimitere", "contact_phone|text|copiat la trimitere; obligatoriu",
+    "accepted_policy|jsonb|{requirements: {cele 5 cerințe ale apelului}, sharing_policy} la momentul trimiterii",
+    "rights_declared_at|timestamptz|când a bifat declarația de drepturi", "contact_consent_at|timestamptz|când a acceptat dezvăluirea emailului/telefonului",
+    "idempotency_key|uuid|unic; generat de aplicație ca reîncercarea să nu dubleze", "submitted_at|timestamptz|implicit now()", "status_changed_at|timestamptz|ultima schimbare de status"],
+    "Unic: idempotency_key. O singură trimitere activă (submitted, in_review, on_hold, selected) per (work_id, publisher_id)."),
+  T("works", "submission_materials", "privat", "Sinopsisul, fragmentul și prezentarea autorului, trimise odată cu manuscrisul.", [
+    "id*|uuid|", "submission_id>submissions|uuid|", "kind|material_kind|", "body?|text|max 5000 caractere (propunere)", "storage_path?|text|PDF opțional pentru fragment"],
+    "Unic: (submission_id, kind). Măcar unul dintre body și storage_path e completat."),
+  T("works", "submission_status_history", "privat", "Istoricul schimbărilor de status. Rândurile doar se adaugă, nu se modifică.", [
+    "id*|uuid|", "submission_id>submissions|uuid|", "from_status?|submission_status|gol la prima intrare", "to_status|submission_status|",
+    "changed_by>accounts|uuid|autorul sau publicația", "note?|text|max 1000 caractere", "changed_at|timestamptz|implicit now()"]),
+  T("works", "submission_inbox", "privat", "Marcajul „deschis / nedeschis” pe care îl vede doar publicația. Separat, ca autorul să nu-l poată citi niciodată.", [
+    "submission_id*=submissions|uuid|", "opened_at?|timestamptz|gol = nedeschis; setat la prima citire"]),
+  T("works", "evaluations", "privat", "Evaluarea scurtă a publicației. Obligatorie la selecție, opțională în rest.", [
+    "id*|uuid|", "submission_id>submissions|uuid|", "history_id=submission_status_history?|uuid|schimbarea de status la care a fost dată",
+    "stood_out?|text|ce a ieșit în evidență", "could_improve?|text|ce se poate îmbunătăți", "observations?|text|observații pentru autor", ...TS],
+    "Măcar un câmp completat; total max 2000 caractere (propunere). Fără note numerice."),
 
-  T("community", "contents", "setari", "Baza comună pentru postări și fragmente, ca reacțiile, comentariile și raportările să aibă un singur loc.", ["id*", "kind", "actor_id>actors", "work_id>works?", "created_at", "deleted_at", "hidden_at"]),
-  T("community", "posts", "public", "Postarea obișnuită: text, imagini sau redistribuirea altui conținut.", ["content_id*=contents", "body", "reshare_of>contents?"]),
-  T("community", "post_images", "public", "Imaginile unei postări.", ["id*", "content_id>contents", "storage_path", "position"]),
-  T("community", "excerpts", "setari", "Fragmentul sau sinopsisul împărtășit, cu publicul ales: toată lumea sau doar urmăritorii.", ["content_id*=contents", "share_kind", "audience", "published_version_id>text_versions?"]),
-  T("community", "text_versions", "setari", "Textul exact al unui fragment. Orice modificare e o versiune nouă, care trebuie reaprobată.", ["id*", "excerpt_id>excerpts", "body", "sha256"]),
-  T("community", "sharing_requests", "privat", "Cererea autorului de a face public un text sau de a da pagini beta-cititorilor.", ["id*", "author_id>profiles", "work_id>works", "kind", "text_version_id>text_versions?", "beta_share_id>beta_shares?"]),
-  T("community", "sharing_decisions", "privat", "Răspunsul fiecărei publicații care trebuie să aprobe cererea (câte unul per trimitere activă).", ["request_id*>sharing_requests", "submission_id*>submissions", "publisher_id>publishers", "decision", "decided_at"]),
-  T("community", "reactions", "public", "O reacție (love / okay / dislike) per persoană per conținut.", ["user_id*>profiles", "content_id*>contents", "actor_id>actors", "kind"]),
-  T("community", "comments", "public", "Comentarii și răspunsuri la comentarii.", ["id*", "content_id>contents", "parent_id>comments?", "actor_id>actors", "body", "deleted_at", "hidden_at"]),
-  T("community", "beta_shares", "privat", "Paginile dintr-o versiune pe care autorul le dă beta-cititorilor. Se citesc doar în aplicație.", ["id*", "work_id>works", "version_id>manuscript_versions", "page_ranges", "derived_path"]),
-  T("community", "beta_share_readers", "privat", "Beta-cititorii invitați și statusul lor: invitat, acceptat, refuzat, revocat.", ["share_id*>beta_shares", "reader_id*>profiles", "status", "revoked_at"]),
+  T("community", "contents", "setari", "Baza comună pentru postări și fragmente, ca reacțiile, comentariile și raportările să aibă un singur loc.", [
+    "id*|uuid|", "kind|content_kind|", "account_id>accounts|uuid|cine a publicat (persoană sau publicație)", "work_id>works?|uuid|opera aleasă explicit de autor", ...TSU,
+    "deleted_at?|timestamptz|șters de autor", "hidden_at?|timestamptz|ascuns de moderare"]),
+  T("community", "posts", "public", "Postarea obișnuită: text, imagini sau redistribuirea altui conținut.", [
+    "content_id*=contents|uuid|", "body?|text|max 3000 caractere (propunere)", "reshare_of>contents?|uuid|conținutul redistribuit"],
+    "Trebuie să aibă măcar text, o imagine sau un reshare_of."),
+  T("community", "post_images", "public", "Imaginile unei postări.", [
+    "id*|uuid|", "content_id>contents|uuid|", "storage_path|text|bucket public-media; max 5 MiB (propunere)", "position|smallint|0–3: max 4 imagini (propunere)"]),
+  T("community", "excerpts", "setari", "Fragmentul, sinopsisul sau citatul împărtășit, cu publicul ales. Îl poate publica autorul sau o publicație (ca preview).", [
+    "content_id*=contents|uuid|", "share_kind|share_kind|doar synopsis sau excerpt aici", "source|excerpt_source|de unde provine textul",
+    "submission_id>submissions?|uuid|completat doar dacă source = received_manuscript", "audience|audience|implicit public",
+    "published_version_id>text_versions?|uuid|textul vizibil acum; gol = încă nepublicat"]),
+  T("community", "text_versions", "setari", "Textul exact al unui fragment. Orice modificare e o versiune nouă, care trebuie reaprobată.", [
+    "id*|uuid|", "excerpt_id>excerpts|uuid|", "body|text|1–10 000 caractere (propunere)", "sha256|text|amprenta textului", ...TS]),
+  T("community", "sharing_requests", "privat", "Cererea de a face public un text sau de a da pagini beta-cititorilor. O face autorul, sau o publicație care vrea să citeze dintr-un manuscris primit.", [
+    "id*|uuid|", "requested_by>accounts|uuid|autorul sau publicația", "work_id>works|uuid|", "kind|share_kind|",
+    "text_version_id>text_versions?|uuid|pentru synopsis / excerpt", "beta_share_id>beta_shares?|uuid|pentru beta_pages",
+    "author_decision?|decision|completat doar când cere o publicație; trebuie approved", "author_decided_at?|timestamptz|", ...TS],
+    "Exact unul dintre text_version_id și beta_share_id e completat. Când cere o publicație, autorul aprobă textul exact; celelalte publicații cu restricții decid în sharing_decisions."),
+  T("community", "sharing_decisions", "privat", "Răspunsul fiecărei publicații care trebuie să aprobe cererea (câte unul per trimitere activă).", [
+    "request_id*>sharing_requests|uuid|", "submission_id*>submissions|uuid|trimiterea care impune aprobarea", "publisher_id>publishers|uuid|",
+    "decision|decision|implicit pending", "decided_at?|timestamptz|"]),
+  T("community", "reactions", "public", "O reacție per cont per conținut; se poate schimba sau șterge.", [
+    "account_id*>accounts|uuid|persoană sau publicație", "content_id*>contents|uuid|", "kind|reaction_kind|", ...TS]),
+  T("community", "comments", "public", "Comentarii și răspunsuri la comentarii.", [
+    "id*|uuid|", "content_id>contents|uuid|", "parent_id>comments?|uuid|gol = comentariu direct; completat = răspuns", "account_id>accounts|uuid|",
+    "body|text|1–2000 caractere (propunere)", ...TSU, "deleted_at?|timestamptz|", "hidden_at?|timestamptz|"]),
+  T("community", "beta_shares", "privat", "Paginile dintr-o versiune pe care autorul le dă beta-cititorilor. Se citesc doar în aplicație.", [
+    "id*|uuid|", "work_id>works|uuid|", "version_id>manuscript_versions|uuid|", "page_ranges|int4multirange|ex. {[1,21),[40,51)}; în limitele page_count",
+    "derived_path?|text|PDF-ul cu doar paginile alese, generat de server", ...TS]),
+  T("community", "beta_share_readers", "privat", "Beta-cititorii invitați și statusul lor.", [
+    "share_id*>beta_shares|uuid|", "reader_id*>profiles|uuid|", "status|beta_invite_status|implicit invited",
+    "responded_at?|timestamptz|", "revoked_at?|timestamptz|"]),
 
-  T("heatmap", "reading_consents", "privat", "Acordul cititorului pentru heatmap: oprit, standard sau fără prag. Implicit oprit.", ["user_id*=profiles", "level", "noise_allowed"]),
-  T("heatmap", "reading_sessions", "server", "O sesiune de citire a unui fragment public. Nimeni nu o citește direct; se calculează doar agregatul.", ["id*", "reader_id>profiles", "excerpt_id>excerpts", "text_version_id>text_versions", "consent_level", "segments", "stop_segment", "motion", "noise"]),
-  T("heatmap", "pattern_shares", "privat", "Fragmentele al căror heatmap autorul l-a arătat unei publicații.", ["excerpt_id*>excerpts", "publisher_id*>publishers"]),
+  T("heatmap", "reading_consents", "privat", "Acordul cititorului pentru heatmap. Lipsa rândului înseamnă „oprit”.", [
+    "user_id*=profiles|uuid|", "level|consent_level|implicit off", "noise_allowed|boolean|implicit false; folosirea microfonului pentru nivelul de zgomot", "updated_at|timestamptz|"]),
+  T("heatmap", "reading_sessions", "server", "O sesiune de citire a unui fragment public. Nimeni nu o citește direct; se calculează doar agregatul.", [
+    "id*|uuid|", "reader_id>profiles|uuid|folosit doar la numărarea cititorilor; nu iese niciodată din server", "excerpt_id>excerpts|uuid|doar fragmente public",
+    "text_version_id>text_versions|uuid|", "consent_level|consent_level|standard sau no_threshold, la momentul citirii",
+    "segments|jsonb|[{segment: nr. paragraf, ms: timp, revisits: reveniri}]", "stop_segment?|integer|paragraful unde s-a oprit",
+    "motion?|motion_context|", "noise?|noise_level|gol dacă microfonul e refuzat", ...TS]),
+  T("heatmap", "pattern_shares", "privat", "Fragmentele al căror heatmap autorul l-a arătat unei publicații.", [
+    "excerpt_id*>excerpts|uuid|", "publisher_id*>publishers|uuid|", ...TS]),
 
-  T("library", "library_entries", "setari", "O carte în biblioteca cuiva, pe un raft (de citit, citesc acum, citite). Privată până o faci publică.", ["user_id*>profiles", "work_id*>works", "shelf", "is_public", "is_inspiration"]),
-  T("library", "ratings", "public", "Nota de la 1 la 5. Una per persoană per carte. Nu se afișează medie.", ["user_id*>profiles", "work_id*>works", "value"]),
-  T("library", "reviews", "public", "Recenzia. Una per persoană per carte; poate fi raportată.", ["id*", "user_id>profiles", "work_id>works", "actor_id>actors", "body", "hidden_at"]),
+  T("library", "library_entries", "setari", "O carte în biblioteca cuiva, pe un raft. Privată până o faci publică.", [
+    "user_id*>profiles|uuid|", "work_id*>works|uuid|", "shelf|shelf|implicit to_read", "is_public|boolean|implicit false",
+    "is_inspiration|boolean|implicit false; apare la Inspirații pe profilul de autor", "added_at|timestamptz|implicit now()", "updated_at|timestamptz|"]),
+  T("library", "ratings", "public", "Nota. Una per persoană per carte. Nu se afișează medie.", [
+    "user_id*>profiles|uuid|", "work_id*>works|uuid|doar opere cu is_published = true", "value|smallint|număr întreg de la 1 la 5", "updated_at|timestamptz|"]),
+  T("library", "reviews", "public", "Recenzia. Una per persoană per carte; poate fi raportată.", [
+    "id*|uuid|", "user_id>profiles|uuid|", "work_id>works|uuid|doar opere publicate", "body|text|1–5000 caractere (propunere)", ...TSU, "hidden_at?|timestamptz|"],
+    "Unic: (user_id, work_id)."),
 
-  T("map", "events", "public", "Evenimentul literar (lansare, întâlnire), cu loc pe hartă. Cel anulat rămâne vizibil, marcat ca anulat.", ["id*", "creator_actor_id>actors", "title", "starts_at", "timezone", "venue", "location", "registration_url", "cancelled_at"]),
-  T("map", "event_participants", "setari", "Autorii și publicațiile care participă. Apar public după ce confirmă.", ["event_id*>events", "actor_id*>actors", "status"]),
-  T("map", "event_works", "public", "Cărțile legate de un eveniment.", ["event_id*>events", "work_id*>works"]),
-  T("map", "event_intents", "privat", "„Mă interesează” sau „Particip”. Nu e bilet.", ["event_id*>events", "user_id*>profiles", "intent"]),
-  T("map", "discoveries", "setari", "Surpriza ascunsă într-un loc (easter egg). Pe hartă se văd doar titlul, autorul și indiciul.", ["id*", "creator_actor_id>actors", "title", "hint", "location", "event_id>events?", "work_id>works?", "stopped_at", "removed_at"]),
-  T("map", "discovery_variants", "privat", "Variantele unei surprize. Fiecare cititor primește una la întâmplare.", ["id*", "discovery_id>discoveries", "current_version_id>discovery_variant_versions", "active"]),
-  T("map", "discovery_variant_versions", "privat", "Conținutul unei variante (text, imagini). Nu se mai schimbă după ce a fost dat cuiva.", ["id*", "variant_id>discovery_variants", "body", "image_paths", "sharing_request_id>sharing_requests?"]),
-  T("map", "discovery_unlocks", "privat", "Ce variantă a primit fiecare cititor. Rămâne în colecția lui.", ["discovery_id*>discoveries", "user_id*>profiles", "variant_version_id>discovery_variant_versions", "unlocked_at"]),
+  T("map", "events", "public", "Evenimentul literar (lansare, întâlnire), cu loc pe hartă. Cel anulat rămâne vizibil, marcat ca anulat.", [
+    "id*|uuid|", "creator_id>accounts|uuid|autor sau publicație", "title|text|1–200 caractere", "description?|text|max 5000 caractere (propunere)",
+    "starts_at|timestamptz|", "ends_at?|timestamptz|după starts_at", "timezone|text|fus orar IANA, ex. Europe/Bucharest", "venue?|text|numele locului și adresa",
+    "location|geography(Point)|", "registration_url?|text|URL https extern", "cancelled_at?|timestamptz|", "hidden_at?|timestamptz|", ...TSU]),
+  T("map", "event_participants", "setari", "Autorii și publicațiile care participă. Apar public după ce confirmă.", [
+    "event_id*>events|uuid|", "account_id*>accounts|uuid|autor sau publicație", "status|link_status|creatorul: confirmed; ceilalți: pending"]),
+  T("map", "event_works", "public", "Cărțile legate de un eveniment.", [
+    "event_id*>events|uuid|", "work_id*>works|uuid|"]),
+  T("map", "event_intents", "privat", "Intenția unei persoane. Nu e bilet.", [
+    "event_id*>events|uuid|", "user_id*>profiles|uuid|", "intent|event_intent|", ...TS]),
+  T("map", "discoveries", "setari", "Surpriza ascunsă într-un loc (easter egg). Pe hartă se văd doar titlul, autorul și indiciul.", [
+    "id*|uuid|", "creator_id>accounts|uuid|autor sau publicație", "title|text|1–120 caractere", "hint|text|max 300 caractere; vizibil înainte de deblocare",
+    "location|geography(Point)|", "event_id>events?|uuid|", "work_id>works?|uuid|", ...TS,
+    "stopped_at?|timestamptz|nu se mai poate debloca; colecțiile rămân", "removed_at?|timestamptz|eliminată complet; conținutul devine indisponibil", "hidden_at?|timestamptz|"]),
+  T("map", "discovery_variants", "privat", "Variantele unei surprize. Fiecare cititor primește una la întâmplare.", [
+    "id*|uuid|", "discovery_id>discoveries|uuid|", "current_version_id>discovery_variant_versions|uuid|versiunea dată de acum înainte", "active|boolean|implicit true"]),
+  T("map", "discovery_variant_versions", "privat", "Conținutul unei variante. Nu se mai schimbă după ce a fost dat cuiva.", [
+    "id*|uuid|", "variant_id>discovery_variants|uuid|", "body?|text|max 5000 caractere (propunere)", "image_paths|text[]|bucket privat discovery-assets; implicit {}",
+    "sharing_request_id>sharing_requests?|uuid|obligatoriu dacă textul e din manuscris", ...TS],
+    "Trebuie să aibă măcar text sau o imagine."),
+  T("map", "discovery_unlocks", "privat", "Ce variantă a primit fiecare cititor. Rămâne în colecția lui.", [
+    "discovery_id*>discoveries|uuid|", "user_id*>profiles|uuid|", "variant_version_id>discovery_variant_versions|uuid|aleasă o singură dată, nu se schimbă", "unlocked_at|timestamptz|implicit now()"]),
 
-  T("ops", "domain_events", "server", "Jurnalul de evenimente (status schimbat, fragment publicat etc.) din care pleacă notificările. subject_id poate indica orice tip de rând.", ["id*", "event_key", "kind", "subject_id", "recipient_ids", "channels"]),
-  T("ops", "notifications", "privat", "Notificarea pentru o persoană, în aplicație sau pe email, în limba aleasă.", ["id*", "event_id>domain_events", "recipient_id>profiles", "channel", "locale", "status", "read_at"]),
-  T("ops", "reports", "privat", "Raportarea unui cont sau conținut. target_id poate indica orice tip de rând (postare, comentariu, eveniment…).", ["id*", "reporter_id>profiles", "target_type", "target_id", "reason", "details", "status"]),
-  T("ops", "moderation_actions", "server", "Ce a decis echipa: ignorat, ascuns, suspendat, eliminat.", ["id*", "report_id>reports?", "admin_id>admins", "action", "target_type", "target_id", "note"]),
-  T("ops", "account_deletion_requests", "privat", "Cererile de ștergere a contului. Deocamdată doar coadă, regulile de păstrare nu sunt decise.", ["user_id*=profiles", "requested_at", "status"])
+  T("ops", "domain_events", "server", "Jurnalul de evenimente din care pleacă notificările.", [
+    "id*|uuid|", "event_key|text|unic; împiedică dublarea aceluiași eveniment",
+    "kind|text|ex. submission_status_changed, evaluation_added, sharing_decided, author_published, beta_shared, event_changed, event_cancelled",
+    "subject_id|uuid|rândul despre care e vorba (din orice tabel)", "recipient_ids|uuid[]|conturile de notificat", "channels|notification_channel[]|", ...TS]),
+  T("ops", "notifications", "privat", "Notificarea pentru o persoană, în aplicație sau pe email.", [
+    "id*|uuid|", "event_id>domain_events|uuid|", "recipient_id>accounts|uuid|persoană sau publicație", "channel|notification_channel|", "locale|app_locale|limba la momentul trimiterii",
+    "status|delivery_status|implicit pending", "attempts|smallint|implicit 0; reîncercări limitate", "sent_at?|timestamptz|", "read_at?|timestamptz|doar pentru in_app"],
+    "Unic: (event_id, recipient_id, channel)."),
+  T("ops", "reports", "privat", "Raportarea unui cont sau conținut. O vede cel care a raportat și echipa.", [
+    "id*|uuid|", "reporter_id>accounts|uuid|", "target_type|report_target|", "target_id|uuid|rândul raportat, din tabelul indicat de target_type",
+    "reason|text|din lista de motive (de definit)", "details?|text|max 2000 caractere", "status|report_status|implicit open", ...TS]),
+  T("ops", "moderation_actions", "server", "Ce a decis echipa. Jurnal care doar se adaugă.", [
+    "id*|uuid|", "report_id>reports?|uuid|gol dacă acțiunea nu vine dintr-o raportare", "admin_id>admins|uuid|", "action|moderation_action|",
+    "target_type|report_target|", "target_id|uuid|", "note?|text|", ...TS]),
+  T("ops", "account_deletion_requests", "privat", "Cererile de ștergere a contului. Deocamdată doar coadă; regulile de păstrare nu sunt decise.", [
+    "account_id*=accounts|uuid|", "requested_at|timestamptz|implicit now()", "status|deletion_status|implicit requested"])
 ];
 
 const PRIV = { public: "Public", setari: "După setări", privat: "Privat", server: "Doar server" };
 const byName = Object.fromEntries(TABLES.map(t => [t.name, t]));
 const modById = Object.fromEntries(MODULES.map(m => [m.id, m]));
+const enumUses = {};
 
 for (const t of TABLES) {
-  t.parsed = t.cols.map(c => {
-    const m = c.match(/^(\w+)(\*)?(?:([>=])(\w+)(\?)?)?$/);
-    return m ? { name: m[1], pk: !!m[2], kind: m[3], to: m[4], opt: !!m[5] } : { name: c };
+  t.parsed = t.cols.map(raw => {
+    const [spec, type, note] = raw.split("|");
+    const m = spec.match(/^(\w+)(\*)?(?:([>=])(\w+))?(\?)?$/);
+    console.assert(m, "bad column " + raw);
+    const base = type.replace("[]", "");
+    if (ENUMS[base]) (enumUses[base] ||= []).push(t.name + "." + m[1]);
+    return { name: m[1], pk: !!m[2], kind: m[3], to: m[4], opt: !!m[5], type, enumName: ENUMS[base] ? base : null, note: note || "" };
   });
   t.out = t.parsed.filter(c => c.to);
+  t.in = [];
 }
-for (const t of TABLES) t.in = [];
 for (const t of TABLES) for (const c of t.out) {
   console.assert(byName[c.to], "missing table " + c.to);
   byName[c.to].in.push({ from: t.name, col: c.name, kind: c.kind });
@@ -229,12 +547,22 @@ for (const t of TABLES) for (const c of t.out) {
 const esc = s => s.replace(/[&<>"]/g, ch => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[ch]));
 const main = document.getElementById("main");
 const chips = document.getElementById("chips");
+const qInput = document.getElementById("q");
+
+document.getElementById("types").innerHTML = TYPES.map(([n, d, ex]) => `<div class="type-card"><b>${esc(n)}</b><span>${esc(d)}</span><i>${esc(ex)}</i></div>`).join("");
+
+function colHtml(c) {
+  const type = c.enumName ? `<button class="ctype" data-enum="${c.enumName}" title="Vezi lista ${c.enumName}">${esc(c.type)}</button>` : `<span class="ctype">${esc(c.type)}</span>`;
+  const vals = c.enumName ? `<div class="c-vals">${ENUMS[c.enumName][1].map(v => v[0]).join(" · ")}</div>` : "";
+  const note = c.note ? `<div class="c-note">${esc(c.note)}</div>` : "";
+  return `<li class="col"><div class="c-top"><span class="cname">${c.name}</span>${c.pk ? '<span class="pk">PK</span>' : ""}${c.to ? `<button class="fk" data-to="${c.to}">→ ${c.to}</button>` : ""}${c.opt ? '<span class="opt">opțional</span>' : ""}${type}</div>${vals}${note}</li>`;
+}
 
 for (const m of MODULES) {
   const list = TABLES.filter(t => t.module === m.id);
   const a = document.createElement("a");
   a.className = "chip"; a.href = "#" + m.id; a.textContent = m.name;
-  chips.insertBefore(a, document.getElementById("q"));
+  chips.insertBefore(a, qInput);
   const sec = document.createElement("section");
   sec.className = "mod"; sec.id = m.id;
   sec.innerHTML = `<h2>${esc(m.name)} <span class="muted" style="font: 400 14px var(--f-ui)">${list.length} tabele</span></h2><p>${esc(m.text)}</p><div class="grid"></div>`;
@@ -242,12 +570,20 @@ for (const m of MODULES) {
   for (const t of list) {
     const el = document.createElement("article");
     el.className = "card"; el.id = "t-" + t.name; el.dataset.name = t.name;
-    const cols = t.parsed.map(c => `<li><span>${esc(c.name)}</span>${c.pk ? '<span class="pk">PK</span>' : ""}${c.to ? `<button class="fk" data-to="${c.to}">→ ${c.to}</button>` : ""}${c.opt ? '<span class="opt">opțional</span>' : ""}</li>`).join("");
-    el.innerHTML = `<button class="card-head" aria-pressed="false"><span class="tname">${t.name}</span><span class="priv p-${t.privacy}">${PRIV[t.privacy]}</span></button><p class="desc">${esc(t.desc)}</p><p class="meta">indică spre ${t.out.length} · folosit de ${t.in.length}</p><ul class="cols">${cols}</ul>`;
+    el.innerHTML = `<button class="card-head" aria-pressed="false"><span class="tname">${t.name}</span><span class="priv p-${t.privacy}">${PRIV[t.privacy]}</span></button><p class="desc">${esc(t.desc)}</p><p class="meta">${t.parsed.length} coloane · indică spre ${t.out.length} · folosit de ${t.in.length}</p><ul class="cols">${t.parsed.map(colHtml).join("")}</ul>${t.uniq ? `<p class="uniq">${esc(t.uniq)}</p>` : ""}`;
     grid.appendChild(el);
   }
   main.appendChild(sec);
 }
+
+// Value lists (enums).
+const enumSec = document.createElement("section");
+enumSec.className = "mod"; enumSec.id = "valori";
+enumSec.innerHTML = `<h2>Liste de valori <span class="muted" style="font: 400 14px var(--f-ui)">${Object.keys(ENUMS).length} liste</span></h2><p>Coloanele cu aceste tipuri acceptă doar valorile de mai jos. Valorile se scriu în engleză în baza de date; textul afișat în aplicație vine din traduceri (ro/en).</p><div class="enums">${Object.entries(ENUMS).map(([n, [d, vals]]) => `<div class="enum" id="e-${n}"><h3>${n}</h3><p>${esc(d)}</p><dl>${vals.map(([v, ro]) => `<dt>${v}</dt><dd>${esc(ro)}</dd>`).join("")}</dl><p class="used">Folosit în: ${(enumUses[n] || []).map(u => `<button data-go="${u.split(".")[0]}">${u}</button>`).join(", ")}</p></div>`).join("")}</div>`;
+main.appendChild(enumSec);
+const ea = document.createElement("a");
+ea.className = "chip alt"; ea.href = "#valori"; ea.textContent = "Liste de valori";
+chips.insertBefore(ea, qInput);
 
 // Overview: module boxes, edges weighted by cross-module references.
 const svg = document.getElementById("ov");
@@ -261,6 +597,7 @@ for (const t of TABLES) for (const c of t.out) {
 }
 const mk = (tag, attrs, parent) => { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); parent.appendChild(e); return e; };
 const gE = mk("g", {}, svg), gN = mk("g", {}, svg);
+const motion = () => matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth";
 for (const k in edges) {
   const [a, b] = k.split("|").map(id => modById[id].pos);
   mk("line", { class: "ov-edge", x1: a[0], y1: a[1], x2: b[0], y2: b[1], "stroke-width": Math.min(1.5 + edges[k] * 0.5, 9) }, gE);
@@ -283,7 +620,6 @@ for (const m of MODULES) {
 // Focus mode.
 const panel = document.getElementById("panel");
 let selected = null;
-const motion = () => matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth";
 const card = n => document.getElementById("t-" + n);
 const relText = k => k === "=" ? "unu la unu" : "multe la unu";
 
@@ -314,21 +650,24 @@ document.addEventListener("click", e => {
   const head = e.target.closest(".card-head");
   const fk = e.target.closest(".fk");
   const go = e.target.closest("[data-go]");
-  if (fk) select(fk.dataset.to, true);
+  const en = e.target.closest("[data-enum]");
+  if (en) { clearFocus(); const el = document.getElementById("e-" + en.dataset.enum); el.scrollIntoView({ behavior: motion(), block: "center" }); el.classList.add("flash"); setTimeout(() => el.classList.remove("flash"), 1500); }
+  else if (fk) select(fk.dataset.to, true);
   else if (go) select(go.dataset.go, true);
   else if (head) select(head.closest(".card").dataset.name, false);
   else if (e.target.closest("[data-close]")) clearFocus();
 });
 document.addEventListener("keydown", e => { if (e.key === "Escape" && selected) clearFocus(); });
 
-// Search filters cards by name or description.
-document.getElementById("q").addEventListener("input", e => {
+// Search filters cards by table name, column name or description.
+qInput.addEventListener("input", e => {
   const q = e.target.value.trim().toLowerCase();
   document.querySelectorAll("section.mod").forEach(sec => {
+    if (["tipuri", "valori", "jurnal", "functii"].includes(sec.id)) { sec.hidden = !!q; return; }
     let any = false;
     sec.querySelectorAll(".card").forEach(c => {
       const t = byName[c.dataset.name];
-      const hit = !q || t.name.includes(q) || t.desc.toLowerCase().includes(q);
+      const hit = !q || t.name.includes(q) || t.desc.toLowerCase().includes(q) || t.parsed.some(col => col.name.includes(q));
       c.hidden = !hit; any = any || hit;
     });
     sec.hidden = !any;

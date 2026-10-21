@@ -116,7 +116,7 @@ Status chips (text + icon + colour, never colour alone; labels follow the spec):
 |---|---|---|---|
 | S-60 | Library | Shelves: To read, Currently reading, Read. Private by default with a lock indicator; per-entry public toggle. Totals are shown as records, not scores. Empty shelf illustration. | A, W |
 | S-61 | ISBN scanner | Camera viewfinder, manual entry link. Failure: "We couldn't scan that barcode. Try again, or add the book by hand." | A only |
-| S-62 | Manual add | Title, author, optional ISBN, shelf. | A, W |
+| S-62 | Manual add | Title, author, optional ISBN, shelf. Before saving, "Is this the book?": list existing books with a similar title/author to pick from, or "No, add a new book". | A, W |
 | S-64 | Review and rating | Rating control (1–5) and review text; edit/delete own. No average shown. Published books only. | A, W |
 | S-63 | Book detail | Cover, shelf, per-entry visibility, linked authors/publishers on Lisette (only reliable matches), events about this book separated from other events by the same author or publisher. Reading adaptation toggle. | A, W |
 

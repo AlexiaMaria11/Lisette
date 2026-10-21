@@ -92,12 +92,14 @@ Status: approved functional baseline with subsequent decisions incorporated; det
 
 - Reader audiences (confirmed 2026-10-18). An author chooses who sees each shared synopsis or excerpt: everyone signed in to Lisette (public), only the author's followers, or specific beta-readers. The same publisher-approval rules apply to every audience; a narrower audience does not bypass a required approval.
 - Beta-readers (confirmed 2026-10-18). An author can invite specific readers as beta-readers for a work and decide how much they receive: selected chapters or a page range from a chosen manuscript version, up to the whole manuscript. Where accepted submission restrictions require approval, the applicable publishers approve that exact selection first, as for an excerpt. Beta-readers read only inside Lisette, with no download, and the author can revoke a beta-reader's access at any time; copies already seen cannot be recalled (confirmed 2026-10-18).
+- Publisher previews (confirmed 2026-10-21). A publisher can share quotes or selected fragments as previews and chooses the source in the app: a work confirmed as published by it, or a manuscript submitted to it. Quoting a received manuscript requires the author's approval of the exact text before it becomes visible. Publishers have no other use of submitted manuscript text.
 - Publishers can see what is already shared before accepting a submission. New restrictions never silently hide existing shared text.
 - Opening a manuscript for review does not introduce new restrictions. Any applicable restrictions must have been disclosed and accepted before submission.
 - This is an agreed product policy for implementation, not a claim that approval workflows already exist.
 
 ## Confirmed Account Roles and Platform Boundaries
 - People start with a reader account and verified email. Those interested in publishing activate an author profile in the same account and retain reader functions.
+- Publisher accounts are separate accounts with their own login and email (confirmed 2026-10-21). A publication is never attached to a person's reader/author account, and one account cannot administer several publications. Publisher accounts do not have personal-library, rating, review, beta-reading or reading-pattern functions.
 - The first version does not require identity-document verification to activate an author profile. An author profile is a functional role, not a verified identity or certification of authorship.
 - Require the submission-rights declaration in the Manuscript Protection Policy before manuscript submission.
 - Provide reporting for suspicious accounts or content. Reports may lead to platform moderation; Lisette does not adjudicate copyright ownership or legal disputes.
@@ -126,7 +128,9 @@ Status: approved functional baseline with subsequent decisions incorporated; det
 ## Confirmed Publisher Submissions and Events
 - Anyone may request a publisher account. The team must manually approve its connection to the publisher before the account can receive manuscripts, including through calls or competitions.
 - Check that connection through an official publisher email address or direct confirmation; identity documents are not required. This is platform account approval, not legal certification.
+- Before approval, a publisher account can already post, comment, share quotes and create events and discoveries. Only receiving manuscripts, directly or through calls, waits for approval (confirmed 2026-10-21).
 - Each publisher has an app setting to enable or disable ongoing direct manuscript submissions.
+- Representation (decided 2026-10-21): every intake route is a call. Ongoing submissions are a call without an end date; a publisher may run several calls at once, each with its own requirements, accepted manuscript languages and genres. Whether a publisher accepts submissions is derived from its open calls. Calls and competitions are not separate types; a competition is named as such by the publisher. The genres on a publisher's profile are separate from the genres a call accepts.
 - Publishers can separately create time-bound submission calls or competitions with their own requirements and submission periods.
 - Disabling ongoing direct submissions does not itself disable a separately open call or competition. Each follows its own published availability.
 - Publishers can also create literary events, such as launches and meetings, for the event map. Literary events are distinct from manuscript calls and competitions; creating an event does not automatically open manuscript submissions.
@@ -183,6 +187,7 @@ Status: approved functional baseline with subsequent decisions incorporated; det
 - The library is a personal book collection connected to the literary community, not a product centred on ratings or review rankings.
 - Reviews and ratings (confirmed 2026-10-18 for the first version). Readers can rate a book/work and write a review of it. Each account has at most one rating and one review per book/work, and can edit or delete them. Reviews are public content: they can be reported and follow blocking rules. Ratings use a 1–5 scale, no average rating is shown, and only published books can be rated or reviewed for now (confirmed 2026-10-18).
 - Support ISBN camera scanning and manual book entry. Scanning identifies a book; connect it to author and publisher profiles on Lisette when a reliable match exists.
+- "Is this the book?" (confirmed 2026-10-21). Before creating a manually added book, show existing Lisette books with a similar title or author and let the person pick one or continue with a new entry. Lisette never merges books automatically.
 - Required product behaviour: from a scanned or saved book, show linked authors and publishers present on Lisette and relevant literary events associated with the book, its author or its publisher. This discovery connection is a priority implementation requirement, not an optional extra.
 - Distinguish events directly associated with the book from other events involving its author or publisher. Do not imply that all publisher events concern that book.
 - Where available, connected profiles also lead to permitted excerpts and shared reading collections. Do not invent a profile, event or relationship when there is no reliable match.
@@ -230,7 +235,7 @@ Status: approved functional baseline with subsequent decisions incorporated; det
 - **Sensors/capabilities**: see "Android sensors and web boundary" under Consolidated Cross-Module Decisions. In-app manuscript dictation/editing is outside scope.
 - **Candidate first-release scope (not a finalized delivery commitment)**: account and profile, manuscript upload with a submitter declaration and device authentication, submission to publishers with status tracker, basic social network, excerpts for public, followers and beta-reader audiences, reviews and ratings, personal library with ISBN scan, author reading-pattern heatmap (confirmed), adaptive reading, literary-event map and location-based discoveries (detailed first-release scope to define).
 - **If time allows**: shelf-based recommendations and genre groups. Web submission review is now part of the requested product scope, not automatically an optional extra.
-- **Tech**: React Native (Expo), Firebase or Supabase (EU region), public books API (Open Library or Google Books).
+- **Tech** (decided 2026-10-21): React Native with Expo and React Native Web, TypeScript, Supabase (EU region), Open Library for ISBN lookups.
 - **Simulated for the demo**: 3–4 fictional publishers with automated replies, test accounts and libraries.
 
 ## Confirmed Search Scope
@@ -270,7 +275,7 @@ Status: approved functional baseline with subsequent decisions incorporated; det
 - Application content requires authentication on Android and web. Public means visible to other eligible signed-in accounts under the relevant policies, not anonymous browsing. No signed-out public content pages are planned. Necessary sign-in/recovery screens are not public content browsing.
 
 ### Publisher administration and account lifecycle
-- A publisher account has a single administering user in the first version. Multi-user publisher teams are deferred.
+- A publisher account has a single administering user in the first version: the account's own login. Multi-user publisher teams are deferred.
 - Include password recovery, a request to delete the account and personal-data export. Retention rules for submission history and relationships require a separate design decision; these functions do not promise erasure of copies already downloaded outside Lisette.
 
 ### Android sensors and web boundary
@@ -288,4 +293,4 @@ Status: approved functional baseline with subsequent decisions incorporated; det
 The approved functional baseline supports implementation planning. Record new functional decisions here and keep technical contracts and sequenced tasks in the delivery plans. Resolve remaining questions at the affected feature’s decision gate; do not restart discovery for settled areas. Unanswered questions and technical proposals are not approved product decisions.
 
 ## Technical delivery proposal
-See `../superpowers/plans/2026-10-17-lisette-delivery.md` and its six linked subsystem plans. React Native is required by the user; Supabase (Postgres, Auth, Storage, Edge Functions) is approved as the backend (2026-10-21). Expo and other technical defaults remain proposals for review. Database layout: `../superpowers/specs/2026-10-21-lisette-database-design.md`.
+See `../superpowers/plans/2026-10-17-lisette-delivery.md` and its six linked subsystem plans. React Native with Expo and React Native Web (TypeScript) and Supabase (Postgres, Auth, Storage, Edge Functions) are approved (2026-10-21); the plans are approved for implementation. Database layout: `../superpowers/specs/2026-10-21-lisette-database-design.md`.
