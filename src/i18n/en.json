@@ -9,7 +9,8 @@
   "language": {
     "ro": "Română",
     "en": "English",
-    "changeLater": "You can change the language anytime in Settings."
+    "changeLater": "You can change the language anytime in Settings.",
+    "choose": "Alege limba, Choose your language"
   },
   "common": {
     "continue": "Continue",
@@ -56,7 +57,15 @@
     "verifyExpiry": "The link works for 24 hours.",
     "openEmailApp": "Open email app",
     "resendLink": "Send the link again",
-    "changeEmail": "Change email address"
+    "changeEmail": "Change email address",
+    "noAccount": "I don’t have an account",
+    "signOut": "Sign out",
+    "linkSent": "We sent a link",
+    "recoverTitle": "Reset your password",
+    "recoverBody": "Enter your email and we’ll send you a link to set a new password.",
+    "sendLink": "Send link",
+    "recoverySent": "If an account exists for {{email}}, we sent it a link to set a new password.",
+    "resent": "We sent the link again."
   },
   "roles": {
     "writerTitle": "Add a writer profile",
@@ -100,7 +109,8 @@
     "deviceAuthHint": "Use your fingerprint or phone PIN.",
     "previewReadOnly": "Read-only. This is the version you're about to send.",
     "useThisVersion": "Use this version",
-    "chooseAnother": "Choose another"
+    "chooseAnother": "Choose another",
+    "comingSoon": "Your manuscripts will appear here."
   },
   "submit": {
     "choosePublishers": "Choose publishers",
@@ -306,6 +316,12 @@
     "uploadUnknown": "We couldn't confirm the upload. Check your manuscripts before trying again.",
     "sendFailed": "Your submission didn't send. Your saved manuscript is still available. Try sending it again.",
     "permissionCamera": "Lisette needs the camera to scan barcodes. You can still add books by hand.",
-    "permissionLocation": "Lisette needs your location once to unlock a discovery. You can still browse the map."
+    "permissionLocation": "Lisette needs your location once to unlock a discovery. You can still browse the map.",
+    "invalidCredentials": "The email or password isn’t right.",
+    "emailNotConfirmed": "Confirm your email first. Look for the link in your inbox.",
+    "passwordTooShort": "Use at least 10 characters for your password.",
+    "requiredFields": "Fill in all the fields.",
+    "invalidEmail": "This email address doesn’t look right.",
+    "emailTaken": "An account with this email already exists. Try signing in."
   }
 }
