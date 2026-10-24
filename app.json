@@ -34,7 +34,14 @@
       "expo-status-bar",
       "expo-secure-store",
       "expo-font",
-      "expo-image"
+      "expo-image",
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#3A121C"
+        }
+      ],
+      "expo-video"
     ]
   }
 }
