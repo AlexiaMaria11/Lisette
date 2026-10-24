@@ -14,6 +14,8 @@ Lisette's identity should feel like a well-loved, well-lit reading room: warm pa
 
 **Status:** artwork approved; production files are pending. The PNG is the design reference, not a production asset: redraw it as a vector, matching the approved palette (Burgundy `#7A2233`, Gold `#C99A4E`) rather than sampling the PNG's colours.
 
+**Approved launch animation (2026-10-24):** `../assets/brand/lisette-splash.mp4`. A flat version of the mark in Paper with Gold binding band and pages on Night burgundy: the L is drawn, the pages fan out, a Gold star appears, then the "Lisette" wordmark. About 3 s, silent, 1080×1920. It plays once when the phone app opens, over a native splash in Night burgundy so the hand-off is invisible, then fades into the app. It does not play on web and is skipped when the device asks for reduced motion. Its flat treatment (no inset outline, one star) is approved for this animation only; it does not replace `assets/VariantaLogo1.png` or settle the dark-mode logo or final wordmark lettering.
+
 **Character:** warm, literary and tactile. The silhouette should suggest both the letter L and a book.
 
 **Production work still to do, not new design decisions:**
