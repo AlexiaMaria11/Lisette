@@ -3,7 +3,14 @@
 // policy tests in supabase/tests exercise the real owner-scope rules.
 import type { Locale } from "@/i18n";
 
-type FakeUser = { id: string; email: string; password: string; locale: Locale; verified: boolean };
+type FakeUser = {
+  id: string;
+  email: string;
+  password: string;
+  locale: Locale;
+  verified: boolean;
+  metadata?: Record<string, unknown>;
+};
 type Listener = (event: string, session: { user: { id: string } } | null) => void;
 
 export type FakeSupabase = ReturnType<typeof createFakeSupabase>;
@@ -46,9 +53,18 @@ export function createFakeSupabase() {
         emit("SIGNED_IN");
         return { data: { session: session() }, error: null };
       },
-      async signUp({ email, password }: { email: string; password: string }) {
+      async signUp({
+        email,
+        password,
+        options,
+      }: {
+        email: string;
+        password: string;
+        options?: { data?: Record<string, unknown> };
+      }) {
         if (!users.has(email)) {
-          users.set(email, { id: `user-${users.size + 1}`, email, password, locale: "ro", verified: false });
+          const metadata = options?.data ?? {};
+          users.set(email, { id: `user-${users.size + 1}`, email, password, locale: "ro", verified: false, metadata });
         }
         return { data: { session: null }, error: null };
       },

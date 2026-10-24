@@ -159,7 +159,7 @@ export function SessionProvider({ children }: { children: ReactNode }) {
         const { error } = await supabase.auth.signUp({
           email: email.trim(),
           password,
-          options: { data: { name: name.trim(), locale } },
+          options: { data: { display_name: name.trim(), locale } },
         });
         return { error: error ? toErrorKey(error) : null };
       },

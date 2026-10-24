@@ -102,6 +102,11 @@ describe("language_persists_and_private_routes_redirect", () => {
     expect(await screen.findByText(/ioana@example\.test/)).toBeOnTheScreen();
     expect(app.getPathname()).toBe("/verify-email");
     expect(mockSupabase.users.get("ioana@example.test")?.verified).toBe(false);
+    // The sign-up trigger reads display_name and locale from the user metadata.
+    expect(mockSupabase.users.get("ioana@example.test")?.metadata).toEqual({
+      display_name: "Ioana Mareș",
+      locale: "ro",
+    });
   });
 
   test("a password shorter than 10 characters is rejected before sending", async () => {

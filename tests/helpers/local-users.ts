@@ -25,7 +25,7 @@ export async function createVerifiedUser(locale: Locale = "ro") {
     email,
     password,
     email_confirm: true,
-    user_metadata: { name: "Test Reader", locale },
+    user_metadata: { display_name: "Test Reader", locale },
   });
   if (error) throw error;
   return { id: data.user.id, email, password };
