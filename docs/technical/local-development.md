@@ -8,13 +8,13 @@ Pașii de pornire a aplicației Lisette pe calculator și pe telefon, plus teste
 |---|---|---|
 | Node.js | 24 LTS (`>=24.3 <25`) | Fixată în `.nvmrc` și în `engines` din `package.json`. |
 | npm | 11 | Folosim `package-lock.json`. Nu folosim yarn sau pnpm. |
-| Expo SDK | 57 (`expo ~57.0.31`) | React Native 0.86.3, React 19.2.3, Expo Router ~57.0.29. |
-| Expo Go | pentru SDK 57 | Versiunea curentă din Play Store și App Store. |
+| Expo SDK | 58 (`expo ~58.0.19`) | React Native 0.88.0, React 19.3.0, Expo Router ~58.0.26. |
+| Expo Go | pentru SDK 58 | Versiunea curentă din Play Store și App Store. |
 | Supabase CLI | 2.121.0 | Instalat ca devDependency; se rulează cu `npx supabase`. |
 | Docker Desktop | orice versiune recentă | Necesar pentru Supabase local (`supabase start`, `supabase test db`). |
 | Playwright | ^1.64 | Testele web; browserul se instalează cu `npx playwright install chromium`. |
 
-**De ce SDK 57 și nu 58.** SDK 58 e cea mai nouă versiune stabilă, dar la 21 octombrie 2026 Expo Go din magazine era încă la SDK 57. Un Expo Go rulează un singur SDK, așa că proiectul rămâne pe 57 până când magazinele primesc Expo Go 58. Upgrade-ul se face ca task separat, cu `npx expo install expo@^58.0.0 --fix`.
+**De ce SDK 58.** Un Expo Go rulează un singur SDK. Proiectul a pornit pe 57, pentru că la 21 octombrie 2026 magazinele aveau Expo Go 57. Pe 24 octombrie 2026 Expo Go din magazine trecuse la 58, așa că proiectul a fost actualizat la 58. Pe iPhone nu se poate instala un Expo Go mai vechi; pe Android, un Expo Go pentru un SDK anterior se instalează ca APK de pe https://expo.dev/go.
 
 ## Prima pornire
 
@@ -83,7 +83,7 @@ După o schimbare de dependențe sau de SDK, rulează `npx expo start --clear` c
 - Instalează pachetele cu `npx expo install <pachet>`, nu cu `npm install`, ca versiunile să rămână compatibile cu SDK-ul.
 - Verifică proiectul cu `npx expo install --check` și `npx expo-doctor`.
 - Nu adăuga module care nu funcționează în Expo Go cât timp testăm cu Expo Go.
-- `@testing-library/react-native` rămâne pe 13.x, pentru că utilitarele de test din Expo Router folosesc API-ul sincron din versiunea 13.
+- `@testing-library/react-native` e pe 14.x, cerută de Expo Router 58, cu `test-renderer` în loc de `react-test-renderer`. Din versiunea 14, `render`, `renderRouter`, `fireEvent` și `unmount` sunt asincrone: în teste se scriu cu `await`.
 
 ## Structură
 
